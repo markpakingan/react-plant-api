@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://your-company.com/review.schema.json",
+    "type": "object",
+    "properties": {
+      "plant_list_id": {
+        "type": "integer"
+      },
+      "rating": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 5
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1
+      },
+      "comment": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "required": [
+      "plant_list_id",
+      "rating",
+      "title",
+      "comment"
+    ]
+  }
+  

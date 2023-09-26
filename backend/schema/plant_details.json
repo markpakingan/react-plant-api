@@ -1,0 +1,247 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": [
+        "id",
+        "common_name",
+        "scientific_name",
+        "type",
+        "dimension",
+        "cycle",
+        "hardiness",
+        "watering",
+        "sunlight",
+        "pruning_month",
+        "care-guides",
+        "indoor",
+        "poisonous_to_humans",
+        "description",
+        "default_image"
+    ],
+    "properties": {
+        "id": {
+            "type": "integer",
+            "default": 0,
+            "title": "The id Schema",
+            "examples": [
+                425
+            ]
+        },
+        "common_name": {
+            "type": "string",
+            "default": "",
+            "title": "The common_name Schema",
+            "examples": [
+                "flowering-maple"
+            ]
+        },
+        "scientific_name": {
+            "type": "array",
+            "default": [],
+            "title": "The scientific_name Schema",
+            "items": {
+                "type": "string",
+                "default": "",
+                "title": "A Schema",
+                "examples": [
+                    "Abutilon hybridum"
+                ]
+            },
+            "examples": [
+                [
+                    "Abutilon hybridum"]
+            ]
+        },
+        "type": {
+            "type": "string",
+            "default": "",
+            "title": "The type Schema",
+            "examples": [
+                "Broadleaf evergreen"
+            ]
+        },
+        "dimension": {
+            "type": "string",
+            "default": "",
+            "title": "The dimension Schema",
+            "examples": [
+                "2.00 to 4.00 feet"
+            ]
+        },
+        "cycle": {
+            "type": "string",
+            "default": "",
+            "title": "The cycle Schema",
+            "examples": [
+                "Perennial"
+            ]
+        },
+        "hardiness": {
+            "type": "object",
+            "default": {},
+            "title": "The hardiness Schema",
+            "required": [
+                "min",
+                "max"
+            ],
+            "properties": {
+                "min": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The min Schema",
+                    "examples": [
+                        "9"
+                    ]
+                },
+                "max": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The max Schema",
+                    "examples": [
+                        "10"
+                    ]
+                }
+            },
+            "examples": [{
+                "min": "9",
+                "max": "10"
+            }]
+        },
+        "watering": {
+            "type": "string",
+            "default": "",
+            "title": "The watering Schema",
+            "examples": [
+                "Frequent"
+            ]
+        },
+        "sunlight": {
+            "type": "array",
+            "default": [],
+            "title": "The sunlight Schema",
+            "items": {
+                "type": "string",
+                "title": "A Schema",
+                "examples": [
+                    "full sun",
+                    "part shade"
+                ]
+            },
+            "examples": [
+                ["full sun",
+                    "part shade"
+                ]
+            ]
+        },
+        "pruning_month": {
+            "type": "array",
+            "default": [],
+            "title": "The pruning_month Schema",
+            "items": {
+                "type": "string",
+                "title": "A Schema",
+                "examples": [
+                    "March",
+                    "April",
+                    "May",
+                    "August"
+                ]
+            },
+            "examples": [
+                ["March",
+                    "April",
+                    "May",
+                    "August"
+                ]
+            ]
+        },
+        "care-guides": {
+            "type": "string",
+            "default": "",
+            "title": "The care-guides Schema",
+            "examples": [
+                "http://perenual.com/api/species-care-guide-list?species_id=425\u0026key=sk-jOiN650e26e69299c2256"
+            ]
+        },
+        "indoor": {
+            "type": "boolean",
+            "default": false,
+            "title": "The indoor Schema",
+            "examples": [
+                true
+            ]
+        },
+        "poisonous_to_humans": {
+            "type": "integer",
+            "default": 0,
+            "title": "The poisonous_to_humans Schema",
+            "examples": [
+                0
+            ]
+        },
+        "description": {
+            "type": "string",
+            "default": "",
+            "title": "The description Schema",
+            "examples": [
+                "The Flowering Maple (Abutilon hybridum) is an amazing plant species for its hardiness, its unique flowers, and its ability to brighten up any landscape. It's a very low maintenance plant that flourishes in full sun and well-drained soils. Its flowers are very striking and come in many different colors - the most common being white and yellow, with a contrasting dark center. This plant is ideal for those looking to add some vibrant color to their gardens without a lot of work. It can easily grow up to six feet and can even tolerate partial shade. The Flowering Maple is definitely an attention-grabber and will be sure to make any garden stand out."
+            ]
+        },
+        "default_image": {
+            "type": "object",
+            "default": {},
+            "title": "The default_image Schema",
+            "required": [
+                "regular_url"
+            ],
+            "properties": {
+                "regular_url": {
+                    "type": "string",
+                    "default": "",
+                    "title": "The regular_url Schema",
+                    "examples": [
+                        "https://perenual.com/storage/species_image"
+                    ]
+                }
+            },
+            "examples": [{
+                "regular_url": "https://perenual.com/storage/species_image"
+            }]
+        }
+    },
+    "examples": [{
+        "id": 425,
+        "common_name": "flowering-maple",
+        "scientific_name": [
+            "Abutilon hybridum"
+        ],
+        "type": "Broadleaf evergreen",
+        "dimension": "2.00 to 4.00 feet",
+        "cycle": "Perennial",
+        "hardiness": {
+            "min": "9",
+            "max": "10"
+        },
+        "watering": "Frequent",
+        "sunlight": [
+            "full sun",
+            "part shade"
+        ],
+        "pruning_month": [
+            "March",
+            "April",
+            "May",
+            "August"
+        ],
+        "care-guides": "http://perenual.com/api/species-care-guide-list?species_id=425\u0026key=sk-jOiN650e26e69299c2256",
+        "indoor": true,
+        "poisonous_to_humans": 0,
+        "description": "The Flowering Maple (Abutilon hybridum) is an amazing plant species for its hardiness, its unique flowers, and its ability to brighten up any landscape. It's a very low maintenance plant that flourishes in full sun and well-drained soils. Its flowers are very striking and come in many different colors - the most common being white and yellow, with a contrasting dark center. This plant is ideal for those looking to add some vibrant color to their gardens without a lot of work. It can easily grow up to six feet and can even tolerate partial shade. The Flowering Maple is definitely an attention-grabber and will be sure to make any garden stand out.",
+        "default_image": {
+            "regular_url": "https://perenual.com/storage/species_image"
+        }
+    }]
+}

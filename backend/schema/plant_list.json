@@ -1,0 +1,63 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": [
+        "plant_list_id",
+        "common_name",
+        "other_name",
+        "cycle",
+        "default_image"
+    ],
+    "properties": {
+        "plant_list_id": {
+            "type": "integer",
+            "default": 0,
+            "title": "The plant_list_id Schema",
+            "examples": [
+                245
+            ]
+        },
+        "common_name": {
+            "type": "string",
+            "default": "",
+            "title": "The common_name Schema",
+            "examples": [
+                "corifernus"
+            ]
+        },
+        "other_name": {
+            "type": "string",
+            "default": "",
+            "title": "The other_name Schema",
+            "examples": [
+                "other name"
+            ]
+        },
+        "cycle": {
+            "type": "string",
+            "default": "",
+            "title": "The cycle Schema",
+            "examples": [
+                "every two days"
+            ]
+        },
+        "default_image": {
+            "type": "string",
+            "default": "",
+            "title": "The default_image Schema",
+            "examples": [
+                "asdadafdsdgs.jpg"
+            ]
+        }
+    },
+    "examples": [{
+        "plant_list_id": 245,
+        "common_name": "corifernus",
+        "other_name": "other name",
+        "cycle": "every two days",
+        "default_image": "asdadafdsdgs.jpg"
+    }]
+}
