@@ -16,7 +16,6 @@ useEffect(()=>{
             const response = await axios.get(PLANTLIST_DATA_API)
             const plantData = response.data;
             setPlantList(plantData.plant.data)
-            console.log("plantlist data:",plantData.data);
 
         }catch(err){
             console.log("Error fetching plants:", err)
@@ -27,14 +26,19 @@ useEffect(()=>{
     fetchPlantList();
 }, [])
 
+
+const handleClick = (e) => {
+    e.preventDefault()
+    alert("plant checked!")
+}
     return (
         <div>
             <h1>Check Out Some Plants!</h1>
 
             <ul>
                 {plantList.map((plant)=> (
-                    <div>
-                        <li key={plant.id}>Name: {plant.common_name}</li>
+                    <div key={plant.id}>
+                        <li key={`name-${plant.id}`}>Name: {plant.common_name}</li>
                         <li>Scientific Name: {plant.scientific_name}</li>
                         <li>Cycle: {plant.cycle}</li>
                         <li>
@@ -43,7 +47,7 @@ useEffect(()=>{
                             ("")
                             }
                         </li>
-                        <button>Add To List</button>
+                        <button onClick={handleClick}>Check Plant</button>
                     </div>
 
                 ))}

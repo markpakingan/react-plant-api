@@ -12,9 +12,9 @@ const SearchForm = ({onSearch})=> {
         e.preventDefault();
 
         try {
-            const response = await axios.get(`/api/search&=${query}`);
-            onSearch(response.data.results)
-            console.log("here's the result:", response.data.results);
+            const response = await axios.get(`/plantlist&q=${query}`);
+            onSearch(response.data.plant.data)
+            console.log("here's the result:", response.data.plant.data);
 
         }catch(err){
             console.error("Error Responded",err)

@@ -1,14 +1,14 @@
-CREATE TABLE Plant_list (
-    plant_list_id INT PRIMARY KEY, 
+CREATE TABLE Plants (
+    plant_true_id INT PRIMARY KEY, 
     common_name TEXT NOT NULL, 
     other_name TEXT NOT NULL, 
     cycle TEXT NOT NULL, 
-    default_image TEXT NOT NULL, 
-)
+    default_image TEXT NOT NULL
+);
 
-
-CREATE TABLE Plant_details (
-    plant_list_id INT PRIMARY KEY, 
+CREATE TABLE Plant_Details (
+    plant_details_id SERIAL INT PRIMARY KEY, 
+    plant_true_id INT NOT NULL, 
     common_name TEXT NOT NULL, 
     scientific_name TEXT NOT NULL, 
     "type" TEXT NOT NULL, 
@@ -23,23 +23,20 @@ CREATE TABLE Plant_details (
     poisonous_to_humans TEXT NOT NULL,
     "description" TEXT NOT NULL,
     default_image TEXT NOT NULL
-)
+);
 
+CREATE TABLE Plant_Group_Plants_Review (
+    plant_group_id SERIAL INT PRIMARY KEY, 
+    plant_true_id INT NOT NULL, 
+    user_id INT NOT NULL, 
+    rating INT NOT NULL,
+    review TEXT NOT NULL
+);
 
-CREATE TABLE Review (
-    plant_list_id INT PRIMARY KEY, 
-    rating INT NOT NULL, 
-    title TEXT NOT NULL, 
-    comment TEXT NOT NULL, 
-)
-
-
-CREATE TABLE User (
-    id INT PRIMARY KEY, 
-    plant_list_id TEXT NOT NULL, 
+CREATE TABLE Users (
+    user_id SERIAL INT PRIMARY KEY, 
     username TEXT NOT NULL, 
     "password" TEXT NOT NULL, 
     image_url TEXT NOT NULL, 
-    email TEXT NOT NULL, 
-)
-
+    email TEXT NOT NULL
+);
