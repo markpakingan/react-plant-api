@@ -39,19 +39,17 @@ router.get("/", async (req, res) => {
     }catch(err){
         console.error(err)
     }
+});
+
+router.get("/:id", async (req, res) => {
+        try{
+                const id = req.params.id;
+                const plantDetails = await PlantListModel.getPlantDetails(id);
+                res.json({plant:plantDetails})
+        }catch(err){
+                console.error(err)
+        }
 })
-
-
-// request.get("/:handle", async (req, res) => {
-//     try{
-//         const response = await axios.get(`${PLANTLIST_URL}/species/details/${id}?
-//         key=${apiKey}`);
-
-//     }catch(err){
-//         console.error("Error fetching plant details", err)
-//     }
-// })
-
 
 // this is for the search form
 router.get("/", async (req, res) => {

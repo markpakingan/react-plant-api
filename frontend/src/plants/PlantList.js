@@ -5,7 +5,7 @@ const PlantList = () => {
 
 
 const PLANTLIST_DATA_API = "http://localhost:3001/plantlist";
-const [plantList, setPlantList] = useState([]);
+const [details, setDetails] = useState([]);
 
 
 useEffect(()=>{
@@ -15,8 +15,9 @@ useEffect(()=>{
 
             const response = await axios.get(PLANTLIST_DATA_API)
             const plantData = response.data;
-            setPlantList(plantData.plant.data)
-
+            setDetails(plantData.plant.data);
+            console.log("setDetails Value", plantData.plant.data);
+            
         }catch(err){
             console.log("Error fetching plants:", err)
         }
@@ -26,32 +27,31 @@ useEffect(()=>{
     fetchPlantList();
 }, [])
 
-
-const handleClick = (e) => {
-    e.preventDefault()
-    alert("plant checked!")
-}
     return (
         <div>
             <h1>Check Out Some Plants!</h1>
 
-            <ul>
-                {plantList.map((plant)=> (
+            <div>
+                {details.map((plant)=> (
                     <div key={plant.id}>
-                        <li key={`name-${plant.id}`}>Name: {plant.common_name}</li>
-                        <li>Scientific Name: {plant.scientific_name}</li>
-                        <li>Cycle: {plant.cycle}</li>
-                        <li>
+                        <div>  Name: {plant.common_name} </div>
+                        <div>  Scientific Name: {plant.scientific_name} </div>
+                        <div>  Cycle: {plant.cycle} </div>
+                        
+                        <div>
                             {plant.default_image ? (<img src={plant.default_image.thumbnail} 
-                            alt={plant.common_name} />) : 
-                            ("")
-                            }
-                        </li>
-                        <button onClick={handleClick}>Check Plant</button>
+                                alt={plant.common_name} />) : 
+                                ("")
+                                }
+                        </div>
+                          
+                        <a href={`/plantlist/${plant.id}`}>
+                            <button>Check Plant</button>
+                        </a>
                     </div>
 
                 ))}
-            </ul>
+            </div>
         </div>
     )
 }
