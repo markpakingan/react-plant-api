@@ -1,9 +1,11 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const API_URL = "http://localhost:3001";
 
 
 const PlantGroupForm = () => {
-
 
     const navigate = useNavigate();
     const initialState = {
@@ -23,11 +25,21 @@ const PlantGroupForm = () => {
         }));
     }
 
-    const handleSubmit = () => {
-        alert("Plant Group Created!")
-        navigate("/myplants")
-    }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log("formData value:", formData);
+        try {
+            // Send a POST request to the backend API endpoint
+            const response = await axios.post(`${API_URL}/plantlist/create`, formData);
 
+            console.log("registration successful!", response);
+            console.log("formdata data:", formData);
+            navigate('/myplants');
+
+        } catch (error) {
+            console.error('Failed to create plant group', error);
+        }
+    };
     
     return(
 
@@ -61,6 +73,8 @@ const PlantGroupForm = () => {
 
         </form>
     )
+
+
 }
 
 export default PlantGroupForm;

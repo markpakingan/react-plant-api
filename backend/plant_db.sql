@@ -7,7 +7,7 @@ CREATE TABLE Plants (
 );
 
 CREATE TABLE Plant_Details (
-    plant_details_id SERIAL INT PRIMARY KEY, 
+    plant_details_id SERIAL PRIMARY KEY, 
     plant_true_id INT NOT NULL, 
     common_name TEXT NOT NULL, 
     scientific_name TEXT NOT NULL, 
@@ -26,7 +26,7 @@ CREATE TABLE Plant_Details (
 );
 
 CREATE TABLE Plant_Group_Plants_Review (
-    plant_group_id SERIAL INT PRIMARY KEY, 
+    plant_group_id SERIAL PRIMARY KEY, 
     plant_true_id INT NOT NULL, 
     user_id INT NOT NULL, 
     rating INT NOT NULL,
@@ -34,9 +34,17 @@ CREATE TABLE Plant_Group_Plants_Review (
 );
 
 CREATE TABLE Users (
-    user_id SERIAL INT PRIMARY KEY, 
+    user_id SERIAL PRIMARY KEY, 
     username TEXT NOT NULL, 
-    "password" TEXT NOT NULL, 
+    "password" TEXT NOT NULL,
+    first_name TEXT NOT NULL, 
+    last_name TEXT NOT NULL,
     image_url TEXT NOT NULL, 
     email TEXT NOT NULL
+);
+
+CREATE TABLE My_Plant_Group (
+    my_plant_group_id SERIAL PRIMARY KEY, 
+    group_name TEXT,
+    "description" TEXT
 );

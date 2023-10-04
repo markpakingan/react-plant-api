@@ -15,21 +15,7 @@ const PLANTLIST_URL = "https://perenual.com/api/species-list"
 const cors = require("cors");
 router.use(cors());
 
-// router.get("/", async (req, res) => {
-//         try {
-//                 const validator = jsonschema.validate(req.body, planListSchema)
-//                 if(!validator.valid){
-//                         const errs = validator.errors.map(e=> e.stack);
-//                         throw new BadRequestError(errs);
-//                 }
 
-//                 const response = await axios.get(`${PLANTLIST_URL}?key=${apiKey}`);
-//                 res.json({plant: response.data});
-
-//         }catch(err){
-//                 console.error(err);
-//         }
-//         }); 
 
 
 router.get("/", async (req, res) => {
@@ -52,7 +38,7 @@ router.get("/:id", async (req, res) => {
 })
 
 // this is for the search form
-router.get("/", async (req, res) => {
+router.get("/search", async (req, res) => {
         try {
                 const validator = jsonschema.validate(req.body, planListSchema)
                 if(!validator.valid){
@@ -68,6 +54,25 @@ router.get("/", async (req, res) => {
                 console.error(err);
         }
         }); 
+
+
+// testing to see if it will bridge the api to frontend
+// use plantlist/create
+
+router.post('/create', async (req, res) => {
+        try {
+                const { groupName, description } = req.body;
+                
+                // Call the createPlantGroup function from your PlantListModel
+                const result = await PlantListModel.createPlantGroup({ groupName, description });
+        
+                // Send a success response
+                res.status(201).json({ message: 'Plant group created successfully', result });
+            } catch (error) {
+                console.error('Error creating plant group:', error);
+                res.status(500).json({ error: 'Internal Server Error' });
+            }
+        });
 
 
 module.exports = router;

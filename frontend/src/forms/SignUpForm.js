@@ -1,5 +1,6 @@
 
 import React, {useState} from "react";
+import axios from "axios";
 
 const SignUpForm = () => {
     const initialState = {
@@ -11,6 +12,7 @@ const SignUpForm = () => {
         imageUrl:""
     }
 
+    const API_URL = "http://localhost:3001";
 
     const [formData, setFormData] = useState(initialState)
 
@@ -22,9 +24,17 @@ const SignUpForm = () => {
         }));
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        alert("Submit button working!")
+
+        try{
+            const response = await axios.post(`${API_URL}/auth/register`, formData); 
+            console.log("registration successful!", response);
+            setFormData(initialState);
+
+        }catch(err){
+            console.error(err)
+        }
     }
 
 
@@ -53,8 +63,8 @@ const SignUpForm = () => {
             <label htmlFor="firstName">First Name</label>
             <input
                 id="firstName"
-                type="firstName"
-                name="text"
+                type="text"
+                name="firstName"
                 placeholder ="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
