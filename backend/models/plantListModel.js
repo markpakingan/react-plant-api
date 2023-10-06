@@ -50,6 +50,13 @@ class PlantListModel {
         }
     }
     
+    // This will fetch all created plant group in the PSQL Table
+    static async getAllPlantGroup() {
+        const query = 'SELECT group_name, description FROM My_Plant_Group'
+        const result = await db.query(query);
+        console.log("Here's the result", result.rows)
+        return result.rows;
+    }
 }
 
 module.exports = PlantListModel;

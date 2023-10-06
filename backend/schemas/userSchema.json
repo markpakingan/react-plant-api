@@ -2,9 +2,6 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "id": {
-      "type": "integer"
-    },
     "plant_list_id": {
       "type": "string",
       "minLength": 1
@@ -17,14 +14,22 @@
       "type": "string",
       "minLength": 1
     },
-    "image_url": {
+    "firstName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lastName": {
       "type": "string",
       "minLength": 1
     },
     "email": {
       "type": "string",
       "format": "email"
+    }, 
+    "imageUrl": {
+      "type": "string",
+      "minLength": 1
     }
   },
-  "required": ["id", "plant_list_id", "username", "password", "image_url", "email"]
+  "required": ["plant_list_id", "username", "password", "firstName", "lastName", "email", "imageUrl"]
 }

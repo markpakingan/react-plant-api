@@ -56,7 +56,6 @@ router.get("/search", async (req, res) => {
         }); 
 
 
-// testing to see if it will bridge the api to frontend
 // use plantlist/create
 
 router.post('/create', async (req, res) => {
@@ -73,6 +72,21 @@ router.post('/create', async (req, res) => {
                 res.status(500).json({ error: 'Internal Server Error' });
             }
         });
+
+
+
+router.get("/get-all-plant-groups", async (req, res) => {
+        try { console.log("Hello");
+                const plantGroups = await PlantListModel.getAllPlantGroup();
+                // res.send(result);
+                console.log("result:", plantGroups);
+                return res.json({plantGroups})
+
+        }catch(err){
+                console.error(err)
+        }
+})
+
 
 
 module.exports = router;

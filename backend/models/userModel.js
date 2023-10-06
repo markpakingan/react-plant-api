@@ -1,6 +1,6 @@
 "use strict";
 
-// const db = require("../db");
+const db = require("../db");
 const bcrypt = require("bcrypt");
 
 class UserModel {
@@ -25,8 +25,8 @@ class UserModel {
                     email,
                     image_url AS "imageUrl"
              FROM users
-             WHERE username = $1`,
-          [username]
+             WHERE username = $1,
+          [username]`
       );
 
       const user = result.rows[0];
@@ -45,13 +45,13 @@ class UserModel {
     }
 
 
-    static async register({username, password, firstName, lastName, email, image_url}) {
+    static async register({username, password, firstName, lastName, email, imageUrl}) {
 
         const duplicateCheck = await db.query(
             `SELECT username 
             FROM users
-            WHERE username = $1,
-            [username],`
+            WHERE username = $1`,
+            [username],
         )
     
             if (duplicateCheck.rows[0]) {

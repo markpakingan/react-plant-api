@@ -1,6 +1,8 @@
 
 import React, {useState} from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom"
+
 
 const SignUpForm = () => {
     const initialState = {
@@ -13,6 +15,7 @@ const SignUpForm = () => {
     }
 
     const API_URL = "http://localhost:3001";
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState(initialState)
 
@@ -28,9 +31,11 @@ const SignUpForm = () => {
         e.preventDefault();
 
         try{
+            console.log("FormData Value:", formData);
             const response = await axios.post(`${API_URL}/auth/register`, formData); 
             console.log("registration successful!", response);
             setFormData(initialState);
+            navigate("/")
 
         }catch(err){
             console.error(err)
