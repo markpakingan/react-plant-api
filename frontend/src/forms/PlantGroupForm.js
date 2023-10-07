@@ -43,37 +43,42 @@ const PlantGroupForm = () => {
     
     return(
 
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="groupName">Group Name</label>
-                <input
-                    id="groupName"
-                    type="text"
-                    name="groupName"
-                    placeholder ="enter group name"
-                    value={formData.groupName}
-                    onChange={handleChange}
-                />
-            </div>
+        <div>
+            
+
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="groupName">Group Name</label>
+                    <input
+                        id="groupName"
+                        type="text"
+                        name="groupName"
+                        placeholder ="enter group name"
+                        value={formData.groupName}
+                        onChange={handleChange}
+                    />
+                </div>
 
 
-            <div>
-            <label htmlFor="description">Description</label>
-            <input
-                id="description"
-                type="text"
-                name="description"
-                placeholder ="(Optional)"
-                value={formData.description}
-                onChange={handleChange}
-            />
-            </div>
-     
-            <button> Create! </button>
+                <div>
+                    <label htmlFor="description">Description</label>
+                    <input
+                        id="description"
+                        type="text"
+                        name="description"
+                        placeholder ="(Optional)"
+                        value={formData.description}
+                        onChange={handleChange}
+                    />
+                </div>
+        
+                <button> Create! </button>
 
-        </form>
+            </form>
+    
+
+        </div>
     )
-
 
 }
 
