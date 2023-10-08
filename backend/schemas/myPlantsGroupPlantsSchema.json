@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "My_Plant_Group_Plants_id": {
+        "type": "integer"
+      },
+      "plant_true_id": {
+        "type": "integer"
+      },
+      "common_name": {
+        "type": "string"
+      },
+      "scientific_name": {
+        "type": "string"
+      },
+      "group_name": {
+        "type": "string"
+      }
+    },
+    "required": ["My_Plant_Group_Plants_id", "plant_true_id", "common_name", "scientific_name", "group_name"]
+  }
+  

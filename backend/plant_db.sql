@@ -48,3 +48,13 @@ CREATE TABLE My_Plant_Group (
     group_name TEXT,
     "description" TEXT
 );
+
+CREATE TABLE My_Plant_Group_Plants (
+    My_Plant_Group_Plants_id INT PRIMARY KEY,
+    plant_true_id INT,
+    common_name VARCHAR(255),
+    scientific_name VARCHAR(255),
+    group_name VARCHAR(255),
+    FOREIGN KEY (plant_true_id) REFERENCES Your_Plant_Table_Name(plant_true_id),
+    FOREIGN KEY (group_name) REFERENCES My_Plant_Group(group_name)
+);

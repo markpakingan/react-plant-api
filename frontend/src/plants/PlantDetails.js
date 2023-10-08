@@ -5,6 +5,8 @@ import {useParams, useNavigate} from "react-router-dom"
 
 const PlantDetails = () => {
     
+    const PLANTGROUPS_URL = "http://localhost:3001/plantlist/get-all-plant-groups";
+
     const PLANTLIST_DATA_API = "http://localhost:3001/plantlist";
     const {id} = useParams();
     const [details, setDetails] = useState([]);
@@ -12,10 +14,9 @@ const PlantDetails = () => {
     const [plantGroups, setPlantGroups] = useState([]);
     const navigate = useNavigate();
 
-    
+
 
     useEffect(()=> {
-
 
         // Fetch data for a specific plant based on id
         async function getPlantDetails(){
@@ -23,7 +24,7 @@ const PlantDetails = () => {
                 const response = await axios.get(`${PLANTLIST_DATA_API}/${id}`);
                 const plantData = response.data;
                 setDetails(plantData.plant);
-                console.log("plantDetails value:", plantData.plant);
+                // console.log("plantDetails value:", plantData.plant);
             }catch(err){
                 console.error(err)
             }
@@ -31,6 +32,25 @@ const PlantDetails = () => {
         getPlantDetails();
     }, [id])
 
+
+
+
+    useEffect(()=> {
+        // Fetch Data of all plant groups
+        async function fetchPlantGroups() {
+
+            try{
+                const response = await axios.get(PLANTGROUPS_URL);
+                const plantGroups = response.data;
+                console.log("Plant Group Data", plantGroups);
+                setPlantGroups(plantGroups.plantGroups)
+            }catch(err){
+                console.error("Can't Fetch Plant Group Details", err)
+            }
+
+        }
+        fetchPlantGroups();
+    }, []);
 
 
     const handleClick = () => {
@@ -76,8 +96,8 @@ const PlantDetails = () => {
                         <option value = "">Add to My Plant Group</option>
 
                         {plantGroups.map((group)=> (
-                            <option key={group.id} value={group.id}>
-                                {group.name}
+                            <option key={group.my_plant_group_id} value={group.my_plant_group_id}>
+                                {group.group_name}
                             </option>
                         ))}
                     </select>
