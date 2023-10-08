@@ -37,13 +37,16 @@ const MyPlants = () => {
 
             const response = await axios.get(PLANT_GROUP_API);
             setData(response.data.plantGroups);
-            // console.log("You clicked the delete button");
             
         }catch(err){
             console.error("Error deleting plant group", err)
         }
     }
 
+    const handleEdit = (groupId) => {
+        console.log("you clicked the edit button!");
+        navigate(`/edit-plant-group/${groupId}`)
+    }
 
     return(
         <div>
@@ -57,6 +60,8 @@ const MyPlants = () => {
                         <li key ={index}>
                             <h3>Name: {cluster.group_name}</h3>
                             <p>About: {cluster.description}</p>
+                            {/* <p>ID: {cluster.my_plant_group_id}</p> */}
+                            <button onClick={()=> handleEdit(`${cluster.my_plant_group_id}`)}>Edit</button>
                             <button onClick={()=> handleDelete(`${cluster.group_name}`)}>Delete</button>
                         </li>
                     

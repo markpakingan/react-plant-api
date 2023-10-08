@@ -6,6 +6,10 @@ const db = require("../db");
 const { NotFoundError } = require("../expressError");
 
 class PlantListModel {
+
+  // *****************************************************************************
+  // FOR PLANTLIST
+
   static async getAllPlants() {
     try {
       const response = await axios.get(`${PLANTLIST_URL}?key=${apiKey}`);
@@ -26,6 +30,8 @@ class PlantListModel {
     }
   }
 
+  // *****************************************************************************
+  // FOR PLANTGROUP
 
   static async createPlantGroup({ groupName, description }) {
     try {
@@ -42,13 +48,13 @@ class PlantListModel {
 
   // This will fetch all created plant group in the PSQL Table
   static async getAllPlantGroup() {
-    const query = "SELECT group_name, description FROM My_Plant_Group";
+    const query = "SELECT * FROM My_Plant_Group";
     const result = await db.query(query);
     console.log("Here's the result", result.rows);
     return result.rows;
   }
 
-
+  
   static async deletePlantGroup(handle) {
     const result = await db.query(
       `DELETE FROM My_Plant_Group WHERE group_name = $1 RETURNING group_name`, [handle]
@@ -60,7 +66,35 @@ class PlantListModel {
     if (!plant) throw new NotFoundError(`No PlantGroup: ${handle}`);
 
     return plant;
+  };
+
+  // static async updatePlantGroupDetails(groupName, description, id){
+  //   const result = await db.query(
+  //     `UPDATE My_Plant_Group SET group_name = $1, description = $2 WHERE my_plant_group_id = $3`;
+  //     await db.query(query, [groupName, description, groupId]);
+
+  //   )
+  // }
+
+  static async updatePlantGroupDetails(groupName, description, groupId) {
+    const query = "UPDATE My_Plant_Group SET group_name = $1, description = $2 WHERE my_plant_group_id = $3";
+    await db.query(query, [groupName, description, groupId]);
+}
+
+
+
+  static async getPlantGroupDetails(groupId) {
+    const query = "SELECT * FROM My_Plant_Group WHERE my_plant_group_id = $1";
+    const result = await db.query(query, [groupId]);
+
+    if (result.rows.length === 0) {
+      throw new NotFoundError(`No PlantGroup found with name: ${groupId}`);
+    }
+  
+    return result.rows[0];
+  
   }
 }
+
 
 module.exports = PlantListModel;

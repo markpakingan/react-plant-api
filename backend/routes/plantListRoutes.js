@@ -40,6 +40,60 @@ router.delete("/:handle", async (req, res) => {
   }
 })
 
+
+router.get("/group/:handle", async (req, res) => {
+  try{
+    const groupId = req.params.handle;
+
+    const groupDetails = await PlantListModel.getPlantGroupDetails(groupId);
+    res.json({group: groupDetails});
+    
+    return res.json({updated: req.params.handle})
+  }catch(err){
+    console.error(err)
+  }
+});
+
+router.put("/group/update/:id", async (req, res)=> {
+
+  try{
+
+    const groupId = req.params.id;
+    const { groupName, description } = req.body;
+
+    const result = await PlantListModel.updatePlantGroupDetails(
+      groupName,
+      description,
+      groupId
+    );
+
+    res.json({ plantGroup: result})
+
+  }catch(err){
+    console.error("Failed to update plantgroup!", err)
+  }
+});
+
+router.post("/group/create", async (req, res) => {
+  try {
+    const { groupName, description } = req.body;
+
+    // Call the createPlantGroup function from your PlantListModel
+    const result = await PlantListModel.createPlantGroup({
+      groupName,
+      description,
+    });
+
+    // Send a success response
+    res
+      .status(201)
+      .json({ message: "Plant group created successfully", result });
+  } catch (error) {
+    console.error("Error creating plant group:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 // ********************************************************************
 // FOR PLANTLIST
 router.get("/", async (req, res) => {
@@ -50,6 +104,7 @@ router.get("/", async (req, res) => {
     console.error(err);
   }
 });
+
 
 router.get("/:id", async (req, res) => {
   try {
@@ -78,26 +133,5 @@ router.get("/search", async (req, res) => {
   }
 });
 
-// use plantlist/create
-
-router.post("/create", async (req, res) => {
-  try {
-    const { groupName, description } = req.body;
-
-    // Call the createPlantGroup function from your PlantListModel
-    const result = await PlantListModel.createPlantGroup({
-      groupName,
-      description,
-    });
-
-    // Send a success response
-    res
-      .status(201)
-      .json({ message: "Plant group created successfully", result });
-  } catch (error) {
-    console.error("Error creating plant group:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
 
 module.exports = router;

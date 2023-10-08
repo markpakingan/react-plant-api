@@ -27,6 +27,7 @@ function App() {
             <Route exact path ="/login" element = {<LoginForm/>} />
             <Route exact path ="/signup" element = {<SignUpForm/>} />
             <Route exact path ="/create-plant-group" element = {<PlantGroupForm/>} />
+            <Route exact path ="/edit-plant-group/:id" element = {<PlantGroupForm/>} />
             <Route exact path ="/plantlist" element = {<PlantList/>} />
             <Route exact path ="/plantlist/:id" element = {<PlantDetails/>} />
             
