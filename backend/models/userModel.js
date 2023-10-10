@@ -1,21 +1,16 @@
 "use strict";
 
 const db = require("../db");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt"); 
+const { BCRYPT_WORK_FACTOR } = require("../config.js");
+const {
+  NotFoundError,
+  BadRequestError,
+  UnauthorizedError,
+} = require("../expressError");
+
 
 class UserModel {
-
-
-       // CREATE TABLE Users (
-        //     user_id
-        //     username 
-        //     "password"
-        //     email
-        //     image_url 
-        //     
-        // );
-
-
     static async authenticate (username, password) {
         const result = await db.query(
             `SELECT username,
@@ -94,6 +89,8 @@ class UserModel {
 
     return user;
     }
+  
+      
     
 }
 

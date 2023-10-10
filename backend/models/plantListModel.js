@@ -28,8 +28,22 @@ class PlantListModel {
     } catch (err) {
       console.error("Can't fetch Plant Details from Models", err);
     }
-  }
+  };
 
+  // adds the plantDetails to the PlantGroup DB
+  static async addPlantDetails(plant_true_id, common_name, group_id){
+    try{
+
+      const query = 
+        "INSERT INTO my_plant_group_plants (plant_true_id, common_name, group_id) VALUES ($1, $2, $3) RETURNING *";
+      
+      const result = await db.query(query, [plant_true_id, common_name, group_id]);
+      return result;
+
+    }catch(err){
+      console.error("Failed to add plantdetails (model)", err)
+    }
+  }
   // *****************************************************************************
   // FOR PLANTGROUP
 
@@ -68,18 +82,11 @@ class PlantListModel {
     return plant;
   };
 
-  // static async updatePlantGroupDetails(groupName, description, id){
-  //   const result = await db.query(
-  //     `UPDATE My_Plant_Group SET group_name = $1, description = $2 WHERE my_plant_group_id = $3`;
-  //     await db.query(query, [groupName, description, groupId]);
-
-  //   )
-  // }
 
   static async updatePlantGroupDetails(groupName, description, groupId) {
     const query = "UPDATE My_Plant_Group SET group_name = $1, description = $2 WHERE my_plant_group_id = $3";
     await db.query(query, [groupName, description, groupId]);
-}
+  }
 
 
 

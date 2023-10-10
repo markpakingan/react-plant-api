@@ -6,15 +6,20 @@ import {useParams, useNavigate} from "react-router-dom"
 const PlantDetails = () => {
     
     const PLANTGROUPS_URL = "http://localhost:3001/plantlist/get-all-plant-groups";
-
     const PLANTLIST_DATA_API = "http://localhost:3001/plantlist";
+    const PLANTGROUP_PLANTS = "http://localhost:3001/plantlist/add-plant-to-group";
+
     const {id} = useParams();
     const [details, setDetails] = useState([]);
+    const [selectedData, setSelectedData] = useState({
+        plant_true_id: "", // initialize with appropriate values
+        common_name: "",
+        scientific_name: "",
+        group_id: ""
+      });
     const [selectedPlantGroup, setSelectedPlantGroup] = useState("");
     const [plantGroups, setPlantGroups] = useState([]);
     const navigate = useNavigate();
-
-
 
     useEffect(()=> {
 
@@ -42,7 +47,7 @@ const PlantDetails = () => {
             try{
                 const response = await axios.get(PLANTGROUPS_URL);
                 const plantGroups = response.data;
-                console.log("Plant Group Data", plantGroups);
+                // console.log("Plant Group Data", plantGroups);
                 setPlantGroups(plantGroups.plantGroups)
             }catch(err){
                 console.error("Can't Fetch Plant Group Details", err)
@@ -58,11 +63,41 @@ const PlantDetails = () => {
     }
 
 
-    const handleAddToPlantGroup = () => {
-        console.log("Adding plant to plant group", selectedPlantGroup);
-        // Make an API call or perform any logic to add the plant to the selected plant group
-    }
 
+
+
+    // sends a post request to my_plant_group_plants
+
+    const handleAddToPlantGroup = async () => {
+
+
+        try {
+            const { id, common_name } = details;
+
+            console.log("Plant Details to be sent:", {
+                id,
+                common_name,
+                selectedPlantGroup
+            });
+
+            const response = await axios.post(PLANTGROUP_PLANTS, {
+                id,
+                common_name,
+                selectedPlantGroup
+            });
+            
+            console.log("Data added:", response.data);
+        } catch (err) {
+            console.error("Failed to add plant details to plantgroup", err);
+        }
+    };
+    
+ 
+
+    const handleSelectedPlantGroupChange = (e) => {
+        setSelectedPlantGroup(e.target.value);
+        console.log("Plant Group Id Selected:", e.target.value);
+    };
 
     return(
         <div>
@@ -92,7 +127,9 @@ const PlantDetails = () => {
 
                 <div>
 
-                    <select value = {selectedPlantGroup} onChange={(e) => selectedPlantGroup(e.target.value)}>
+                    <select value = {selectedPlantGroup} 
+                    onChange={handleSelectedPlantGroupChange}>
+
                         <option value = "">Add to My Plant Group</option>
 
                         {plantGroups.map((group)=> (
@@ -102,7 +139,8 @@ const PlantDetails = () => {
                         ))}
                     </select>
 
-                    <button onClick={handleAddToPlantGroup}>Add</button>
+                    <button onClick={handleAddToPlantGroup
+                    }>Add</button>
                 </div>
 
             </ul>

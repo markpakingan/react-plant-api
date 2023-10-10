@@ -2,11 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "plant_list_id": {
-      "type": "string",
-      "minLength": 1
-    },
-    "username": {
+      "username": {
       "type": "string",
       "minLength": 1
     },
@@ -31,5 +27,5 @@
       "minLength": 1
     }
   },
-  "required": ["plant_list_id", "username", "password", "firstName", "lastName", "email", "imageUrl"]
+  "required": ["username", "password", "firstName", "lastName", "email", "imageUrl"]
 }

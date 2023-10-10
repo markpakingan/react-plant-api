@@ -16,7 +16,6 @@ const authRoutes = require("./routes/authRoutes");
 
 app.use(cors());
 app.use("/plantlist", plantListRoutes);
-app.use("/myplants", myPlantsRoutes);
 app.use("/user", userRoutes)
 app.use("/auth", authRoutes)
 app.use("/auth", authRoutes)

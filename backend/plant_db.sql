@@ -1,29 +1,23 @@
 CREATE TABLE Plants (
-    plant_true_id INT PRIMARY KEY, 
-    common_name TEXT NOT NULL, 
-    other_name TEXT NOT NULL, 
-    cycle TEXT NOT NULL, 
-    default_image TEXT NOT NULL
+    plant_true_id INT PRIMARY KEY,
+    common_name TEXT,
+    other_name TEXT,
+    cycle TEXT,
+    default_image TEXT,
+    scientific_name TEXT,
+    type TEXT,
+    dimension FLOAT,
+    hardiness TEXT,
+    watering TEXT,
+    sunlight TEXT,
+    pruning_month TEXT,
+    care_guides TEXT,
+    indoor TEXT,
+    poisonous_to_humans INT,
+    description TEXT
 );
 
-CREATE TABLE Plant_Details (
-    plant_details_id SERIAL PRIMARY KEY, 
-    plant_true_id INT NOT NULL, 
-    common_name TEXT NOT NULL, 
-    scientific_name TEXT NOT NULL, 
-    "type" TEXT NOT NULL, 
-    dimension FLOAT NOT NULL, 
-    cycle TEXT NOT NULL, 
-    hardiness TEXT NOT NULL, 
-    watering TEXT NOT NULL, 
-    sunlight TEXT NOT NULL, 
-    pruning_month TEXT NOT NULL, 
-    care_guides TEXT NOT NULL, 
-    indoor TEXT NOT NULL,
-    poisonous_to_humans TEXT NOT NULL,
-    "description" TEXT NOT NULL,
-    default_image TEXT NOT NULL
-);
+
 
 CREATE TABLE Plant_Group_Plants_Review (
     plant_group_id SERIAL PRIMARY KEY, 
@@ -52,9 +46,8 @@ CREATE TABLE My_Plant_Group (
 CREATE TABLE My_Plant_Group_Plants (
     My_Plant_Group_Plants_id INT PRIMARY KEY,
     plant_true_id INT,
-    common_name VARCHAR(255),
-    scientific_name VARCHAR(255),
-    group_name VARCHAR(255),
-    FOREIGN KEY (plant_true_id) REFERENCES Your_Plant_Table_Name(plant_true_id),
-    FOREIGN KEY (group_name) REFERENCES My_Plant_Group(group_name)
+    common_name TEXT,
+    group_id TEXT,  -- Use the primary key of My_Plant_Group table here
+    FOREIGN KEY (plant_true_id) REFERENCES Plants (plant_true_id)
+    -- FOREIGN KEY (group_id) REFERENCES My_Plant_Group(my_plant_group_id) 
 );

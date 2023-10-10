@@ -20,10 +20,8 @@ router.use(cors());
 
 router.get("/get-all-plant-groups", async (req, res) => {
   try {
-    console.log("Hello");
     const plantGroups = await PlantListModel.getAllPlantGroup();
-    // res.send(result);
-    console.log("result:", plantGroups);
+    // console.log("result:", plantGroups);
     return res.json({ plantGroups });
   } catch (err) {
     console.error(err);
@@ -115,6 +113,28 @@ router.get("/:id", async (req, res) => {
     console.error(err);
   }
 });
+
+// adds a specific plant to a Plant Group
+router.post("/add-plant-to-group", async (req, res)=> {
+  try{
+    console.log("req.body:", req.body);
+    const {plant_true_id, common_name, group_id} = req.body;
+
+    const result = await PlantListModel.addPlantDetails({
+      plant_true_id, 
+      common_name, 
+      group_id
+    });
+
+    res.status(201).json({message: "plant details successfully added", result})
+
+
+
+  }catch(err){
+    console.error(err)
+  }
+});
+
 
 // this is for the search form
 router.get("/search", async (req, res) => {
