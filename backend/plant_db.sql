@@ -33,14 +33,18 @@ CREATE TABLE Users (
     "password" TEXT NOT NULL,
     first_name TEXT NOT NULL, 
     last_name TEXT NOT NULL,
+    email TEXT NOT NULL,
     image_url TEXT NOT NULL, 
-    email TEXT NOT NULL
+
 );
 
 CREATE TABLE My_Plant_Group (
     my_plant_group_id SERIAL PRIMARY KEY, 
     group_name TEXT,
-    "description" TEXT
+    "description" TEXT, 
+    user_id INT, 
+    FOREIGN KEY (user_id) REFERENCES Users (user_id)
+
 );
 
 CREATE TABLE My_Plant_Group_Plants (

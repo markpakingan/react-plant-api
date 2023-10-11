@@ -1,41 +1,48 @@
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import SearchForm from "../forms/SearchForm";
 
-const Home = () => {
+const Home = ({ isAuthenticated, userName }) => {
+  const [searchResults, setSearchResults] = useState([]);
 
-    const [searchResults, setSearchResults] = useState([]);
+  const handleSearch = (results) => {
+    setSearchResults(results);
+  };
 
-    const handleSearch = (results) => {
-        setSearchResults(results)
-    }
-
-    return(
+  return (
+    <div>
+      {!isAuthenticated ? (
         <div>
+          <h1>This is the Home page</h1>
 
-            <h1> This is the Home page </h1>
-            
-            <Link to = "/login">
-                <button>Log In</button>
-            </Link>
+          <Link to="/login">
+            <button>Log In</button>
+          </Link>
 
-            <Link to = "/signup">
-                <button>Sign Up</button>
-            </Link>
+          <Link to="/signup">
+            <button>Sign Up</button>
+          </Link>
+        </div>
+      ) : (
+        <div>
+            <h1>Welcome Back {userName}!</h1>
 
 
-            <SearchForm onSearch={handleSearch}/>
+            <SearchForm onSearch={handleSearch} />
 
             <div>
                 <ul>
-                    {searchResults.map((result)=> (
-                        <li key ={result.id}> {result.name} </li>
-                    ))}
+                {searchResults.map((result) => (
+                    <li key={result.id}> {result.name} </li>
+                ))}
                 </ul>
-            </div>
-
+      </div>
         </div>
-    )
-}
+      )}
 
-export default Home; 
+      
+    </div>
+  );
+};
+
+export default Home;

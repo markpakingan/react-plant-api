@@ -11,34 +11,32 @@ const {
 
 
 class UserModel {
-    static async authenticate (username, password) {
-        const result = await db.query(
-            `SELECT username,
-                    password,
-                    first_name AS "firstName",
-                    last_name AS "lastName",
-                    email,
-                    image_url AS "imageUrl"
-             FROM users
-             WHERE username = $1,
-          [username]`
+    static async authenticate(username, password) {
+      const result = await db.query(
+        `SELECT username,
+                password,
+                first_name AS "firstName",
+                last_name AS "lastName",
+                email,
+                image_url AS "imageUrl"
+         FROM users
+         WHERE username = $1`,
+        [username]
       );
-
+  
       const user = result.rows[0];
-
-    if (user) {
-      // compare hashed password to a new hash from password
-      const isValid = await bcrypt.compare(password, user.password);
-      if (isValid === true) {
-        delete user.password;
-        return user;
+  
+      if (user) {
+        const isValid = await bcrypt.compare(password, user.password);
+        if (isValid) {
+          delete user.password;
+          return user;
+        }
       }
+  
+      throw new UnauthorizedError("Invalid username/password");
     }
-
-    throw new UnauthorizedError("Invalid username/password");
-
-    }
-
+  
 
     static async register({username, password, firstName, lastName, email, imageUrl}) {
 
@@ -89,6 +87,25 @@ class UserModel {
 
     return user;
     }
+
+    /** Find all users.
+   *
+   * Returns [{ username, first_name, last_name, email, is_admin }, ...]
+   **/
+
+  static async findAll() {
+    const result = await db.query(
+          `SELECT username,
+                  first_name AS "firstName",
+                  last_name AS "lastName",
+                  email,
+                  image_url AS imageUrl
+           FROM users
+           ORDER BY username`,
+    );
+
+    return result.rows;
+  }
   
       
     

@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const PlantList = () => {
+const PlantList = ({isAuthenticated}) => {
 
+const navigate = useNavigate();
 
 const PLANTLIST_DATA_API = "http://localhost:3001/plantlist";
 const [details, setDetails] = useState([]);
@@ -26,6 +28,13 @@ useEffect(()=>{
 
     fetchPlantList();
 }, [])
+
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+        navigate("/");
+        }
+    }, [isAuthenticated, navigate]);
 
     return (
         <div>

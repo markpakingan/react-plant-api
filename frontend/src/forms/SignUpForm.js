@@ -35,7 +35,9 @@ const SignUpForm = () => {
             const response = await axios.post(`${API_URL}/auth/register`, formData); 
             console.log("registration successful!", response);
             setFormData(initialState);
-            navigate("/")
+            alert("Account Created! Please Continue To Login!");
+            navigate("/login")
+            // navigate("/account-created")
 
         }catch(err){
             console.error(err)

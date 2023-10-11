@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-
-
-
-const LoginForm = () => {
+const LoginForm = ({setIsAuthenticated, setUsername, setToken}) => {
 
     const initialState = {
         username: "",
@@ -11,7 +10,10 @@ const LoginForm = () => {
     }
 
 
-    const [formData, setFormData] = useState(initialState)
+    const navigate = useNavigate();
+
+    const API_AUTH_URL =("http://localhost:3001/auth/token");
+    const [formData, setFormData] = useState(initialState);
 
     const handleChange = (e)=> {
         const {name, value} = e.target;
@@ -21,9 +23,25 @@ const LoginForm = () => {
         }));
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
+
+        //make an API call to send formData to backend
         e.preventDefault();
-        alert("Submit button working!")
+        const response = await axios.post(API_AUTH_URL, formData);
+
+        //Gets the value of the token
+        const token = response.token;
+        const username = formData.username;
+
+        console.log("Token Value:", response.data);
+        // console.log("Token:", token);
+
+        setIsAuthenticated(true);
+        setToken(token);
+        setUsername(username)
+        
+        setFormData(initialState);
+        navigate("/")
     }
 
 

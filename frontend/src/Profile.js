@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
+const Profile = ({ isAuthenticated }) => {
+  const navigate = useNavigate();
 
-const Profile = () => {
-    return(
-        <div>
-            <h1>This is the profile page!</h1>
-        </div>
-    )
-}
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
+
+  return <h1>This is the profile page!</h1>;
+};
 
 export default Profile;

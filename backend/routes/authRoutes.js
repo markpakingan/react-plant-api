@@ -3,8 +3,8 @@
 /** Routes for authentication. */
 
 const jsonschema = require("jsonschema");
-const userSchema = require("../schemas/userSchema")
-// const userAuthSchema = require("..schemas/userAuthSchema")
+const userSchema = require("../schemas/userSchema");
+const logInSchema = require("../schemas/logInSchema.json");
 const createToken = require("../helpers/tokens");
 const UserModel = require("../models/userModel");
 
@@ -15,7 +15,7 @@ const { BadRequestError } = require("../expressError");
 
 router.post("/token", async (req, res, next)=> {
     try{
-        const validator = jsonschema.validate(req.body, userSchema);
+        const validator = jsonschema.validate(req.body, logInSchema);
 
         if(!validator.valid) {
             const errs = validator.errors.map(e=> e.stack);
@@ -23,7 +23,7 @@ router.post("/token", async (req, res, next)=> {
         }
 
         const { username, password } = req.body;
-        const user = await User.authenticate(username, password);
+        const user = await UserModel.authenticate(username, password);
         const token = createToken(user);
         return res.json({ token });
       } catch (err) {
