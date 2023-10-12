@@ -17,12 +17,21 @@ router.get("/:username", async (req, res, next) => {
     const user = await UserModel.fetchUser(req.params.username);
     return res.json({user})
   }catch(err){
-    console.log("Failed to fetch login data (routers)", err)
+    console.log("Failed to fetch login data (routes)", err)
   }
 });
 
 
-
+router.put("/:username", async(req, res, next) => {
+  try{
+      const { firstname, lastname, email, imageurl } = req.body;
+      const {username} = req.params;
+      const updatedUser = await UserModel.updateUser(username, firstname, lastname, email,imageurl);
+      return res.json({user:updatedUser})
+  }catch(err){
+    console.log("Failed to updated data (routes)", err)
+  }
+})
 
 router.post("/", ensureLoggedIn, async (req, res, next)=> {
     try{

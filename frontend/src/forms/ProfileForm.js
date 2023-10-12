@@ -78,7 +78,7 @@ const ProfileForm = ({ isAuthenticated, userName, token}) => {
           firstname: response.data.user.firstname,
           lastname: response.data.user.lastname,
           email: response.data.user.email,
-          imageurl: response.data.imageurl
+          imageurl: response.data.user.imageurl
         });
 
       } catch (error) {

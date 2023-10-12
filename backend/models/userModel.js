@@ -114,7 +114,7 @@ class UserModel {
                   first_name AS "firstname",
                   last_name AS "lastname",
                   email,
-                  image_url AS imageurl
+                  image_url AS "imageurl"
         FROM users
         WHERE username = $1`,
         [username],
@@ -125,6 +125,21 @@ class UserModel {
     return user;
 
 
+  }
+
+  static async updateUser(username, firstname, lastname, email, imageurl){
+    const result = await db.query(
+      `UPDATE users
+      SET first_name = $1, last_name = $2, email = $3, image_url = $4
+      WHERE username = $5
+      RETURNING username, first_name AS "firstname", 
+      last_name AS "lastname",email, image_url AS imageurl`,
+      [firstname, lastname, email, imageurl, username],
+    );
+
+    const user = result.rows[0];
+    if (!user) throw new NotFoundError(`No user: ${username}`);
+    return user;
   }
 }
 
