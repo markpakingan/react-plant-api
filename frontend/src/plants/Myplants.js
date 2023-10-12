@@ -5,7 +5,7 @@ import axios from "axios";
 
 const PLANT_GROUP_API = "http://localhost:3001/plantlist/get-all-plant-groups"
 
-const MyPlants = () => {
+const MyPlants = ({isAuthenticated}) => {
 
     const [data, setData] = useState([]);
     const navigate = useNavigate();
@@ -47,6 +47,14 @@ const MyPlants = () => {
         console.log("you clicked the edit button!");
         navigate(`/edit-plant-group/${groupId}`)
     }
+
+
+     // Checks if token is available, otherwise redirect
+     useEffect(() => {
+        if (!isAuthenticated) {
+        navigate("/");
+        }
+    }, [isAuthenticated, navigate]);
 
     return(
         <div>

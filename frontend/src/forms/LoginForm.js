@@ -28,19 +28,18 @@ const LoginForm = ({setIsAuthenticated, setUsername, setToken}) => {
         //make an API call to send formData to backend
         e.preventDefault();
         const response = await axios.post(API_AUTH_URL, formData);
-
-        //Gets the value of the token
-        const token = response.token;
-        const username = formData.username;
-
-        console.log("Token Value:", response.data);
-        // console.log("Token:", token);
-
-        setIsAuthenticated(true);
-        setToken(token);
-        setUsername(username)
         
+        const tokenValue = response.data.token;
+        console.log("Token Value", tokenValue);
+        console.log("Username is:", formData.username);
+
+        localStorage.setItem("token", tokenValue);
+        
+        setIsAuthenticated(true);
+        setToken(tokenValue);
         setFormData(initialState);
+        setUsername(formData.username);
+        
         navigate("/")
     }
 

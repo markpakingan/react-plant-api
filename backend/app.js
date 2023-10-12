@@ -10,7 +10,6 @@ const app = express();
 app.use(express.json());
 
 const plantListRoutes = require("./routes/plantListRoutes");
-const myPlantsRoutes = require("./routes/myPlantsRoutes")
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 

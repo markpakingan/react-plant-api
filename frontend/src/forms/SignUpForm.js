@@ -37,7 +37,6 @@ const SignUpForm = () => {
             setFormData(initialState);
             alert("Account Created! Please Continue To Login!");
             navigate("/login")
-            // navigate("/account-created")
 
         }catch(err){
             console.error(err)

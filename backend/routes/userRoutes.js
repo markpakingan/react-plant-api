@@ -1,7 +1,5 @@
 "use strict";
 
-
-
 const jsonschema = require("jsonschema");
 const { ensureCorrectUserOrAdmin, ensureAdmin, ensureLoggedIn} = require("../middleware/auth");
 
@@ -13,8 +11,20 @@ const UserModel = require("../models/userModel");
 const router = express.Router();
 
 
+router.get("/:username", async (req, res, next) => {
+  try{
 
-router.post("/", ensureLoggedIn, async (res, req, next)=> {
+    const user = await UserModel.fetchUser(req.params.username);
+    return res.json({user})
+  }catch(err){
+    console.log("Failed to fetch login data (routers)", err)
+  }
+});
+
+
+
+
+router.post("/", ensureLoggedIn, async (req, res, next)=> {
     try{
       const user = await UserModel.get(req.params.username);
       return res.json({user});

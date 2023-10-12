@@ -29,7 +29,7 @@ useEffect(()=>{
     fetchPlantList();
 }, [])
 
-
+    // Checks if token is available, otherwise redirect
     useEffect(() => {
         if (!isAuthenticated) {
         navigate("/");

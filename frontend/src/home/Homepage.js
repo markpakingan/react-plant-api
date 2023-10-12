@@ -13,8 +13,8 @@ const Home = ({ isAuthenticated, userName }) => {
     <div>
       {!isAuthenticated ? (
         <div>
-          <h1>This is the Home page</h1>
-
+          <h1>Bloom Buddy</h1>
+          <h3><i>"Discover, Learn, Grow: Your Personal Botanical Journey Awaits"</i></h3>
           <Link to="/login">
             <button>Log In</button>
           </Link>

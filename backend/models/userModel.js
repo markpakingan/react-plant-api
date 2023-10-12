@@ -106,9 +106,26 @@ class UserModel {
 
     return result.rows;
   }
-  
-      
-    
+
+  static async fetchUser(username){
+
+    const result = await db.query(
+      `SELECT username,
+                  first_name AS "firstname",
+                  last_name AS "lastname",
+                  email,
+                  image_url AS imageurl
+        FROM users
+        WHERE username = $1`,
+        [username],
+    );
+
+    const user = result.rows[0];
+    if (!user) throw new NotFoundError(`No user: ${username}`);
+    return user;
+
+
+  }
 }
 
 module.exports = UserModel;

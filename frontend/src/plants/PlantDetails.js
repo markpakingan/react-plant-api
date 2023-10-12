@@ -17,6 +17,7 @@ const PlantDetails = () => {
         scientific_name: "",
         group_id: ""
       });
+      
     const [selectedPlantGroup, setSelectedPlantGroup] = useState("");
     const [plantGroups, setPlantGroups] = useState([]);
     const navigate = useNavigate();
