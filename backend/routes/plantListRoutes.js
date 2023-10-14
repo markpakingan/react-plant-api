@@ -18,6 +18,30 @@ router.use(cors());
 // ********************************************************************
 // FOR PLANTGROUP
 
+router.post("/group/create", async (req, res) => {
+  try {
+    console.log("Received Request Body:", req.body); 
+    const { groupName, description, user_id } = req.body;
+
+    
+    // Call the createPlantGroup function from your PlantListModel
+    const result = await PlantListModel.createPlantGroup({
+      groupName,
+      description,
+      user_id
+    });
+
+    // Send a success response
+    res
+      .status(201)
+      .json({ message: "Plant group created successfully", result });
+  } catch (error) {
+    console.error("Error creating plant group:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
 router.get("/get-all-plant-groups", async (req, res) => {
   try {
     const plantGroups = await PlantListModel.getAllPlantGroup();
@@ -72,25 +96,7 @@ router.put("/group/update/:id", async (req, res)=> {
   }
 });
 
-router.post("/group/create", async (req, res) => {
-  try {
-    const { groupName, description } = req.body;
 
-    // Call the createPlantGroup function from your PlantListModel
-    const result = await PlantListModel.createPlantGroup({
-      groupName,
-      description,
-    });
-
-    // Send a success response
-    res
-      .status(201)
-      .json({ message: "Plant group created successfully", result });
-  } catch (error) {
-    console.error("Error creating plant group:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
 
 // ********************************************************************
 // FOR PLANTLIST

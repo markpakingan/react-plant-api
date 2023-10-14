@@ -25,7 +25,10 @@ router.post("/token", async (req, res, next)=> {
         const { username, password } = req.body;
         const user = await UserModel.authenticate(username, password);
         const token = createToken(user);
-        return res.json({ token });
+
+        // console.log("user_id in routes", user_id);
+        return res.json({ token, user: user.user_id});
+
       } catch (err) {
         return next(err);
       }

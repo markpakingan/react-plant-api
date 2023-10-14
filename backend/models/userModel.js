@@ -13,7 +13,8 @@ const {
 class UserModel {
     static async authenticate(username, password) {
       const result = await db.query(
-        `SELECT username,
+        `SELECT user_id,
+                username,
                 password,
                 first_name AS "firstName",
                 last_name AS "lastName",

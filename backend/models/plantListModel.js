@@ -47,12 +47,12 @@ class PlantListModel {
   // *****************************************************************************
   // FOR PLANTGROUP
 
-  static async createPlantGroup({ groupName, description }) {
+  static async createPlantGroup({ groupName, description, user_id }) {
     try {
       // Insert data into the My_Plant_Group table
       const query =
-        "INSERT INTO My_Plant_Group (group_name, description) VALUES ($1, $2)";
-      const result = await db.query(query, [groupName, description]);
+        "INSERT INTO My_Plant_Group (group_name, description, user_id) VALUES ($1, $2, $3)";
+      const result = await db.query(query, [groupName, description, user_id]);
       return result;
     } catch (err) {
       console.error("createPlant Error", err);

@@ -14,6 +14,7 @@ const MyPlants = ({isAuthenticated}) => {
     }
 
 
+    // fetch all existing plantgroup
     useEffect(()=> {
         async function fetchPlantGroup() {
             try{
@@ -55,6 +56,7 @@ const MyPlants = ({isAuthenticated}) => {
         navigate("/");
         }
     }, [isAuthenticated, navigate]);
+
 
     return(
         <div>

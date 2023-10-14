@@ -9,21 +9,25 @@ const PlantGroupForm = () => {
 
     const {id} = useParams();
     const navigate = useNavigate();
+    const user_id = parseInt(localStorage.getItem("user_id"),10);
+
     const initialState = {
+        userId: user_id,
         groupName: "",
         description: ""
     }
 
-
+    
     const [formData, setFormData] = useState(initialState)
 
 
     // Check if ID is available and get the prefilled value
     useEffect(()=> {
-        async function fetchPlantGroup() {
-            
-            if(id) {
 
+        console.log("user_id value in LS in PlantGroupForm:", user_id);
+        async function fetchPlantGroup() {
+        
+            if(id) {
                 try{    
                     const response = await axios.get(`${API_URL}/plantlist/group/${id}`);
                     const {group_name, description} = response.data.group;

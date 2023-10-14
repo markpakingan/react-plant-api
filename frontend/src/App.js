@@ -18,7 +18,7 @@ function App() {
   const storedToken = localStorage.getItem('token');
   const [isAuthenticated, setIsAuthenticated] = useState(!!storedToken);
   const [userName, setUsername] = useState(null);
-
+  const [userId, setUserId] = useState("")
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -32,9 +32,10 @@ function App() {
       setToken(storedToken);
       setIsAuthenticated(true);
 
-      console.log("token value in app.js:", token);
+      console.log("token in app.js:", token);
+      console.log("user_id in app.js", userId);
     }
-  }, []);
+  }, [token, userId]);
   
   return (
     <div className="App">
@@ -46,14 +47,14 @@ function App() {
               <Route exact path ="/" element = {<Home isAuthenticated={isAuthenticated} userName={userName}/>} />
               <Route exact path ="/profile" element = {<ProfileForm isAuthenticated={isAuthenticated} token={token} userName={userName}/> } />
               <Route exact path ="/myreviews" element = {<Myreviews isAuthenticated={isAuthenticated}/>} />
-              <Route exact path ="/myplants" element = {<MyPlants isAuthenticated={isAuthenticated}/>} />
+              <Route exact path ="/myplants" element = {<MyPlants isAuthenticated={isAuthenticated} />} />
               <Route exact path ="/login" element = {<LoginForm setIsAuthenticated={setIsAuthenticated}
-                setUsername={setUsername} setToken={setToken} /> }/>
+                setUsername={setUsername} setToken={setToken} setUserId={setUserId} /> }/>
               <Route exact path ="/logout" element = {<Logout/>} />
               <Route exact path ="/signup" element = {<SignUpForm/>} />
-              <Route exact path ="/create-plant-group" element = {<PlantGroupForm/>} />
-              <Route exact path ="/edit-plant-group/:id" element = {<PlantGroupForm/>} />
-              <Route exact path ="/plantlist" element = {<PlantList isAuthenticated={isAuthenticated}/>} />
+              <Route exact path ="/create-plant-group" element = {<PlantGroupForm userId={userId}/>} />
+              <Route exact path ="/edit-plant-group/:id" element = {<PlantGroupForm userId={userId}/>} />
+              <Route exact path ="/plantlist" element = {<PlantList isAuthenticated={isAuthenticated} userId={userId}/>} />
               <Route exact path ="/plantlist/:id" element = {<PlantDetails/>} />
           </Routes>
       </BrowserRouter>
