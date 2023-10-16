@@ -42,16 +42,17 @@ router.post("/group/create", async (req, res) => {
 });
 
 
-router.get("/get-all-plant-groups", async (req, res) => {
+router.get("/get-all-plant-groups/user/:user_id", async (req, res) => {
   try {
-    const plantGroups = await PlantListModel.getAllPlantGroup();
-    // console.log("result:", plantGroups);
+    const user_id = req.params.user_id;
+
+    const plantGroups = await PlantListModel.getAllPlantGroup(user_id);
+    console.log("Check user_id value in router:", user_id);
     return res.json({ plantGroups });
   } catch (err) {
     console.error(err);
   }
 });
-
 
 router.delete("/:handle", async (req, res) => {
   try{

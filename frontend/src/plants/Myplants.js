@@ -12,15 +12,17 @@ const MyPlants = ({isAuthenticated}) => {
     const handleClick = () => {
         navigate("/create-plant-group")
     }
+    const user_id = parseInt(localStorage.getItem("user_id"),10);
 
 
     // fetch all existing plantgroup
     useEffect(()=> {
+        console.log("User_id in plantlist:", user_id);
         async function fetchPlantGroup() {
             try{
-                const response = await axios.get(PLANT_GROUP_API);
+                const response = await axios.get(`${PLANT_GROUP_API}/user/${user_id}`);
                 const plantCluster = response.data;
-                console.log("plantCluster Data is", plantCluster.plantGroups);
+                // console.log("plantCluster Data is", plantCluster.plantGroups);
                 setData(plantCluster.plantGroups)
 
             }catch(err){
@@ -28,7 +30,7 @@ const MyPlants = ({isAuthenticated}) => {
             }
         }
         fetchPlantGroup();
-    }, [])
+    }, [user_id])
 
 
     const handleDelete = async(handle) => {

@@ -60,11 +60,10 @@ class PlantListModel {
     }
   }
 
-  // This will fetch all created plant group in the PSQL Table
-  static async getAllPlantGroup() {
-    const query = "SELECT * FROM My_Plant_Group";
-    const result = await db.query(query);
-    console.log("Here's the result", result.rows);
+  // This will fetch all created plant group in the PSQL Table ONLY by the user;
+  static async getAllPlantGroup(user_id) {
+    const query = "SELECT * FROM My_Plant_Group WHERE user_id = $1";
+    const result = await db.query(query, [user_id]);
     return result.rows;
   }
 

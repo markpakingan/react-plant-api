@@ -21,10 +21,10 @@ const PlantDetails = () => {
     const [selectedPlantGroup, setSelectedPlantGroup] = useState("");
     const [plantGroups, setPlantGroups] = useState([]);
     const navigate = useNavigate();
+    const user_id = parseInt(localStorage.getItem("user_id"),10);
 
+    // Fetch data for a specific plant based on id
     useEffect(()=> {
-
-        // Fetch data for a specific plant based on id
         async function getPlantDetails(){
             try{
                 const response = await axios.get(`${PLANTLIST_DATA_API}/${id}`);
@@ -40,9 +40,8 @@ const PlantDetails = () => {
 
 
 
-
+    // Fetch Data of all plant groups based on user_id
     useEffect(()=> {
-        // Fetch Data of all plant groups
         async function fetchPlantGroups() {
 
             try{
@@ -67,8 +66,7 @@ const PlantDetails = () => {
 
 
 
-    // sends a post request to my_plant_group_plants
-
+    // Add current plant to a plantGroup
     const handleAddToPlantGroup = async () => {
 
 
@@ -128,6 +126,7 @@ const PlantDetails = () => {
 
                 <div>
 
+                    {/* selects a Plant Group from the dropdown menu */}
                     <select value = {selectedPlantGroup} 
                     onChange={handleSelectedPlantGroupChange}>
 

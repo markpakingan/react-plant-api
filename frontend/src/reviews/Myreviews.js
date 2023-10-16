@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Myreviews = ({isAuthenticated}) => {
 
@@ -17,6 +17,14 @@ const Myreviews = ({isAuthenticated}) => {
     return(
         <div>
             <h1>This is My Reviews page!</h1>
+
+            
+            <Link to="/create-review">
+                <button>
+                    Create Review
+                </button>
+            </Link>
+
         </div>
     )
 }

@@ -17,14 +17,6 @@ CREATE TABLE Plants (
     description TEXT
 );
 
-CREATE TABLE Plant_Group_Plants_Review (
-    plant_group_id SERIAL PRIMARY KEY, 
-    plant_true_id INT NOT NULL, 
-    user_id INT NOT NULL, 
-    rating INT NOT NULL,
-    review TEXT NOT NULL
-);
-
 CREATE TABLE Users (
     user_id SERIAL PRIMARY KEY, 
     username TEXT NOT NULL, 
@@ -37,9 +29,9 @@ CREATE TABLE Users (
 
 CREATE TABLE My_Plant_Group (
     my_plant_group_id SERIAL PRIMARY KEY, 
-    group_name TEXT,
+    group_name TEXT NOT NULL,
     description TEXT, 
-    user_id INT, 
+    user_id INT NOT NULL, 
     FOREIGN KEY (user_id) REFERENCES Users (user_id)
 );
 
@@ -50,4 +42,13 @@ CREATE TABLE My_Plant_Group_Plants (
     group_id INT,  -- Use the primary key of My_Plant_Group table here
     FOREIGN KEY (plant_true_id) REFERENCES Plants (plant_true_id),
     FOREIGN KEY (group_id) REFERENCES My_Plant_Group(my_plant_group_id)
+);
+
+CREATE TABLE Plant_Group_Plants_Review (
+    plant_group_plants_review_id SERIAL PRIMARY KEY, 
+    my_plant_group_id INT NOT NULL, 
+    user_id INT NOT NULL, 
+    rating INT NOT NULL,
+    review TEXT NOT NULL,
+    FOREIGN KEY (my_plant_group_id) REFERENCES My_Plant_Group (my_plant_group_id)
 );

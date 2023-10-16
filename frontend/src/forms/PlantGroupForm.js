@@ -12,13 +12,24 @@ const PlantGroupForm = () => {
     const user_id = parseInt(localStorage.getItem("user_id"),10);
 
     const initialState = {
-        userId: user_id,
+        user_id: null,
         groupName: "",
         description: ""
     }
 
     
     const [formData, setFormData] = useState(initialState)
+
+
+    useEffect(() => {
+        // const user_id = parseInt(localStorage.getItem("user_id"), 10);
+        if (user_id) {
+            setFormData(prevState => ({
+                ...prevState,
+                user_id: user_id
+            }));
+        }
+    }, []); 
 
 
     // Check if ID is available and get the prefilled value

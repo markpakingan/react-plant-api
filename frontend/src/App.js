@@ -12,6 +12,7 @@ import PlantGroupForm from './forms/PlantGroupForm';
 import PlantDetails from './plants/PlantDetails';
 import PlantList from './plants/PlantList';
 import Logout from './logout/LogOut';
+import ReviewForm from './forms/ReviewForm';
 function App() {
 
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -52,6 +53,7 @@ function App() {
                 setUsername={setUsername} setToken={setToken} setUserId={setUserId} /> }/>
               <Route exact path ="/logout" element = {<Logout/>} />
               <Route exact path ="/signup" element = {<SignUpForm/>} />
+              <Route exact path ="/create-review" element = {<ReviewForm/>} />
               <Route exact path ="/create-plant-group" element = {<PlantGroupForm userId={userId}/>} />
               <Route exact path ="/edit-plant-group/:id" element = {<PlantGroupForm userId={userId}/>} />
               <Route exact path ="/plantlist" element = {<PlantList isAuthenticated={isAuthenticated} userId={userId}/>} />
