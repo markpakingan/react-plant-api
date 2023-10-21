@@ -14,7 +14,6 @@ useEffect(()=>{
     async function fetchPlantList() {
 
         try{
-
             const response = await axios.get(PLANTLIST_DATA_API)
             const plantData = response.data;
             setDetails(plantData.plant.data);

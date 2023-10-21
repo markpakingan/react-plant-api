@@ -15,14 +15,14 @@ class PlantListModel {
       const response = await axios.get(`${PLANTLIST_URL}?key=${apiKey}`);
       return response.data;
     } catch (err) {
-      console.err("Cant Fetch All Plants from Models", err);
+      console.error("Cant Fetch All Plants from Models", err);
     }
-  }
+  } 
 
-  static async getPlantDetails(id) {
+  static async getPlantDetails(plant_true_id) {
     try {
       const response = await axios.get(
-        `https://perenual.com/api/species/details/${id}?key=${apiKey}`
+        `https://perenual.com/api/species/details/${plant_true_id}?key=${apiKey}`
       );
       return response.data;
     } catch (err) {
@@ -44,6 +44,8 @@ class PlantListModel {
       console.error("Failed to add plantdetails (model)", err)
     }
   }
+
+
   // *****************************************************************************
   // FOR PLANTGROUP
 
@@ -67,16 +69,16 @@ class PlantListModel {
     return result.rows;
   }
 
+
   
-  static async deletePlantGroup(handle) {
-    const result = await db.query(
-      `DELETE FROM My_Plant_Group WHERE group_name = $1 RETURNING group_name`, [handle]
-    );
+  static async deletePlantGroup(group_name) {
+    const query = 
+      `DELETE FROM My_Plant_Group WHERE group_name = $1 RETURNING group_name`;
+    
+    const result = await db.query(query, [group_name])
 
     const plant = result.rows[0];
-
-
-    if (!plant) throw new NotFoundError(`No PlantGroup: ${handle}`);
+    if (!plant) throw new NotFoundError(`No PlantGroup: ${group_name}`);
 
     return plant;
   };
@@ -89,18 +91,98 @@ class PlantListModel {
 
 
 
-  static async getPlantGroupDetails(groupId) {
+  static async getPlantGroupDetails(my_plant_group_id) {
     const query = "SELECT * FROM My_Plant_Group WHERE my_plant_group_id = $1";
-    const result = await db.query(query, [groupId]);
+    const result = await db.query(query, [my_plant_group_id]);
 
     if (result.rows.length === 0) {
-      throw new NotFoundError(`No PlantGroup found with name: ${groupId}`);
+      throw new NotFoundError(`No PlantGroup found with ID: ${groupId}`);
     }
   
     return result.rows[0];
   
   }
+
+
+  // *****************************************************************************
+  // FOR PLANT REVIEW
+
+  static async createPlantReview({my_plant_group_id, user_id, rating, review}){
+
+    try {
+      // Insert data into the plant_group_plants_review
+
+      // Parse values to integers
+      my_plant_group_id = parseInt(my_plant_group_id, 10);
+      user_id = parseInt(user_id, 10);
+      rating = parseInt(rating, 10);
+
+
+      const query =
+        "INSERT INTO Plant_Group_Plants_Review (my_plant_group_id, user_id, rating, review) VALUES ($1, $2, $3, $4)"
+      const result = await db.query(query, [my_plant_group_id, user_id, rating, review]);
+      return result;
+    } catch (err) {
+      console.error("createPlant Error", err);
+      throw err;
+    }
+
+  }
+
+  static async getAllPlantReview(user_id){
+    
+    try{
+
+      const query = "SELECT * FROM Plant_Group_Plants_Review WHERE user_id = $1";
+      const result = await db.query(query, [user_id]);
+  
+      if (result.rows.length === 0) {
+        throw new NotFoundError(`No Plant Review found with name: ${user_id}`);
+      }
+    
+      return result.rows;
+  
+    }catch(err){
+      console.error("failed to get reviews from model", err)
+    }
+  }
+
+
+  // static async deletePlantGroup(handle) {
+  //   const result = await db.query(
+  //     `DELETE FROM My_Plant_Group WHERE group_name = $1 RETURNING group_name`, [handle]
+  //   );
+  
+  //   const plant = result.rows[0];
+  
+  
+  //   if (!plant) throw new NotFoundError(`No PlantGroup: ${handle}`);
+  
+  //   return plant;
+  // };
+
+  
+  static async deletePlantReview(my_plant_group_id){
+    try{
+      const query = `DELETE FROM Plant_Group_Plants_Review WHERE my_plant_group_id = $1 
+      RETURNING my_plant_group_id`
+
+      const result = await db.query(query, [my_plant_group_id]);
+      const plantReview = result.rows[0];
+
+      if (!plantReview) throw new NotFoundError(`No Plant Review: ${my_plant_group_id}`);
+      
+      return plantReview;
+
+    }catch(err){
+      console.error("failed to delete plant review in model", err);
+      throw err;
+    }
+  }
 }
 
 
 module.exports = PlantListModel;
+
+
+

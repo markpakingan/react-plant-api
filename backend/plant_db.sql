@@ -31,17 +31,17 @@ CREATE TABLE My_Plant_Group (
     my_plant_group_id SERIAL PRIMARY KEY, 
     group_name TEXT NOT NULL,
     description TEXT, 
-    user_id INT NOT NULL, 
-    FOREIGN KEY (user_id) REFERENCES Users (user_id)
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users (user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE My_Plant_Group_Plants (
-    My_Plant_Group_Plants_id INT PRIMARY KEY,
+    My_Plant_Group_Plants_id SERIAL PRIMARY KEY,
     plant_true_id INT,
     common_name TEXT,
-    group_id INT,  -- Use the primary key of My_Plant_Group table here
-    FOREIGN KEY (plant_true_id) REFERENCES Plants (plant_true_id),
-    FOREIGN KEY (group_id) REFERENCES My_Plant_Group(my_plant_group_id)
+    group_id INT, 
+    -- FOREIGN KEY (plant_true_id) REFERENCES Plants (plant_true_id) ON DELETE CASCADE,
+    FOREIGN KEY (group_id) REFERENCES My_Plant_Group(my_plant_group_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Plant_Group_Plants_Review (
@@ -51,4 +51,6 @@ CREATE TABLE Plant_Group_Plants_Review (
     rating INT NOT NULL,
     review TEXT NOT NULL,
     FOREIGN KEY (my_plant_group_id) REFERENCES My_Plant_Group (my_plant_group_id)
+    ON DELETE CASCADE
+    
 );

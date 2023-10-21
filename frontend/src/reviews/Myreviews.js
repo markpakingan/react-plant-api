@@ -1,19 +1,66 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Myreviews = ({isAuthenticated}) => {
 
-    const navigate = useNavigate()
+    const PLANT_REVIEWS_URL = "http://localhost:3001/plantlist/get-review";
+    const PLANT_GROUP_URL = "http://localhost:3001/plantlist/group"
+    const navigate = useNavigate();
+    const user_id = localStorage.getItem("user_id");
+    const [reviewList, setReviewList] = useState([]);
+    const [refreshData, setRefreshData] = useState(false);
 
      // Checks if token is available, otherwise redirect
      useEffect(() => {
+        console.log("user_id in myreviews:", user_id);
         if (!isAuthenticated) {
         navigate("/");
         }
     }, [isAuthenticated, navigate]);
 
 
+    // fetch all plant reviews with specific user_id
+    useEffect(() => {
+        const fetchPlantReviews = async () => {
+          try {
+            const response = await axios.get(`${PLANT_REVIEWS_URL}/user/${user_id}`);
+            const plantReviews = response.data.response;
+            // console.log("plantReviews Data in myreviews:", plantReviews);
+            const reviewsWithGroupName = [];
+            for (const review of plantReviews) {
+              try {
+                const groupResponse = await axios.get(`${PLANT_GROUP_URL}/${review.my_plant_group_id}`);
+                const groupName = groupResponse.data.group.group_name;
+                reviewsWithGroupName.push({ ...review, groupName });
+              } catch (error) {
+                console.error(`Failed to fetch group details for review ID ${review.my_plant_group_id}`);
+              }
+            }
+      
+            setReviewList(reviewsWithGroupName);
+          } catch (err) {
+            console.error("failed to fetch reviews in myreviews", err);
+          }
+        };
+      
+        fetchPlantReviews();
+      }, [user_id, refreshData]);
+
+
+      //deletes a review based on group_id
+      const handleDelete = async(my_plant_group_id) => {
+
+        try{
+            const response = await axios.delete(`${PLANT_GROUP_URL}/${my_plant_group_id}`);
+            console.log("Deleted:", response );
+            setRefreshData(!refreshData)
+        }catch(err){
+            console.error("failed to delete data in my reviews!", err)
+        }
+ 
+      }
+      
     return(
         <div>
             <h1>This is My Reviews page!</h1>
@@ -25,8 +72,21 @@ const Myreviews = ({isAuthenticated}) => {
                 </button>
             </Link>
 
+            {reviewList.map((review)=> (
+                <div>
+                    
+                    <div key={review.plant_group_plants_review_id}>
+                        <div>Group Name: {review.groupName}</div>
+                        <div>Rating: {review.rating}</div>
+                        <div>Review: {review.review}</div>
+                    </div>
+                    <button onClick={()=> handleDelete(review.my_plant_group_id)}>Delete</button>
+                </div>
+            ))}
+
         </div>
     )
 }
 
 export default Myreviews;
+

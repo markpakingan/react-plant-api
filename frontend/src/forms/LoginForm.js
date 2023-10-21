@@ -25,7 +25,9 @@ const LoginForm = ({setIsAuthenticated, setUsername, setToken, setUserId}) => {
 
     const handleSubmit = async(e) => {
 
-        //make an API call to send formData to backend
+
+        try{
+            //make an API call to send formData to backend
         e.preventDefault();
         const response = await axios.post(API_AUTH_URL, formData);
         const token = response.data.token;
@@ -46,6 +48,12 @@ const LoginForm = ({setIsAuthenticated, setUsername, setToken, setUserId}) => {
         setUserId(user_id);
         
         navigate("/")
+        }catch(err){
+            console.error("Failed to Login on Login Form!", err);
+            alert("Incorrect Login: Try Again or Sign Up!");
+            navigate("/");
+        }
+        
     }
 
 

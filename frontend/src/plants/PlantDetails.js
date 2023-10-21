@@ -5,38 +5,34 @@ import {useParams, useNavigate} from "react-router-dom"
 
 const PlantDetails = () => {
     
-    const PLANTGROUPS_URL = "http://localhost:3001/plantlist/get-all-plant-groups";
     const PLANTLIST_DATA_API = "http://localhost:3001/plantlist";
     const PLANTGROUP_PLANTS = "http://localhost:3001/plantlist/add-plant-to-group";
 
     const {id} = useParams();
+    const plant_true_id = id;
+    
     const [details, setDetails] = useState([]);
-    const [selectedData, setSelectedData] = useState({
-        plant_true_id: "", // initialize with appropriate values
-        common_name: "",
-        scientific_name: "",
-        group_id: ""
-      });
-      
+
     const [selectedPlantGroup, setSelectedPlantGroup] = useState("");
     const [plantGroups, setPlantGroups] = useState([]);
     const navigate = useNavigate();
-    const user_id = parseInt(localStorage.getItem("user_id"),10);
+    // const user_id = parseInt(localStorage.getItem("user_id"),10);
+    const user_id = localStorage.getItem("user_id");
 
     // Fetch data for a specific plant based on id
     useEffect(()=> {
         async function getPlantDetails(){
             try{
-                const response = await axios.get(`${PLANTLIST_DATA_API}/${id}`);
+                const response = await axios.get(`${PLANTLIST_DATA_API}/${plant_true_id}`);
                 const plantData = response.data;
                 setDetails(plantData.plant);
-                // console.log("plantDetails value:", plantData.plant);
+                console.log("plantDetails value:", plantData.plant);
             }catch(err){
                 console.error(err)
             }
         }
         getPlantDetails();
-    }, [id])
+    }, [plant_true_id])
 
 
 
@@ -45,9 +41,10 @@ const PlantDetails = () => {
         async function fetchPlantGroups() {
 
             try{
-                const response = await axios.get(PLANTGROUPS_URL);
+                console.log("user_id in plant details", user_id);
+                const response = await axios.get(`${PLANTLIST_DATA_API}/get-all-plant-groups/user/${user_id}`);
                 const plantGroups = response.data;
-                // console.log("Plant Group Data", plantGroups);
+                console.log("Plant Group Data", plantGroups);
                 setPlantGroups(plantGroups.plantGroups)
             }catch(err){
                 console.error("Can't Fetch Plant Group Details", err)
@@ -55,45 +52,47 @@ const PlantDetails = () => {
 
         }
         fetchPlantGroups();
-    }, []);
+    }, [user_id]);
 
 
     const handleClick = () => {
         navigate("/plantlist")
     }
 
-
-
-
-
     // Add current plant to a plantGroup
     const handleAddToPlantGroup = async () => {
-
-
         try {
-            const { id, common_name } = details;
+            const { id, common_name} = details;
+            
+            const plant_true_id = id;
+            const group_id = selectedPlantGroup;
 
             console.log("Plant Details to be sent:", {
-                id,
+                plant_true_id,
                 common_name,
-                selectedPlantGroup
+                group_id
             });
 
             const response = await axios.post(PLANTGROUP_PLANTS, {
-                id,
+                plant_true_id,
                 common_name,
-                selectedPlantGroup
+                group_id
             });
             
+            
             console.log("Data added:", response.data);
+
+            alert(`${common_name} has been added!`)
         } catch (err) {
             console.error("Failed to add plant details to plantgroup", err);
         }
     };
     
  
-
+    // gets the value of the selected plant group and put it in the data
     const handleSelectedPlantGroupChange = (e) => {
+
+        // const parsedGroupId = parseInt(e.target.value, 10);
         setSelectedPlantGroup(e.target.value);
         console.log("Plant Group Id Selected:", e.target.value);
     };
@@ -145,6 +144,10 @@ const PlantDetails = () => {
 
             </ul>
         </div>
+
+        // <>
+        //     <h1>Here are the plant details</h1>
+        // </>
     )
 }
 
