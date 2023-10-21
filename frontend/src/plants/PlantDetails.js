@@ -6,7 +6,6 @@ import {useParams, useNavigate} from "react-router-dom"
 const PlantDetails = () => {
     
     const PLANTLIST_DATA_API = "http://localhost:3001/plantlist";
-    const PLANTGROUP_PLANTS = "http://localhost:3001/plantlist/add-plant-to-group";
 
     const {id} = useParams();
     const plant_true_id = id;
@@ -16,7 +15,6 @@ const PlantDetails = () => {
     const [selectedPlantGroup, setSelectedPlantGroup] = useState("");
     const [plantGroups, setPlantGroups] = useState([]);
     const navigate = useNavigate();
-    // const user_id = parseInt(localStorage.getItem("user_id"),10);
     const user_id = localStorage.getItem("user_id");
 
     // Fetch data for a specific plant based on id
@@ -70,19 +68,23 @@ const PlantDetails = () => {
             console.log("Plant Details to be sent:", {
                 plant_true_id,
                 common_name,
-                group_id
+                group_id,
+                user_id
             });
 
-            const response = await axios.post(PLANTGROUP_PLANTS, {
+            const response = await axios.post(`${PLANTLIST_DATA_API}/add-plant-to-group/`, {
                 plant_true_id,
                 common_name,
-                group_id
+                group_id,
+                user_id
             });
             
             
             console.log("Data added:", response.data);
 
-            alert(`${common_name} has been added!`)
+            alert(`${common_name} has been added!`);
+
+            navigate("/plantlist")
         } catch (err) {
             console.error("Failed to add plant details to plantgroup", err);
         }

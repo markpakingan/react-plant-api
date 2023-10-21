@@ -42,18 +42,17 @@ router.get("/:plant_true_id", async (req, res) => {
 router.post("/add-plant-to-group", async (req, res)=> {
   try{
     console.log("req.body in add-to-plant-group-routers:", req.body);
-    const {plant_true_id, common_name, group_id} = req.body;
+    const {plant_true_id, common_name, group_id, user_id} = req.body;
+
     const parsedGroupId = parseInt(group_id,10);
 
     const result = await PlantListModel.addPlantDetails(
       plant_true_id, 
       common_name, 
-      parsedGroupId
+      parsedGroupId, 
+      user_id
     );
-
     res.status(201).json({message: "plant details successfully added", result})
-
-
 
   }catch(err){
     console.error(err)
@@ -103,6 +102,18 @@ router.post("/group/create", async (req, res) => {
   } catch (error) {
     console.error("Error creating plant group:", error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+router.get("/fetch-all-plant-per-group/:user_id", async (req, res) => {
+  try{
+    const {user_id} = req.params;
+    
+    const plantListBullets = await PlantListModel.fetchPlantListtoGroups(user_id);
+    return res.json({plantListBullets})
+  }catch(err){
+    console.error("failed to fetch plants per groups in routes", err)
   }
 });
 

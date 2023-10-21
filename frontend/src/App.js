@@ -3,7 +3,7 @@ import React,{useState, useEffect} from 'react';
 import {BrowserRouter, Route, Routes} from "react-router-dom"
 import Home from './home/Homepage';
 import ProfileForm from './forms/ProfileForm';
-import MyPlants from './plants/MyPlants';
+import MyPlantGroups from './plants/MyPlantGroups';
 import Myreviews from './reviews/Myreviews';
 import Navbar from './nav/navbar';
 import LoginForm from './forms/LoginForm';
@@ -48,7 +48,8 @@ function App() {
               <Route exact path ="/" element = {<Home isAuthenticated={isAuthenticated} userName={userName}/>} />
               <Route exact path ="/profile" element = {<ProfileForm isAuthenticated={isAuthenticated} token={token} userName={userName}/> } />
               <Route exact path ="/myreviews" element = {<Myreviews isAuthenticated={isAuthenticated}/>} />
-              <Route exact path ="/myplants" element = {<MyPlants isAuthenticated={isAuthenticated} />} />
+              <Route exact path ="/my-plant-groups" element = {<MyPlantGroups isAuthenticated={isAuthenticated} />} />
+              <Route exact path ="/myplants" element = {<MyPlantGroups isAuthenticated={isAuthenticated} />} />
               <Route exact path ="/login" element = {<LoginForm setIsAuthenticated={setIsAuthenticated}
                 setUsername={setUsername} setToken={setToken} setUserId={setUserId} /> }/>
               <Route exact path ="/logout" element = {<Logout/>} />

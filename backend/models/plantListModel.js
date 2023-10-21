@@ -31,13 +31,13 @@ class PlantListModel {
   };
 
   // adds the plantDetails to the PlantGroup DB
-  static async addPlantDetails(plant_true_id, common_name, group_id){
+  static async addPlantDetails(plant_true_id, common_name, group_id, user_id){
     try{
 
       const query = 
-        "INSERT INTO my_plant_group_plants (plant_true_id, common_name, group_id) VALUES ($1, $2, $3) RETURNING *";
+        "INSERT INTO my_plant_group_plants (plant_true_id, common_name, group_id, user_id) VALUES ($1, $2, $3, $4) RETURNING *";
       
-      const result = await db.query(query, [plant_true_id, common_name, group_id]);
+      const result = await db.query(query, [plant_true_id, common_name, group_id, user_id]);
       return result;
 
     }catch(err){
@@ -62,6 +62,7 @@ class PlantListModel {
     }
   }
 
+
   // This will fetch all created plant group in the PSQL Table ONLY by the user;
   static async getAllPlantGroup(user_id) {
     const query = "SELECT * FROM My_Plant_Group WHERE user_id = $1";
@@ -70,6 +71,12 @@ class PlantListModel {
   }
 
 
+  static async fetchPlantListtoGroups(user_id) {
+    const query = "SELECT * FROM my_plant_group_plants WHERE user_id = $1";
+    const result = await db.query(query, [user_id]);
+
+    return result.rows;
+  }
   
   static async deletePlantGroup(group_name) {
     const query = 
