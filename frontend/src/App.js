@@ -13,6 +13,8 @@ import PlantDetails from './plants/PlantDetails';
 import PlantList from './plants/PlantList';
 import Logout from './logout/LogOut';
 import ReviewForm from './forms/ReviewForm';
+import MyGardenPicks from './plants/MyGardenPicks';
+
 function App() {
 
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -49,7 +51,7 @@ function App() {
               <Route exact path ="/profile" element = {<ProfileForm isAuthenticated={isAuthenticated} token={token} userName={userName}/> } />
               <Route exact path ="/myreviews" element = {<Myreviews isAuthenticated={isAuthenticated}/>} />
               <Route exact path ="/my-plant-groups" element = {<MyPlantGroups isAuthenticated={isAuthenticated} />} />
-              <Route exact path ="/myplants" element = {<MyPlantGroups isAuthenticated={isAuthenticated} />} />
+              <Route exact path ="/mygardenpicks" element = {<MyGardenPicks isAuthenticated={isAuthenticated} />} />
               <Route exact path ="/login" element = {<LoginForm setIsAuthenticated={setIsAuthenticated}
                 setUsername={setUsername} setToken={setToken} setUserId={setUserId} /> }/>
               <Route exact path ="/logout" element = {<Logout/>} />

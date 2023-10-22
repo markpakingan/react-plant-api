@@ -15,8 +15,6 @@ const MyPlantGroups = ({ isAuthenticated }) => {
   };
   const user_id = parseInt(localStorage.getItem("user_id"), 10);
 
-  // gets a list of plants to be assigned to its group_id specific for the logged in user
-  const [plantList, setPlantList] = useState([])
 
   // Checks if token is available, otherwise redirect
   useEffect(() => {
@@ -25,24 +23,6 @@ const MyPlantGroups = ({ isAuthenticated }) => {
     }
   }, [isAuthenticated, navigate]);
 
-
-  // fetch all plants for a specific plant group based on user_id
-  // useEffect(()=> {
-
-  //   async function fetchPlantBullets(){
-  //     try{
-  //       const response = await axios.get(`${BASE_URL}/fetch-all-plant-per-group/${user_id}`);
-        
-  //       const plantBulletData = response.data;
-  //       console.log("plantBulletData", plantBulletData);
-  //       const filteredBulletPlants = plantBulletData.filter(plant => plant.group_id === group_id )
-  //       setPlantList(filteredBulletPlants);
-  //     }catch(err){
-  //       console.error("Failed to fetch plant list for Groups", err)
-  //     }
-  //   }
-  //   fetchPlantBullets();
-  // },[user_id, group_id]);
 
 
 
@@ -68,7 +48,7 @@ const MyPlantGroups = ({ isAuthenticated }) => {
   const handleDelete = async (group_name) => {
     try {
       await axios.delete(`http://localhost:3001/plantlist/${group_name}`);
-      console.log("Deleted in myPlants:", group_name);
+      console.log("Deleted in myPlantGroups:", group_name);
       // Trigger useEffect by changing the state variable
       setRefreshData(!refreshData);
     } catch (err) {
