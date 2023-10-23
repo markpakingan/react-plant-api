@@ -1,0 +1,41 @@
+/* plantlist.css */
+
+/* Container for the plant items */
+.plant-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  /* Style for each plant item */
+  .plant-item {
+    width: calc(33.33% - 20px); /* Set width for 3 columns per row with 20px margin between items */
+    margin: 20px; /* Set margin between plant items */
+    padding: 20px;
+    border: 1px solid #ccc; /* Optional: Add border for each item */
+  }
+  
+  /* Style for plant item content */
+  .plant-item-content {
+    margin-bottom: 10px;
+  }
+  
+  /* Style for plant item image */
+  .plant-item-image {
+    max-width: 100%; /* Ensure images do not exceed the container width */
+  }
+  
+  /* Style for plant item button */
+  .plant-item-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  

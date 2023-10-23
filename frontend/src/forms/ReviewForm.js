@@ -32,11 +32,22 @@ const ReviewForm = () => {
     }
     
     const handleSubmit = async(e)=> {
-        e.preventDefault();
+
+        if (!formData.my_plant_group_id || !formData.rating || !formData.review) {
+            alert("All fields are required!");
+            return;
+        }
+
+        try{    
+            e.preventDefault();
         const response = await axios.post(PLANT_REVIEW_URL, formData);
         console.log("formData in Review Form", formData);
         console.log("response in Review Form", response);
         navigate("/myreviews")
+        }catch(err){
+            console.error("Failed to submit form in ReviewForm", err)
+        }
+        
     }
 
 
@@ -66,6 +77,7 @@ const ReviewForm = () => {
             <form onSubmit={handleSubmit}>
                 <div>
                 <div>
+                    
                     <label htmlFor="my_plant_group_id">Plant Group</label>
                     <select
                         id="my_plant_group_id"
@@ -73,6 +85,7 @@ const ReviewForm = () => {
                         value={formData.my_plant_group_id}
                         onChange={handleChange}
                     >
+                       <option value="">Select Plant Group</option>
                        {existingPlantGroup.map((group)=>(
                         <option key={group.my_plant_group_id}
                         value={group.my_plant_group_id}>
@@ -90,6 +103,7 @@ const ReviewForm = () => {
                         value={formData.rating}
                         onChange={handleChange}
                     >
+                        <option value>Rate Plant (1 lowest - 5 highest)</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>

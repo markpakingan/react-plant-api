@@ -1,0 +1,13 @@
+nav {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    background-color: #333;
+  }
+  
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 20px; /* Adjust the margin value to create space between items */
+  }
+  

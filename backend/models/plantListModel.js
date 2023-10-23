@@ -11,8 +11,11 @@ class PlantListModel {
   // FOR PLANTLIST
 
   static async getAllPlants() {
+
+    const max = 100;
+    const randomInt = Math.floor(Math.random() * max);
     try {
-      const response = await axios.get(`${PLANTLIST_URL}?key=${apiKey}`);
+      const response = await axios.get(`${PLANTLIST_URL}?key=${apiKey}&page=${randomInt}`);
       return response.data;
     } catch (err) {
       console.error("Cant Fetch All Plants from Models", err);
@@ -27,6 +30,19 @@ class PlantListModel {
       return response.data;
     } catch (err) {
       console.error("Can't fetch Plant Details from Models", err);
+    }
+  };
+
+  static async getPlantQueryList(query) {
+    console.log("query in models", query)
+
+    try {
+      const response = await axios.get(
+        `https://perenual.com/api/species-list?key=${apiKey}&q=${query}`
+      );
+      return response.data;
+    } catch (err) {
+      console.error("Can't fetch Plant Query Details from Models", err);
     }
   };
 
@@ -45,7 +61,22 @@ class PlantListModel {
     }
   }
 
+  static async deleteGardenPlant(my_plant_group_plants_id){
+    try{
+      const query = "DELETE FROM my_plant_group_plants WHERE my_plant_group_plants_id = $1";
+      const result = await db.query(query, [my_plant_group_plants_id]);
 
+      const pickedPlant = result.rows[0];
+
+      if (!pickedPlant) throw new NotFoundError(`No Garden Plant Found: ${my_plant_group_plants_id}`);
+      
+      return pickedPlant;
+
+    }catch(err){
+      console.error("Failed to delete garden plant in models", err);
+      throw err;
+    }
+  }
   // *****************************************************************************
   // FOR PLANTGROUP
 
@@ -153,20 +184,6 @@ class PlantListModel {
       console.error("failed to get reviews from model", err)
     }
   }
-
-
-  // static async deletePlantGroup(handle) {
-  //   const result = await db.query(
-  //     `DELETE FROM My_Plant_Group WHERE group_name = $1 RETURNING group_name`, [handle]
-  //   );
-  
-  //   const plant = result.rows[0];
-  
-  
-  //   if (!plant) throw new NotFoundError(`No PlantGroup: ${handle}`);
-  
-  //   return plant;
-  // };
 
   
   static async deletePlantReview(my_plant_group_id){

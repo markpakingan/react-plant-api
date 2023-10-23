@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SearchForm from "../forms/SearchForm";
+import "./homepage.css";
 
 const Home = ({ isAuthenticated, userName }) => {
   const [searchResults, setSearchResults] = useState([]);
@@ -10,7 +11,7 @@ const Home = ({ isAuthenticated, userName }) => {
   };
 
   return (
-    <div>
+    <div className="homepage-div">
       {!isAuthenticated ? (
         <div>
           <h1>Bloom Buddy</h1>

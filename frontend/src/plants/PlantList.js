@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./plantlist.css";
+
 
 const PlantList = ({isAuthenticated}) => {
 
@@ -37,16 +39,16 @@ useEffect(()=>{
 
     return (
         <div>
-            <h1>Check Out Some Plants!</h1>
+            <h1>Here Are Some Plants You May Like:</h1>
 
-            <div>
+            <div className="plant-containers">
                 {details.map((plant)=> (
-                    <div key={plant.id}>
-                        <div>  Name: {plant.common_name} </div>
-                        <div>  Scientific Name: {plant.scientific_name} </div>
-                        <div>  Cycle: {plant.cycle} </div>
+                    <div className= "plant-item" key={plant.id}>
+                        <div className="plant_item-content">  Name: {plant.common_name} </div>
+                        <div className="plant_item-content">  Scientific Name: {plant.scientific_name} </div>
+                        <div className="plant_item-content">  Cycle: {plant.cycle} </div>
                         
-                        <div>
+                        <div className="plant-item-image">
                             {plant.default_image ? (<img src={plant.default_image.thumbnail} 
                                 alt={plant.common_name} />) : 
                                 ("")
@@ -54,7 +56,7 @@ useEffect(()=>{
                         </div>
                           
                         <a href={`/plantlist/${plant.id}`}>
-                            <button>Check Plant</button>
+                            <button className="plant-item-button">Check Plant</button>
                         </a>
                     </div>
 

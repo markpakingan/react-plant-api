@@ -2,26 +2,33 @@ import React, {useState} from "react";
 import axios from "axios";
 
 
-const SearchForm = ({onSearch})=> {
+const SearchForm = ()=> {
     
     const [query, setQuery] = useState("");
-
-
+    const BASE_URL = "http://localhost:3001/plantlist";
+    const [searchResults, setSearchResults] = useState([])
 
     const handleSubmit = async(e) => {
         e.preventDefault();
 
+        console.log("query in search form:", query);
+
         try {
-            const response = await axios.get(`/plantlist&q=${query}`);
-            onSearch(response.data.plant.data)
-            console.log("here's the result:", response.data.plant.data);
+            const response = await axios.get(`${BASE_URL}/search`, {
+            params: {query: query}
+        });
+            console.log("success! sent data", response);
+
+            // setSearchResults(response.data.plant);
+            // // const searchedPlantData = response.data.plant.data;
+            // // console.log("here's the result:", searchedPlantData);
+            // console.log("search result", response.data.plant);
 
         }catch(err){
             console.error("Error Responded",err)
         }
     }
     return(
-
         <form onSubmit={handleSubmit}>
             <label htmlFor="search"></label>
             <input
@@ -34,6 +41,7 @@ const SearchForm = ({onSearch})=> {
             />
             <button> search </button>
         </form>
+    
     )
 
 }

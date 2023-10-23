@@ -63,21 +63,30 @@ router.post("/add-plant-to-group", async (req, res)=> {
 // this is for the search form
 router.get("/search", async (req, res) => {
   try {
-    const validator = jsonschema.validate(req.body, planListSchema);
-    if (!validator.valid) {
-      const errs = validator.errors.map((e) => e.stack);
-      throw new BadRequestError(errs);
-    }
-    const q = req.query.q;
+    const {query} = req.query;
 
-    const response = await axios.get(`${PLANTLIST_URL}?key=${apiKey}&q={q}`);
-    res.json({ plant: response.data });
+    const result = await PlantListModel.getPlantQueryList(query);
+    return res.json({ result });
+
   } catch (err) {
-    console.error(err);
+    console.error("failed to fetch plant data in routs", err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
+
+router.delete("/delete-plant-pick/:my_plant_group_plants_id", async (req, res) =>{
+  try{
+    
+    const {my_plant_group_plants_id} = req.params;
+    console.log("my plants group id value is:", my_plant_group_plants_id);
+    await PlantListModel.deleteGardenPlant(my_plant_group_plants_id);
+    return res.json({deleted: group_id})
+
+  }catch(err){
+    console.error("can't delete planted pick in routes", err);
+  }
+})
 
 // ********************************************************************
 // FOR PLANTGROUP

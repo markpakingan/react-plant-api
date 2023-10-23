@@ -9,6 +9,9 @@ const MyGardenPicks = ({ isAuthenticated }) => {
   const [groupedPlants, setGroupedPlants] = useState({}); // State to store grouped plants
   const [groupNames, setGroupNames] = useState({}); // State to store group names
   const user_id = localStorage.getItem("user_id");
+  const [refreshData, setRefreshData] = useState(false);
+
+  
 
   // Checks if token is available, otherwise redirect
   useEffect(() => {
@@ -43,7 +46,8 @@ const MyGardenPicks = ({ isAuthenticated }) => {
       }
     }
     fetchPlantBullets();
-  }, [user_id]);
+  }, [user_id, refreshData]);
+
 
   // Fetch all existing plant groups based on the user_id
   useEffect(() => {
@@ -69,7 +73,16 @@ const MyGardenPicks = ({ isAuthenticated }) => {
     }
 
     fetchPlantGroup();
-  }, [user_id]);
+  }, [user_id, refreshData]);
+
+
+  const handleDelete = async(my_plant_group_plants_id)=> {
+    const response = await axios.delete(`${BASE_URL}/delete-plant-pick/${my_plant_group_plants_id}`);
+    console.log("plant deleted!", response);
+    setRefreshData(true);
+  };
+
+  
 
   return (
     <div>
@@ -80,7 +93,13 @@ const MyGardenPicks = ({ isAuthenticated }) => {
           <h2>{groupNames[groupId]}</h2>
           <ul>
             {groupedPlants[groupId].map((plant, index) => (
-              <li key={index}>Common Name: {plant.common_name}</li>
+              <li key={index}>
+              <a href={`/plantlist/${plant.plant_true_id}`}>
+                 {plant.common_name} 
+              </a>
+                <button onClick={()=>
+                handleDelete(plant.my_plant_group_plants_id)}>delete</button>
+              </li>
             ))}
           </ul>
         </div>
