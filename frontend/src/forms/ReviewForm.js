@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./reviewForm.css"
 
 
 const ReviewForm = () => {
@@ -76,57 +77,57 @@ const ReviewForm = () => {
 
             <form onSubmit={handleSubmit}>
                 <div>
-                <div>
+                    <div>
+                        
+                        <label htmlFor="my_plant_group_id">Plant Group</label>
+                        <select
+                            id="my_plant_group_id"
+                            name="my_plant_group_id"
+                            value={formData.my_plant_group_id}
+                            onChange={handleChange}
+                        >
+                        <option value="">Select Plant Group</option>
+                        {existingPlantGroup.map((group)=>(
+                            <option key={group.my_plant_group_id}
+                            value={group.my_plant_group_id}>
+                                {group.group_name}
+                            </option>
+
+                        ))}
+                        </select>
+                    </div>
                     
-                    <label htmlFor="my_plant_group_id">Plant Group</label>
-                    <select
-                        id="my_plant_group_id"
-                        name="my_plant_group_id"
-                        value={formData.my_plant_group_id}
-                        onChange={handleChange}
-                    >
-                       <option value="">Select Plant Group</option>
-                       {existingPlantGroup.map((group)=>(
-                        <option key={group.my_plant_group_id}
-                        value={group.my_plant_group_id}>
-                            {group.group_name}
-                        </option>
+                        <label htmlFor="rating">Rating</label>
+                        <select
+                            id="rating"
+                            name="rating"
+                            value={formData.rating}
+                            onChange={handleChange}
+                        >
+                            <option value>Rate Plant (1 lowest - 5 highest)</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
 
-                       ))}
-                    </select>
-                </div>
-                
-                    <label htmlFor="rating">Rating</label>
-                    <select
-                        id="rating"
-                        name="rating"
-                        value={formData.rating}
-                        onChange={handleChange}
-                    >
-                        <option value>Rate Plant (1 lowest - 5 highest)</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
+                    <div>
+                        <label htmlFor="review">Review</label>
+                        <input
+                            id="review"
+                            type="text"
+                            name="review"
+                            placeholder ="Enter Review Here"
+                            value={formData.review}
+                            onChange={handleChange}
+                        />
+                    </div>
+            
+                    <button type="submit"> Create </button>
 
-                <div>
-                    <label htmlFor="review">Review</label>
-                    <input
-                        id="review"
-                        type="text"
-                        name="review"
-                        placeholder ="Enter Review Here"
-                        value={formData.review}
-                        onChange={handleChange}
-                    />
-                </div>
-        
-                <button type="submit"> Create </button>
-
-            </form>
+                </form>
 
         </div>
     )

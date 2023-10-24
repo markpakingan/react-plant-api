@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import "./myReviews.css"
 
 const Myreviews = ({isAuthenticated}) => {
 
@@ -63,17 +64,17 @@ const Myreviews = ({isAuthenticated}) => {
       
     return(
         <div>
-            <h1>This is My Reviews page!</h1>
+            <h1><i>"Share Your Plant-tastic Reviews Here!"</i></h1>
 
             
             <Link to="/create-review">
-                <button>
+                <button className="review-button">
                     Create Review
                 </button>
             </Link>
 
             {reviewList.map((review)=> (
-                <div>
+                <div className="review-list">
                     
                     <div key={review.plant_group_plants_review_id}>
                         <div>Group Name: {review.groupName}</div>

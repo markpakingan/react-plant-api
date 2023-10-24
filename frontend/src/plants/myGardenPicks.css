@@ -1,0 +1,21 @@
+.plant-name-container{
+    border: 2px solid black;
+    border-radius: 20px;
+    height: auto;
+    width: 500px;
+    margin: 0 auto;
+}
+
+.container-div{
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+
+}
+
+.delete-button{
+  width: 70px;
+  margin-left: 10px;
+  padding: 0;
+}

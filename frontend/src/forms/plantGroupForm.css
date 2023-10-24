@@ -1,0 +1,28 @@
+
+.form-description textarea {
+    width: 300px; /* Set the width to fill the container */
+    height: 150px; /* Set the initial height */
+    font-size: 16px; /* Set the font size */
+    padding: 10px; /* Add padding for better readability */
+    resize: vertical; /* Allow vertical resizing */
+    border-radius: 5px;
+    border: 2px black solid;
+  }
+  
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+
+label{
+    font-size: 20px;
+
+}
+
+button{
+    width: 330px;
+}

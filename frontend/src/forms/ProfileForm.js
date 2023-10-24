@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
+import "./profileForm.css";
 
 const ProfileForm = ({ isAuthenticated, userName, token}) => {
 
@@ -37,6 +38,7 @@ const ProfileForm = ({ isAuthenticated, userName, token}) => {
             Authorization: `Bearer ${token}`,
           },
         }
+
       );
   
       console.log("response.data", response.data);
@@ -53,6 +55,7 @@ const ProfileForm = ({ isAuthenticated, userName, token}) => {
         
         
         console.log("Profile updated successfully!", response.data);
+        alert("Profile has been updated!")
       }
     } catch (error) {
       console.error("Error updating profile", error);
@@ -103,7 +106,11 @@ const ProfileForm = ({ isAuthenticated, userName, token}) => {
     <div>
       <h1>Profile</h1>
                     
+                    
                     <form onSubmit={handleSubmit}>
+                        <div  className="form-container">
+
+                        
                         <label htmlFor="userName"> Username</label>
                         <input 
                             id="username"
@@ -156,6 +163,7 @@ const ProfileForm = ({ isAuthenticated, userName, token}) => {
                           /> 
 
                               <button onSubmit={handleSubmit}> Save Changes</button>
+                            </div>
                           </form>                
     </div>
   )

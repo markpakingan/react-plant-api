@@ -1,7 +1,30 @@
 .App {
   text-align: center;
+  
 }
 
 body{
-  background-color: aquamarine;
+  background-image: url("./images/2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+button{
+  background-color: rgb(2, 59, 23);
+  border-radius: 5px;
+  color: white;
+  font-style: bold;
+  font-size: 16px;
+  width: 100px;
+}
+
+input{
+  font-size: 16px;
+  border-radius: 5px;
+  width: 1000px;
+  padding: 5px;
+}
+
+h1{
+  font-size: 40 px;
 }

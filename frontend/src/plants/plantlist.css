@@ -1,7 +1,7 @@
 /* plantlist.css */
 
 /* Container for the plant items */
-.plant-container {
+.plant-containers {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -24,18 +24,9 @@
   .plant-item-image {
     max-width: 100%; /* Ensure images do not exceed the container width */
   }
-  
-  /* Style for plant item button */
+
+ 
   .plant-item-button {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin-top: 10px;
-    cursor: pointer;
+   width: 300px;
+   font-size: medium;
   }
-  

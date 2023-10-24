@@ -1,0 +1,31 @@
+.list-item{
+    height: 200x;
+    width: 200px;
+    border: 2px solid;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.group-description{
+    font-style: italic;
+    font-size: small;
+}
+
+.create-button{
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 50px;
+}
+
+.edit-button{
+    width: 50px;
+    font-size: 16px;
+    padding: 0;
+}
+
+
+.delete-button{
+    width: 50px;
+    font-size: 16px;
+}

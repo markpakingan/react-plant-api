@@ -1,0 +1,15 @@
+.review-list {
+    border: 2px black solid;
+    border-radius: 20px;
+    height: auto;
+    width: 300px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+
+.review-button{
+    width: 300px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}

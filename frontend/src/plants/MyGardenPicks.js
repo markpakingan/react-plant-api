@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./myGardenPicks.css"
 
 const MyGardenPicks = ({ isAuthenticated }) => {
 
@@ -89,8 +90,10 @@ const MyGardenPicks = ({ isAuthenticated }) => {
       <h1>Check Out Your Top Garden Picks!</h1>
 
       {Object.keys(groupedPlants).map((groupId) => (
-        <div key={groupId}>
+        <div key={groupId} className="plant-name-container">
+
           <h2>{groupNames[groupId]}</h2>
+          
           <ul>
             {groupedPlants[groupId].map((plant, index) => (
               <li key={index}>
@@ -98,7 +101,8 @@ const MyGardenPicks = ({ isAuthenticated }) => {
                  {plant.common_name} 
               </a>
                 <button onClick={()=>
-                handleDelete(plant.my_plant_group_plants_id)}>delete</button>
+                handleDelete(plant.my_plant_group_plants_id)} 
+                className="delete-button">delete</button>
               </li>
             ))}
           </ul>

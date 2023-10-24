@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import "./myPlantGroup.css";
 
 const BASE_URL = "http://localhost:3001/plantlist";
 const PLANT_GROUP_API = "http://localhost:3001/plantlist/get-all-plant-groups";
@@ -59,17 +59,19 @@ const MyPlantGroups = ({ isAuthenticated }) => {
   return (
     <div>
       <h1>Here Are Your Plant Groups:</h1>
-      <button onClick={handleClick}> Create Plant Group</button>
-      <ul>
-        {plantData.map((cluster, index) => (
-          <li key={index}>
-            <h3>Name: {cluster.group_name}</h3>
-            <p>About: {cluster.description}</p>
-            <button onClick={() => handleEdit(`${cluster.my_plant_group_id}`)}>Edit</button>
-            <button onClick={() => handleDelete(`${cluster.group_name}`)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+
+      <button onClick={handleClick} className="create-button"> Create Plant Group</button>
+
+      <div>
+          {plantData.map((cluster, index) => (
+            <div key={index} className="list-item">
+              <h3>{cluster.group_name}</h3>
+              <p className="group-description">(Description): {cluster.description}</p>
+              <button className="edit-button" onClick={() => handleEdit(`${cluster.my_plant_group_id}`)}>Edit</button>
+              <button className="delete-button" onClick={() => handleDelete(`${cluster.group_name}`)}>Delete</button>
+            </div>
+          ))}
+      </div>
     </div>
   );
 };

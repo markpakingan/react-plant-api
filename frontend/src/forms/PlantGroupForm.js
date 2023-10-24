@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import "./plantGroupForm.css"
 
 const API_URL = "http://localhost:3001";
 
@@ -75,12 +76,12 @@ const PlantGroupForm = () => {
                     // If ID is available, it's an edit mode, send a PUT request to update
                     const response = await axios.put(`${API_URL}/plantlist/group/update/${id}`, formData);
                     console.log("update successful!", response);
-                    navigate('/myplants');
+                    navigate('/my-plant-groups');
                 }else {
                     // Send a post request if no ID is found
                     const response = await axios.post(`${API_URL}/plantlist/group/create`, formData);
                     console.log("Plant group created!", response);
-                    navigate('/myplants');
+                    navigate('/my-plant-groups');
 
                 }
          
@@ -95,7 +96,8 @@ const PlantGroupForm = () => {
         <div>
             
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="form-container">
+            
                 <div>
                     <label htmlFor="groupName">Group Name</label>
                     <input
@@ -109,9 +111,9 @@ const PlantGroupForm = () => {
                 </div>
 
 
-                <div>
+                <div className="form-description">
                     <label htmlFor="description">Description</label>
-                    <input
+                    <textarea
                         id="description"
                         type="text"
                         name="description"

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./plantlist.css";
+import "./plantList.css";
 
 
 const PlantList = ({isAuthenticated}) => {
