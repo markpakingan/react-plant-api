@@ -64,12 +64,13 @@ router.post("/add-plant-to-group", async (req, res)=> {
 router.get("/search", async (req, res) => {
   try {
     const {query} = req.query;
+    console.log("query in Routes", query);
 
     const result = await PlantListModel.getPlantQueryList(query);
     return res.json({ result });
-
+    
   } catch (err) {
-    console.error("failed to fetch plant data in routs", err);
+    console.error("failed to fetch plant data in routes", err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });

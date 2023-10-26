@@ -81,7 +81,7 @@ const Myreviews = ({isAuthenticated}) => {
                         <div>Rating: {review.rating}</div>
                         <div>Review: {review.review}</div>
                     </div>
-                    <button onClick={()=> handleDelete(review.my_plant_group_id)}>Delete</button>
+                    <button className="delete-button" onClick={()=> handleDelete(review.my_plant_group_id)}>Delete</button>
                 </div>
             ))}
 

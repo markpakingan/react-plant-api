@@ -1,49 +1,63 @@
-import React, {useState} from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import axios from 'axios';
+import "./searchForm.css"
+import { useNavigate } from 'react-router-dom';
 
+const SearchComponent = () => {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
+  const navigate = useNavigate();
 
-const SearchForm = ()=> {
-    
-    const [query, setQuery] = useState("");
-    const BASE_URL = "http://localhost:3001/plantlist";
-    const [searchResults, setSearchResults] = useState([])
-
-    const handleSubmit = async(e) => {
-        e.preventDefault();
-
-        console.log("query in search form:", query);
-
-        try {
-            const response = await axios.get(`${BASE_URL}/search`, {
-            params: {query: query}
-        });
-            console.log("success! sent data", response);
-
-            // setSearchResults(response.data.plant);
-            // // const searchedPlantData = response.data.plant.data;
-            // // console.log("here's the result:", searchedPlantData);
-            // console.log("search result", response.data.plant);
-
-        }catch(err){
-            console.error("Error Responded",err)
-        }
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(`https://perenual.com/api/species-list?key=sk-Z1lH652d505e13f822256&q=${query}`);
+      setResults(response.data.data);
+      console.log("response", response.data.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
     }
-    return(
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="search"></label>
-            <input
-                id="search"
-                type="text"
-                name="search"
-                placeholder ="search"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-            />
-            <button> search </button>
-        </form>
-    
-    )
+  };
 
-}
 
-export default SearchForm;
+  const handeClick = (group_id)=> {
+    navigate(`/plantlist/${group_id}`)
+  };
+
+  return (
+    <div className='full-body'>
+      
+      <div className='search-form'>
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Enter search query"
+        />
+        <button onClick={handleSearch} className='search-button'>Search</button>
+      </div>
+      
+
+      <div className={`${results.length > 0 ? "search-result-list" : ""}`}>
+        {results.map((result) => 
+          <div key={result.id} className='search-result-item'>
+            <div> {result.default_image? 
+              (<img src={result.default_image.thumbnail} 
+              alt={result.common_name} />): ("")} 
+            </div>
+
+            <div>ID: {result.id} </div>
+            <div>Other Names: {result.other_name} </div>
+            <div>Scientific Name: {result.scientific_name} </div>
+            <div>Cycle: {result.cycle} </div>
+
+            <button onClick={()=>handeClick(result.id)}>Check Plant</button>
+            
+          </div>
+        )}
+      </div>
+
+    </div>
+  );
+};
+
+export default SearchComponent;

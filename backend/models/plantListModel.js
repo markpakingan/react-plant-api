@@ -34,8 +34,9 @@ class PlantListModel {
   };
 
   static async getPlantQueryList(query) {
-    console.log("query in models", query)
 
+    console.log("Received query: in models", query);
+    
     try {
       const response = await axios.get(
         `https://perenual.com/api/species-list?key=${apiKey}&q=${query}`

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import {useParams, useNavigate} from "react-router-dom"
-
+import "./plantDetails.css"
 
 const PlantDetails = () => {
     
@@ -100,32 +100,60 @@ const PlantDetails = () => {
     };
 
     return(
-        <div>
+        <div className="plant-details-container">
             <h1> Plant Details: </h1>
             <ul>
-                <li>
+                <div>
                     {details.default_image ? (<img src={details.default_image.thumbnail} 
                     alt={details.common_name} />) : 
                     (  <p>No image available</p>)
                     }
-                </li>
-                <li> Common Name: {details.common_name}</li>
-                <li> Scientific Name: {details.scientific_name}</li>
-                <li> Type : {details.type}</li>
-                {/* <li> Dimension: {details.dimension}</li> */}
-                <li> Cycle: {details.cycle}</li>    
-                {/* <li> Hardiness: {details.hardiness}</li> */}
-                <li> Water: {details.watering}</li>
-                <li> Sunlight: {details.sunlight}</li>
-                <li> Pruning Month: {details.pruning_month}</li>
-                <li> Indoor: {details.indoor}</li>
-                <li> Poisonus to Humans?: {details.poisonous_to_humans}</li>
-                <li> Description: {details.description}</li>
-                <li>Family: {details.family}</li>
+                </div>
+                <div> 
+                    <b>Common Name:</b> {details.common_name}
+                </div>
+                <div> 
+                    <b>Scientific Name:</b> {details.scientific_name}
+                </div>
+                <div> 
+                    <b>Type :</b> {details.type}
+                </div>
 
-                <button onClick={handleClick}> Go Back</button>
+                <div> 
+                <b>Cycle:</b> {details.cycle}
+                </div>
+
+                <div> 
+                    <b>Water:</b> {details.watering}
+                </div>
+
+                <div> 
+                    <b>Sunlight:</b> {details.sunlight}
+                </div>
+
+                <div> 
+                    <b>Pruning Month:</b> {details.pruning_month}
+                </div>
+
+                <div> 
+                    <b>Indoor:</b> {details.indoor}
+                </div>
+
+                <div> 
+                    <b>Poisonus to Humans?:</b> {details.poisonous_to_humans}
+                </div>
+
+                <div className="description"> 
+                    <b>Description:</b> {details.description}
+                </div>
 
                 <div>
+                    <b>Family:</b> {details.family}
+                </div>
+
+                <button className="go-back-button" onClick={handleClick}> Go Back</button>
+
+                <div className="select-option">
 
                     {/* selects a Plant Group from the dropdown menu */}
                     <select value = {selectedPlantGroup} 
@@ -140,16 +168,13 @@ const PlantDetails = () => {
                         ))}
                     </select>
 
-                    <button onClick={handleAddToPlantGroup
+                    <button className="add-button" onClick={handleAddToPlantGroup
                     }>Add</button>
                 </div>
 
             </ul>
         </div>
 
-        // <>
-        //     <h1>Here are the plant details</h1>
-        // </>
     )
 }
 

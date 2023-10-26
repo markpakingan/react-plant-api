@@ -1,0 +1,30 @@
+.search-result-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Adjust the spacing between columns */
+    margin-top: 20px; /* Add margin at the top of the search results */
+}
+
+.search-result-item {
+    width: calc(100% - 20px); /* Calculate 33.33% width for each column with some margin */
+    margin-bottom: 20px; /* Add margin between rows */
+    padding: 20px; /* Padding inside each column */
+    background-color: rgba(255, 255, 255, 0.60); /* Background color for each column with opacity */
+    border-radius: 10px; /* Optional: Add border-radius for rounded corners */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    text-align: center; /* Center the content in each column */
+}
+
+.search-result-item img {
+    width: 100px; /* Set a specific width for images */
+    height: 100px; /* Set a specific height for images */
+    object-fit: cover;
+    margin-bottom: 10px; /* Optional: Add margin below the images */
+}
+
+
+.search-button {
+    font-size: 22px;
+    width: 100px;
+}
+

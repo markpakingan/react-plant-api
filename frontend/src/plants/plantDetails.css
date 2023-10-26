@@ -1,0 +1,39 @@
+.go-back-button{
+    width: 300px;
+}
+
+/* .select-option{
+    color: red;
+} */
+
+
+/* plantDetails.css */
+
+.select-option select {
+  width: 200px;
+  height: 30px;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+
+.add-button{ 
+    width: 100px;
+}
+
+.plant-details-container {
+    width: 50%; 
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 20px;
+    border: 1px solid black;
+    background-color: rgba(249, 249, 249, 0.20);
+    border-radius: 10px;
+    text-align: center; /* Center the text content inside the container */
+  }
+
+
+.description {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}

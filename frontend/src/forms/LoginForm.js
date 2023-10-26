@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./loginForm.css"
 
 const LoginForm = ({setIsAuthenticated, setUsername, setToken, setUserId}) => {
 
@@ -59,7 +60,7 @@ const LoginForm = ({setIsAuthenticated, setUsername, setToken, setUserId}) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label htmlFor="username">username</label>
+            <label htmlFor="username"></label>
             <input
                 id="username"
                 type="text"
@@ -69,7 +70,7 @@ const LoginForm = ({setIsAuthenticated, setUsername, setToken, setUserId}) => {
                 onChange={handleChange}
             />
 
-            <label htmlFor="password">password</label>
+            <label htmlFor="password"></label>
             <input
                 id="password"
                 type="password"

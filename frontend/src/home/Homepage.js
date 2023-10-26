@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SearchForm from "../forms/SearchForm";
 import "./homepage.css";
+import bloombuddylogo from "../images/Logo4.png"
 
 const Home = ({ isAuthenticated, userName }) => {
   const [searchResults, setSearchResults] = useState([]);
@@ -11,9 +12,11 @@ const Home = ({ isAuthenticated, userName }) => {
   };
 
   return (
-    <div className="homepage-div">
+    <div 
+    >
       {!isAuthenticated ? (
-        <div>
+        <div className="home-logo">
+          <img className="bloom-logo"src={bloombuddylogo} alt="company-logo"/>
           <h1>Bloom Buddy</h1>
           <h3><i>"Discover, Learn, Grow: Your Personal Botanical Journey Awaits"</i></h3>
           <Link to="/login">

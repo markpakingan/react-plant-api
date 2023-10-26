@@ -30,3 +30,13 @@
    width: 300px;
    font-size: medium;
   }
+
+
+  .plant-list-container {
+    background-color: #bdd5b9;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%; /* Set height to 100% to cover the entire viewport */
+    display: flex;
+    flex-direction: column; /* Ensure flex container stacks children vertically */
+  }

@@ -1,7 +1,8 @@
 
 import React, {useState} from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom";
+import "./signUpForm.css"
 
 
 const SignUpForm = () => {
@@ -46,62 +47,62 @@ const SignUpForm = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label htmlFor="username">username</label>
+            <label htmlFor="username"></label>
             <input
                 id="username"
                 type="text"
                 name="username"
-                placeholder ="username"
+                placeholder ="Username"
                 value={formData.username}
                 onChange={handleChange}
             />
 
-            <label htmlFor="password">password</label>
+            <label htmlFor="password"></label>
             <input
                 id="password"
                 type="password"
                 name="password"
-                placeholder ="password"
+                placeholder ="Password"
                 value={formData.password}
                 onChange={handleChange}
             />
 
-            <label htmlFor="firstName">First Name</label>
+            <label htmlFor="firstName"></label>
             <input
                 id="firstName"
                 type="text"
                 name="firstName"
-                placeholder ="firstName"
+                placeholder ="First Name"
                 value={formData.firstName}
                 onChange={handleChange}
             />
 
-            <label htmlFor="lastName">Last Name</label>
+            <label htmlFor="lastName"></label>
             <input
                 id="lastName"
                 type="text"
                 name="lastName"
-                placeholder ="lastName"
+                placeholder ="Last Name"
                 value={formData.lastName}
                 onChange={handleChange}
             />
 
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email"></label>
             <input
                 id="email"
                 type="text"
                 name="email"
-                placeholder ="email"
+                placeholder ="E-mail"
                 value={formData.email}
                 onChange={handleChange}
             />
 
-            <label htmlFor="imageUrl">Image URL</label>
+            <label htmlFor="imageUrl"></label>
             <input
                 id="imageUrl"
                 type="imageUrl"
                 name="imageUrl"
-                placeholder ="imageUrl"
+                placeholder ="Image URL"
                 value={formData.imageUrl}
                 onChange={handleChange}
             />

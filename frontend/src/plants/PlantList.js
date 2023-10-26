@@ -38,7 +38,7 @@ useEffect(()=>{
     }, [isAuthenticated, navigate]);
 
     return (
-        <div>
+        <div className="plant-list-container">
             <h1>Here Are Some Plants You May Like:</h1>
 
             <div className="plant-containers">
