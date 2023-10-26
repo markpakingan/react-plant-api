@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./myGardenPicks.css"
+import "./myGardenPicks.css";
 
 const MyGardenPicks = ({ isAuthenticated }) => {
 
@@ -11,7 +11,7 @@ const MyGardenPicks = ({ isAuthenticated }) => {
   const [groupNames, setGroupNames] = useState({}); // State to store group names
   const user_id = localStorage.getItem("user_id");
   const [refreshData, setRefreshData] = useState(false);
-
+  
   
 
   // Checks if token is available, otherwise redirect
@@ -77,12 +77,22 @@ const MyGardenPicks = ({ isAuthenticated }) => {
   }, [user_id, refreshData]);
 
 
-  const handleDelete = async(my_plant_group_plants_id)=> {
-    const response = await axios.delete(`${BASE_URL}/delete-plant-pick/${my_plant_group_plants_id}`);
-    console.log("plant deleted!", response);
-    setRefreshData(true);
-  };
 
+  
+  const handleDelete = async (my_plant_group_plants_id) => {
+    console.log("Before delete request");
+    try {
+      const response = await axios.delete(
+        `${BASE_URL}/delete-plant-pick/${my_plant_group_plants_id}`
+      );
+      console.log("plant deleted!", response); // This line will now be executed after the HTTP request is complete
+      setRefreshData(true);
+      console.log("After setting refreshData to true");
+    } catch (err) {
+      console.error("Failed to delete plant!", err);
+    }
+    console.log("After DELETE request");
+  };
   
 
   return (
