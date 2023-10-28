@@ -3,9 +3,10 @@ import React, { useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import "./profileForm.css";
 
-const ProfileForm = ({ isAuthenticated, userName, token}) => {
+const ProfileForm = ({ isAuthenticated, token}) => {
 
   
+  const userName = localStorage.getItem("username")
   const initialState = {
     username:"", 
     firstname:"", 

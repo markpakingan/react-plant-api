@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./loginForm.css"
 
-const LoginForm = ({setIsAuthenticated, setUsername, setToken, setUserId}) => {
+const LoginForm = ({setIsAuthenticated, setToken, setAvatarImage}) => {
 
     const initialState = {
         username: "",
@@ -13,6 +13,7 @@ const LoginForm = ({setIsAuthenticated, setUsername, setToken, setUserId}) => {
 
     const navigate = useNavigate();
 
+    const USER_BASE_URL = "http://localhost:3001/user";
     const API_AUTH_URL =("http://localhost:3001/auth/token");
     const [formData, setFormData] = useState(initialState);
 
@@ -40,13 +41,15 @@ const LoginForm = ({setIsAuthenticated, setUsername, setToken, setUserId}) => {
         console.log("username in LoginForm:", formData.username);
 
         localStorage.setItem("token", token);
-        localStorage.setItem("user_id", user_id)
+        localStorage.setItem("user_id", user_id);
+        localStorage.setItem("username", formData.username);
         
         setIsAuthenticated(true);
         setToken(token);
         setFormData(initialState);
-        setUsername(formData.username);
-        setUserId(user_id);
+        fetchUserAvatar(formData.username);
+        // setUsername(formData.username);
+        // setUserId(user_id);
         
         navigate("/")
         }catch(err){
@@ -57,6 +60,23 @@ const LoginForm = ({setIsAuthenticated, setUsername, setToken, setUserId}) => {
         
     }
 
+
+    const fetchUserAvatar = async(userName)=> {
+
+        try{
+          const response = await axios.get(`${USER_BASE_URL}/${userName}`);
+          console.log("fetched username data", response.data.user);
+
+          const imageUrl = response.data.user.imageurl;
+          setAvatarImage(imageUrl)
+        //   console.log("image url:", imageUrl);
+        
+    
+        }catch(err){
+          console.error("failed to fetch avatar in homepage", err)
+        }
+      };
+  
 
     return (
         <form onSubmit={handleSubmit}>

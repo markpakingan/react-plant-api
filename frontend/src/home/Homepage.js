@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchForm from "../forms/SearchForm";
 import "./homepage.css";
 import bloombuddylogo from "../images/Logo4.png"
+import axios from "axios";
 
-const Home = ({ isAuthenticated, userName }) => {
+const Home = ({ isAuthenticated, avatarImage }) => {
   const [searchResults, setSearchResults] = useState([]);
+  const userName = localStorage.getItem("username")
 
   const handleSearch = (results) => {
     setSearchResults(results);
   };
+
+
+  console.log("userName in home page is", userName);
+  console.log("avatarImage in home:", avatarImage);
+
 
   return (
     <div 
@@ -29,6 +36,8 @@ const Home = ({ isAuthenticated, userName }) => {
         </div>
       ) : (
         <div>
+
+            <img src={avatarImage} alt="user-avatar" className="avatar-image"/>
             <h1>Welcome Back {userName}!</h1>
 
 
