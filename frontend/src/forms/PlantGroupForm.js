@@ -11,6 +11,14 @@ const PlantGroupForm = () => {
     const {id} = useParams();
     const navigate = useNavigate();
     const user_id = parseInt(localStorage.getItem("user_id"),10);
+    const username = localStorage.getItem("username");
+    const token = localStorage.getItem("token");
+    const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
+    
 
     const initialState = {
         user_id: null,
@@ -72,14 +80,17 @@ const PlantGroupForm = () => {
                     
             try {
 
+                formData.username = username;
+
                 if(id){
                     // If ID is available, it's an edit mode, send a PUT request to update
-                    const response = await axios.put(`${API_URL}/plantlist/group/update/${id}`, formData);
+                    const response = await axios.put(`${API_URL}/plantlist/group/update/${id}`, formData, config)
+         
                     console.log("update successful!", response);
                     navigate('/my-plant-groups');
                 }else {
                     // Send a post request if no ID is found
-                    const response = await axios.post(`${API_URL}/plantlist/group/create`, formData);
+                    const response = await axios.post(`${API_URL}/plantlist/group/create`, formData, config);
                     console.log("Plant group created!", response);
                     navigate('/my-plant-groups');
 

@@ -14,6 +14,13 @@ const MyPlantGroups = ({ isAuthenticated }) => {
     navigate("/create-plant-group");
   };
   const user_id = parseInt(localStorage.getItem("user_id"), 10);
+  const username = localStorage.getItem("username");
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  };
 
 
   // Checks if token is available, otherwise redirect
@@ -30,7 +37,9 @@ const MyPlantGroups = ({ isAuthenticated }) => {
   useEffect(() => {
     async function fetchPlantGroup() {
       try {
-        const response = await axios.get(`${PLANT_GROUP_API}/user/${user_id}`);
+        const response = await axios.get(`${PLANT_GROUP_API}/user/${user_id}
+        ?username=${username}`, 
+        config);
         const plantCluster = response.data;
         setPlantData(plantCluster.plantGroups);
       } catch (err) {
@@ -38,7 +47,7 @@ const MyPlantGroups = ({ isAuthenticated }) => {
       }
     }
     fetchPlantGroup();
-  }, [user_id, refreshData]); // Add refreshData to the dependency array
+  }, [user_id, refreshData, config, username]); // Add refreshData to the dependency array
 
   const handleEdit = (groupId) => {
     navigate(`/edit-plant-group/${groupId}`);
@@ -47,7 +56,9 @@ const MyPlantGroups = ({ isAuthenticated }) => {
   // deletes the selected groupname
   const handleDelete = async (group_name) => {
     try {
-      await axios.delete(`http://localhost:3001/plantlist/${group_name}`);
+      await axios.delete(`http://localhost:3001/plantlist/${group_name}?username=${username}`, config);
+
+
       console.log("Deleted in myPlantGroups:", group_name);
       // Trigger useEffect by changing the state variable
       setRefreshData(!refreshData);

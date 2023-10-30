@@ -6,6 +6,7 @@ const axios = require("axios");
 const jsonschema = require("jsonschema");
 const { BadRequestError } = require("../expressError");
 const PlantListModel = require("../models/plantListModel");
+const {ensureLoggedIn, ensureCorrectUser} = require("../middleware/auth")
 
 const planListSchema = require("../schemas/plantListSchema.json");
 const apiKey = process.env.API_KEY;
@@ -18,7 +19,7 @@ router.use(cors());
 
 // ********************************************************************
 // FOR PLANTLIST
-router.get("/", async (req, res) => {
+router.get("/", ensureLoggedIn, async (req, res, next) => {
   try {
     const plants = await PlantListModel.getAllPlants();
     res.json({ plant: plants });
@@ -28,7 +29,7 @@ router.get("/", async (req, res) => {
 });
 
 
-router.get("/:plant_true_id", async (req, res) => {
+router.get("/:plant_true_id", ensureLoggedIn, async (req, res) => {
   try {
     const {plant_true_id} = req.params;
     const plantDetails = await PlantListModel.getPlantDetails(plant_true_id);
@@ -39,10 +40,10 @@ router.get("/:plant_true_id", async (req, res) => {
 });
 
 // adds a specific plant to a Plant Group
-router.post("/add-plant-to-group", async (req, res)=> {
+router.post("/add-plant-to-group", ensureCorrectUser, async (req, res)=> {
   try{
-    console.log("req.body in add-to-plant-group-routers:", req.body);
-    const {plant_true_id, common_name, group_id, user_id} = req.body;
+    // console.log("req.body in add-to-plant-group-routers:", req.body);
+    const {plant_true_id, common_name, group_id, user_id, username} = req.body;
 
     const parsedGroupId = parseInt(group_id,10);
 
@@ -61,7 +62,7 @@ router.post("/add-plant-to-group", async (req, res)=> {
 
 
 // this is for the search form
-router.get("/search", async (req, res) => {
+router.get("/search", ensureLoggedIn, async (req, res) => {
   try {
     const {query} = req.query;
     console.log("query in Routes", query);
@@ -75,8 +76,8 @@ router.get("/search", async (req, res) => {
   }
 });
 
-
-router.delete("/delete-plant-pick/:my_plant_group_plants_id", async (req, res) =>{
+// deletes a specific plantGroup based on a user
+router.delete("/delete-plant-pick/:my_plant_group_plants_id",ensureCorrectUser, async (req, res) =>{
   try{
     
     const {my_plant_group_plants_id} = req.params;
@@ -92,17 +93,19 @@ router.delete("/delete-plant-pick/:my_plant_group_plants_id", async (req, res) =
 // ********************************************************************
 // FOR PLANTGROUP
 
-router.post("/group/create", async (req, res) => {
+// creates a new plantgroup
+router.post("/group/create", ensureCorrectUser, async (req, res) => {
   try {
     console.log("Received Request Body:", req.body); 
-    const { groupName, description, user_id } = req.body;
+    const { groupName, description, user_id, username } = req.body;
 
     
     // Call the createPlantGroup function from your PlantListModel
     const result = await PlantListModel.createPlantGroup({
       groupName,
       description,
-      user_id
+      user_id, 
+      username
     });
 
     // Send a success response
@@ -115,10 +118,11 @@ router.post("/group/create", async (req, res) => {
   }
 });
 
-
-router.get("/fetch-all-plant-per-group/:user_id", async (req, res) => {
+// fetches all plants per group based on a user
+router.get("/fetch-all-plant-per-group/:user_id", ensureCorrectUser, async (req, res) => {
   try{
     const {user_id} = req.params;
+    const {username} = req.query;
     
     const plantListBullets = await PlantListModel.fetchPlantListtoGroups(user_id);
     return res.json({plantListBullets})
@@ -128,9 +132,11 @@ router.get("/fetch-all-plant-per-group/:user_id", async (req, res) => {
 });
 
 
-router.get("/get-all-plant-groups/user/:user_id", async (req, res) => {
+// on my-plants-groups, get all plant groups created by the user
+router.get("/get-all-plant-groups/user/:user_id", ensureCorrectUser, async (req, res) => {
   try {
     const user_id = req.params.user_id;
+    const {username} = req.query;
 
     const plantGroups = await PlantListModel.getAllPlantGroup(user_id);
     console.log("Check user_id value in router:", user_id);
@@ -141,8 +147,9 @@ router.get("/get-all-plant-groups/user/:user_id", async (req, res) => {
 });
 
 
-router.delete("/:group_name", async (req, res) => {
+router.delete("/:group_name", ensureCorrectUser, async (req, res) => {
   try{
+    const {username} = req.query;
     const {group_name} = req.params;
     console.log("group_name in routes:", group_name);
     await PlantListModel.deletePlantGroup(group_name);
@@ -150,12 +157,13 @@ router.delete("/:group_name", async (req, res) => {
   }catch(err){
     console.error(err)
   }
-})
+});
 
 
-router.get("/group/:my_plant_group_id", async (req, res) => {
+router.get("/group/:my_plant_group_id", ensureCorrectUser, async (req, res) => {
   try{
     const {my_plant_group_id} = req.params;
+    const {username} = req.query;
     console.log("my_plant_group_id value in routes", my_plant_group_id);
     const groupDetails = await PlantListModel.getPlantGroupDetails(my_plant_group_id);
     res.json({group: groupDetails});
@@ -166,7 +174,7 @@ router.get("/group/:my_plant_group_id", async (req, res) => {
   }
 });
 
-router.put("/group/update/:id", async (req, res)=> {
+router.put("/group/update/:id", ensureCorrectUser, async (req, res)=> {
 
   try{
 

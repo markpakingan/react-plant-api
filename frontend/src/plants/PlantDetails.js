@@ -16,12 +16,20 @@ const PlantDetails = () => {
     const [plantGroups, setPlantGroups] = useState([]);
     const navigate = useNavigate();
     const user_id = localStorage.getItem("user_id");
+    const token = localStorage.getItem("token");
+    const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      };
+    
+    const username = localStorage.getItem("username");
 
     // Fetch data for a specific plant based on id
     useEffect(()=> {
         async function getPlantDetails(){
             try{
-                const response = await axios.get(`${PLANTLIST_DATA_API}/${plant_true_id}`);
+                const response = await axios.get(`${PLANTLIST_DATA_API}/${plant_true_id}`, config);
                 const plantData = response.data;
                 setDetails(plantData.plant);
                 console.log("plantDetails value:", plantData.plant);
@@ -40,7 +48,9 @@ const PlantDetails = () => {
 
             try{
                 console.log("user_id in plant details", user_id);
-                const response = await axios.get(`${PLANTLIST_DATA_API}/get-all-plant-groups/user/${user_id}`);
+                const response = await axios.get(`${PLANTLIST_DATA_API}/get-all-plant-groups/user/${user_id}
+                ?username=${username}`, config);
+                
                 const plantGroups = response.data;
                 console.log("Plant Group Data", plantGroups);
                 setPlantGroups(plantGroups.plantGroups)
@@ -69,15 +79,17 @@ const PlantDetails = () => {
                 plant_true_id,
                 common_name,
                 group_id,
-                user_id
+                user_id, 
+                username
             });
 
             const response = await axios.post(`${PLANTLIST_DATA_API}/add-plant-to-group/`, {
                 plant_true_id,
                 common_name,
                 group_id,
-                user_id
-            });
+                user_id,
+                username
+            }, config);
             
             
             console.log("Data added:", response.data);

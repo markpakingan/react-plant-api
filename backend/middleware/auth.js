@@ -22,6 +22,7 @@ function authenticateJWT(req, res, next) {
     const authHeader = req.headers && req.headers.authorization;
     if (authHeader) {
       const token = authHeader.replace(/^[Bb]earer /, "").trim();
+      console.log("Received token in middleware:", token);
       res.locals.user = jwt.verify(token, SECRET_KEY);
     }
     return next();
@@ -36,6 +37,8 @@ function authenticateJWT(req, res, next) {
  */
 
 function ensureLoggedIn(req, res, next) {
+
+  console.log("res locals.user value in ensureLoggedIn", res.locals.user);
   try {
     if (!res.locals.user) throw new UnauthorizedError();
     return next();
@@ -67,10 +70,15 @@ function ensureAdmin(req, res, next) {
  *  If not, raises Unauthorized.
  */
 
-function ensureCorrectUserOrAdmin(req, res, next) {
+function ensureCorrectUser(req, res, next) {
+  console.log("req.body.username in ensureCorrectUser:", req.body.username);
+  console.log("req.query.username in ensureCorrectUser:", req.query.username);
+
+  console.log("value of user on ensureCorrectUSer", res.locals.user);
   try {
+    const username = req.body.username || req.query.username;
     const user = res.locals.user;
-    if (!(user && (user.isAdmin || user.username === req.params.username))) {
+    if (!(user && (user.username === username))) {
       throw new UnauthorizedError();
     }
     return next();
@@ -84,5 +92,5 @@ module.exports = {
   authenticateJWT,
   ensureLoggedIn,
   ensureAdmin,
-  ensureCorrectUserOrAdmin,
+  ensureCorrectUser,
 };

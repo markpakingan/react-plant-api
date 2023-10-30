@@ -63,7 +63,7 @@ const ReviewForm = () => {
                 setExistingPlantGroup(plantGroupData)
 
             }catch(err){
-                console.err("Failed to fetch plant group in review form", err)
+                console.error("Failed to fetch plant group in review form", err)
             }
         }
 

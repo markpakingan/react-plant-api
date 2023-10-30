@@ -11,7 +11,14 @@ const MyGardenPicks = ({ isAuthenticated }) => {
   const [groupNames, setGroupNames] = useState({}); // State to store group names
   const user_id = localStorage.getItem("user_id");
   const [refreshData, setRefreshData] = useState(false);
-  
+  const username = localStorage.getItem("username");
+  const token = localStorage.getItem("token");
+  const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    };
+
   
 
   // Checks if token is available, otherwise redirect
@@ -26,7 +33,7 @@ const MyGardenPicks = ({ isAuthenticated }) => {
     async function fetchPlantBullets() {
       try {
         const response = await axios.get(
-          `${BASE_URL}/fetch-all-plant-per-group/${user_id}`
+          `${BASE_URL}/fetch-all-plant-per-group/${user_id}?username=${username}`, config
         );
 
         const plantBulletData = response.data.plantListBullets;
@@ -38,7 +45,7 @@ const MyGardenPicks = ({ isAuthenticated }) => {
             acc[group_id] = [];
           }
           acc[group_id].push(rest);
-          return acc;
+          return acc; 
         }, {});
 
         setGroupedPlants(groupedPlantsObject);

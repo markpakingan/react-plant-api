@@ -10,13 +10,21 @@ const navigate = useNavigate();
 
 const PLANTLIST_DATA_API = "http://localhost:3001/plantlist";
 const [details, setDetails] = useState([]);
+const token = localStorage.getItem("token")
+const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  };
 
 
 useEffect(()=>{
     async function fetchPlantList() {
 
+        console.log("token on plantlist", token);
+        console.log("config value:", config);
         try{
-            const response = await axios.get(PLANTLIST_DATA_API)
+            const response = await axios.get(PLANTLIST_DATA_API, config)
             const plantData = response.data;
             setDetails(plantData.plant.data);
             console.log("setDetails Value", plantData.plant.data);
