@@ -80,6 +80,7 @@ router.get("/search", ensureLoggedIn, async (req, res) => {
 router.delete("/delete-plant-pick/:my_plant_group_plants_id",ensureCorrectUser, async (req, res) =>{
   try{
     
+    const {username} = req.query.username;
     const {my_plant_group_plants_id} = req.params;
     console.log("my plants group id value is:", my_plant_group_plants_id);
     await PlantListModel.deleteGardenPlant(my_plant_group_plants_id);
@@ -196,9 +197,9 @@ router.put("/group/update/:id", ensureCorrectUser, async (req, res)=> {
 
 // ********************************************************************
 // FOR REVIEWS
-router.post("/create-review", async (req,res)=> {
+router.post("/create-review", ensureCorrectUser, async (req,res)=> {
   try{
-    const {my_plant_group_id, user_id, rating, review} = req.body;
+    const {my_plant_group_id, user_id, rating, review, username} = req.body;
     console.log("create review value(my_plant_group_id, user_id, rating, review),[my_plant_group_id, user_id, rating, review]");
     const result = await PlantListModel.createPlantReview({
       my_plant_group_id, 
@@ -216,7 +217,7 @@ router.post("/create-review", async (req,res)=> {
   }
 });
 
-router.get("/get-review/user/:user_id", async(req,res)=> {
+router.get("/get-review/user/:user_id", ensureCorrectUser, async(req,res)=> {
   try{
 
     const {user_id} = req.params;
@@ -229,9 +230,11 @@ router.get("/get-review/user/:user_id", async(req,res)=> {
   }
 });
 
-router.delete("/group/:my_plant_group_id", async (req, res) => {
+router.delete("/group/:my_plant_group_id", ensureCorrectUser, async (req, res) => {
   try{
+    const {username} = req.query;
     const {my_plant_group_id} = req.params;
+
     await PlantListModel.deletePlantReview(my_plant_group_id);
     return res.json({deleted: my_plant_group_id})
   }catch(err){

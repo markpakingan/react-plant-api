@@ -11,6 +11,15 @@ const Myreviews = ({isAuthenticated}) => {
     const user_id = localStorage.getItem("user_id");
     const [reviewList, setReviewList] = useState([]);
     const [refreshData, setRefreshData] = useState(false);
+    const username = localStorage.getItem("username");
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    };
+  
+
 
      // Checks if token is available, otherwise redirect
      useEffect(() => {
@@ -23,15 +32,21 @@ const Myreviews = ({isAuthenticated}) => {
 
     // fetch all plant reviews with specific user_id
     useEffect(() => {
+
+
         const fetchPlantReviews = async () => {
           try {
-            const response = await axios.get(`${PLANT_REVIEWS_URL}/user/${user_id}`);
+            const response = await axios.get(`${PLANT_REVIEWS_URL}/user/${user_id}?username=${username}`, 
+            config);
+
             const plantReviews = response.data.response;
             // console.log("plantReviews Data in myreviews:", plantReviews);
             const reviewsWithGroupName = [];
             for (const review of plantReviews) {
               try {
-                const groupResponse = await axios.get(`${PLANT_GROUP_URL}/${review.my_plant_group_id}`);
+                const groupResponse = await axios.get(`${PLANT_GROUP_URL}/${review.my_plant_group_id}?username=${username}`, 
+                config);
+
                 const groupName = groupResponse.data.group.group_name;
                 reviewsWithGroupName.push({ ...review, groupName });
               } catch (error) {
@@ -53,7 +68,8 @@ const Myreviews = ({isAuthenticated}) => {
       const handleDelete = async(my_plant_group_id) => {
 
         try{
-            const response = await axios.delete(`${PLANT_GROUP_URL}/${my_plant_group_id}`);
+            const response = await axios.delete(`${PLANT_GROUP_URL}/${my_plant_group_id}?username=${username}`, 
+            config);
             console.log("Deleted:", response );
             setRefreshData(!refreshData)
         }catch(err){

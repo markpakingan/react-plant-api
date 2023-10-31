@@ -62,7 +62,7 @@ const MyGardenPicks = ({ isAuthenticated }) => {
     async function fetchPlantGroup() {
       try {
         const response = await axios.get(
-          `${BASE_URL}/get-all-plant-groups/user/${user_id}`
+          `${BASE_URL}/get-all-plant-groups/user/${user_id}?username=${username}`, config
         );
 
         const plantGroups = response.data.plantGroups;
@@ -90,7 +90,8 @@ const MyGardenPicks = ({ isAuthenticated }) => {
     console.log("Before delete request");
     try {
       const response = await axios.delete(
-        `${BASE_URL}/delete-plant-pick/${my_plant_group_plants_id}`
+        `${BASE_URL}/delete-plant-pick/${my_plant_group_plants_id}?username=${username}`, 
+        config
       );
       console.log("plant deleted!", response); // This line will now be executed after the HTTP request is complete
       setRefreshData(true);

@@ -11,12 +11,20 @@ const ReviewForm = () => {
 
     const user_id = parseInt(localStorage.getItem("user_id"), 10);
     const navigate = useNavigate();
+    const username = localStorage.getItem("username");
+    const token = localStorage.getItem("token");
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+        };
 
     const initialState = {
         my_plant_group_id:"",
         user_id: user_id,
         rating: "", 
-        review: ""
+        review: "",
+        username: username
     };
 
 
@@ -41,7 +49,7 @@ const ReviewForm = () => {
 
         try{    
             e.preventDefault();
-        const response = await axios.post(PLANT_REVIEW_URL, formData);
+        const response = await axios.post(PLANT_REVIEW_URL, formData, config);
         console.log("formData in Review Form", formData);
         console.log("response in Review Form", response);
         navigate("/myreviews")
@@ -57,10 +65,12 @@ const ReviewForm = () => {
         
         const fetchPlantGroup = async()=> {
             try{
-                const response = await axios.get(`${PLANTGROUP_URL}/user/${user_id}`);
+                const response = await axios.get(`${PLANTGROUP_URL}/user/${user_id}
+                ?username=${username}`,config);
+
                 const plantGroupData = response.data.plantGroups;
                 console.log("plantGroupData:", plantGroupData);
-                setExistingPlantGroup(plantGroupData)
+                setExistingPlantGroup(plantGroupData);
 
             }catch(err){
                 console.error("Failed to fetch plant group in review form", err)

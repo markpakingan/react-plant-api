@@ -50,7 +50,7 @@ const MyPlantGroups = ({ isAuthenticated }) => {
   }, [user_id, refreshData, config, username]); // Add refreshData to the dependency array
 
   const handleEdit = (groupId) => {
-    navigate(`/edit-plant-group/${groupId}`);
+    navigate(`/edit-plant-group/${groupId}?username=${username}`, config);
   };
 
   // deletes the selected groupname

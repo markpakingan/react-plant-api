@@ -49,7 +49,7 @@ const PlantGroupForm = () => {
         
             if(id) {
                 try{    
-                    const response = await axios.get(`${API_URL}/plantlist/group/${id}`);
+                    const response = await axios.get(`${API_URL}/plantlist/group/${id}?username=${username}`, config);
                     const {group_name, description} = response.data.group;
 
                     setFormData({groupName: group_name, description: description});
