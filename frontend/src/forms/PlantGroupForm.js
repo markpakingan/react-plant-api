@@ -3,11 +3,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "./plantGroupForm.css"
 
-const API_URL = "http://localhost:3001";
+// const API_URL = "http://localhost:3001";
 
 
 const PlantGroupForm = () => {
 
+    const BASE_URL = "http://localhost:3001";
     const {id} = useParams();
     const navigate = useNavigate();
     const user_id = parseInt(localStorage.getItem("user_id"),10);
@@ -49,7 +50,7 @@ const PlantGroupForm = () => {
         
             if(id) {
                 try{    
-                    const response = await axios.get(`${API_URL}/plantlist/group/${id}?username=${username}`, config);
+                    const response = await axios.get(`${BASE_URL}/plantlist/group/${id}?username=${username}`, config);
                     const {group_name, description} = response.data.group;
 
                     setFormData({groupName: group_name, description: description});
@@ -84,13 +85,13 @@ const PlantGroupForm = () => {
 
                 if(id){
                     // If ID is available, it's an edit mode, send a PUT request to update
-                    const response = await axios.put(`${API_URL}/plantlist/group/update/${id}`, formData, config)
+                    const response = await axios.put(`${BASE_URL}/plantlist/group/update/${id}`, formData, config)
          
                     console.log("update successful!", response);
                     navigate('/my-plant-groups');
                 }else {
                     // Send a post request if no ID is found
-                    const response = await axios.post(`${API_URL}/plantlist/group/create`, formData, config);
+                    const response = await axios.post(`${BASE_URL}/plantlist/group/create`, formData, config);
                     console.log("Plant group created!", response);
                     navigate('/my-plant-groups');
 

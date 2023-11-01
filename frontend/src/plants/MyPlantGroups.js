@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./myPlantGroup.css";
 
-const BASE_URL = "http://localhost:3001/plantlist";
-const PLANT_GROUP_API = "http://localhost:3001/plantlist/get-all-plant-groups";
+const BASE_URL = "http://localhost:3001";
+// const PLANT_GROUP_API = "http://localhost:3001/plantlist/get-all-plant-groups";
 
 const MyPlantGroups = ({ isAuthenticated }) => {
   const [plantData, setPlantData] = useState([]);
@@ -37,7 +37,7 @@ const MyPlantGroups = ({ isAuthenticated }) => {
   useEffect(() => {
     async function fetchPlantGroup() {
       try {
-        const response = await axios.get(`${PLANT_GROUP_API}/user/${user_id}
+        const response = await axios.get(`${BASE_URL}/plantlist/get-all-plant-groups/user/${user_id}
         ?username=${username}`, 
         config);
         const plantCluster = response.data;
@@ -56,7 +56,7 @@ const MyPlantGroups = ({ isAuthenticated }) => {
   // deletes the selected groupname
   const handleDelete = async (group_name) => {
     try {
-      await axios.delete(`http://localhost:3001/plantlist/${group_name}?username=${username}`, config);
+      await axios.delete(`${BASE_URL}/plantlist/${group_name}?username=${username}`, config);
 
 
       console.log("Deleted in myPlantGroups:", group_name);

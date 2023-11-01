@@ -5,7 +5,8 @@ import "./plantDetails.css"
 
 const PlantDetails = () => {
     
-    const PLANTLIST_DATA_API = "http://localhost:3001/plantlist";
+    // const PLANTLIST_DATA_API = "http://localhost:3001/plantlist";
+    const BASE_URL = "http://localhost:3001";
 
     const {id} = useParams();
     const plant_true_id = id;
@@ -29,7 +30,7 @@ const PlantDetails = () => {
     useEffect(()=> {
         async function getPlantDetails(){
             try{
-                const response = await axios.get(`${PLANTLIST_DATA_API}/${plant_true_id}`, config);
+                const response = await axios.get(`${BASE_URL}/plantlist/${plant_true_id}`, config);
                 const plantData = response.data;
                 setDetails(plantData.plant);
                 console.log("plantDetails value:", plantData.plant);
@@ -48,7 +49,7 @@ const PlantDetails = () => {
 
             try{
                 console.log("user_id in plant details", user_id);
-                const response = await axios.get(`${PLANTLIST_DATA_API}/get-all-plant-groups/user/${user_id}
+                const response = await axios.get(`${BASE_URL}/plantlist/get-all-plant-groups/user/${user_id}
                 ?username=${username}`, config);
                 
                 const plantGroups = response.data;
@@ -83,7 +84,7 @@ const PlantDetails = () => {
                 username
             });
 
-            const response = await axios.post(`${PLANTLIST_DATA_API}/add-plant-to-group/`, {
+            const response = await axios.post(`${BASE_URL}/plantlist/add-plant-to-group/`, {
                 plant_true_id,
                 common_name,
                 group_id,

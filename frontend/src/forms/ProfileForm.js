@@ -5,7 +5,7 @@ import "./profileForm.css";
 
 const ProfileForm = ({ isAuthenticated, token}) => {
 
-  
+  const BASE_URL = "http://localhost:3001";
   const userName = localStorage.getItem("username")
   const initialState = {
     username:"", 
@@ -32,7 +32,7 @@ const ProfileForm = ({ isAuthenticated, token}) => {
   
     try {
       const response = await axios.put(
-        `http://localhost:3001/user/${userName}`,
+        `${BASE_URL}/user/${userName}`,
         formData,
         {
           headers: {
@@ -70,7 +70,7 @@ const ProfileForm = ({ isAuthenticated, token}) => {
     const fetchUserInfo = async () => {
       try {
         // Make a GET request to fetch user information
-        const response = await axios.get(`http://localhost:3001/user/${userName}`, {
+        const response = await axios.get(`${BASE_URL}/user/${userName}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -5,8 +5,9 @@ import "./myReviews.css"
 
 const Myreviews = ({isAuthenticated}) => {
 
-    const PLANT_REVIEWS_URL = "http://localhost:3001/plantlist/get-review";
-    const PLANT_GROUP_URL = "http://localhost:3001/plantlist/group"
+    // const PLANT_REVIEWS_URL = "http://localhost:3001/plantlist/get-review";
+    // const PLANT_GROUP_URL = "http://localhost:3001/plantlist/group";
+    const BASE_URL = "http://localhost:3001";
     const navigate = useNavigate();
     const user_id = localStorage.getItem("user_id");
     const [reviewList, setReviewList] = useState([]);
@@ -36,7 +37,7 @@ const Myreviews = ({isAuthenticated}) => {
 
         const fetchPlantReviews = async () => {
           try {
-            const response = await axios.get(`${PLANT_REVIEWS_URL}/user/${user_id}?username=${username}`, 
+            const response = await axios.get(`${BASE_URL}/plantlist/get-review/user/${user_id}?username=${username}`, 
             config);
 
             const plantReviews = response.data.response;
@@ -44,7 +45,7 @@ const Myreviews = ({isAuthenticated}) => {
             const reviewsWithGroupName = [];
             for (const review of plantReviews) {
               try {
-                const groupResponse = await axios.get(`${PLANT_GROUP_URL}/${review.my_plant_group_id}?username=${username}`, 
+                const groupResponse = await axios.get(`${BASE_URL}/plantlist/group/${review.my_plant_group_id}?username=${username}`, 
                 config);
 
                 const groupName = groupResponse.data.group.group_name;
@@ -68,7 +69,7 @@ const Myreviews = ({isAuthenticated}) => {
       const handleDelete = async(my_plant_group_id) => {
 
         try{
-            const response = await axios.delete(`${PLANT_GROUP_URL}/${my_plant_group_id}?username=${username}`, 
+            const response = await axios.delete(`${BASE_URL}/plantlist/group/${my_plant_group_id}?username=${username}`, 
             config);
             console.log("Deleted:", response );
             setRefreshData(!refreshData)

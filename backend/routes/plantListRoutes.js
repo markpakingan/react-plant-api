@@ -19,7 +19,7 @@ router.use(cors());
 
 // ********************************************************************
 // FOR PLANTLIST
-router.get("/", ensureLoggedIn, async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const plants = await PlantListModel.getAllPlants();
     res.json({ plant: plants });

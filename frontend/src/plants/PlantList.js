@@ -8,7 +8,8 @@ const PlantList = ({isAuthenticated}) => {
 
 const navigate = useNavigate();
 
-const PLANTLIST_DATA_API = "http://localhost:3001/plantlist";
+// const PLANTLIST_DATA_API = "http://localhost:3001/plantlist";
+const BASE_URL = "http://localhost:3001";
 const [details, setDetails] = useState([]);
 const token = localStorage.getItem("token")
 const config = {
@@ -24,7 +25,7 @@ useEffect(()=>{
         console.log("token on plantlist", token);
         console.log("config value:", config);
         try{
-            const response = await axios.get(PLANTLIST_DATA_API, config)
+            const response = await axios.get(`${BASE_URL}/plantlist`, config)
             const plantData = response.data;
             setDetails(plantData.plant.data);
             console.log("setDetails Value", plantData.plant.data);

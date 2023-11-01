@@ -1,6 +1,7 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import "./navbar.css";
+import bloombuddylogo from "../images/Logo4.png"
 
 const Navbar = ({isAuthenticated, handleLogout})=> {
 
@@ -8,8 +9,8 @@ const Navbar = ({isAuthenticated, handleLogout})=> {
 
         <nav>
             {isAuthenticated? ( 
-                <div>
-                
+                <div className="nav-container">
+                        <img className="bloom-logo"src={bloombuddylogo} alt="company-logo"/>
                         <NavLink exact to ="/"> Home </NavLink>
                         <NavLink exact to ="/plantlist"> Plant List </NavLink>
                         <NavLink exact to ="/my-plant-groups"> My Plant Groups</NavLink>

@@ -15,7 +15,7 @@ const SignUpForm = () => {
         imageUrl:""
     }
 
-    const API_URL = "http://localhost:3001";
+    const BASE_URL  = "http://localhost:3001";
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState(initialState)
@@ -33,7 +33,7 @@ const SignUpForm = () => {
 
         try{
             console.log("FormData Value:", formData);
-            const response = await axios.post(`${API_URL}/auth/register`, formData); 
+            const response = await axios.post(`${BASE_URL}/auth/register`, formData); 
             console.log("registration successful!", response);
             setFormData(initialState);
             alert("Account Created! Please Continue To Login!");

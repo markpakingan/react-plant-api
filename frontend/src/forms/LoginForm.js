@@ -13,7 +13,8 @@ const LoginForm = ({setIsAuthenticated, setToken, setAvatarImage}) => {
 
     const navigate = useNavigate();
 
-    const USER_BASE_URL = "http://localhost:3001/user";
+    // const USER_BASE_URL = "http://localhost:3001/user";
+    const BASE_URL = "http://localhost:3001"
     const API_AUTH_URL =("http://localhost:3001/auth/token");
     const [formData, setFormData] = useState(initialState);
 
@@ -64,7 +65,7 @@ const LoginForm = ({setIsAuthenticated, setToken, setAvatarImage}) => {
     const fetchUserAvatar = async(userName)=> {
 
         try{
-          const response = await axios.get(`${USER_BASE_URL}/${userName}`);
+          const response = await axios.get(`${BASE_URL}/user/${userName}`);
           console.log("fetched username data", response.data.user);
 
           const imageUrl = response.data.user.imageurl;

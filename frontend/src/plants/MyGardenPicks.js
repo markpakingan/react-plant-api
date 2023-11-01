@@ -5,7 +5,7 @@ import "./myGardenPicks.css";
 
 const MyGardenPicks = ({ isAuthenticated }) => {
 
-  const BASE_URL = "http://localhost:3001/plantlist";
+  const BASE_URL = "http://localhost:3001";
   const navigate = useNavigate();
   const [groupedPlants, setGroupedPlants] = useState({}); // State to store grouped plants
   const [groupNames, setGroupNames] = useState({}); // State to store group names
@@ -33,7 +33,7 @@ const MyGardenPicks = ({ isAuthenticated }) => {
     async function fetchPlantBullets() {
       try {
         const response = await axios.get(
-          `${BASE_URL}/fetch-all-plant-per-group/${user_id}?username=${username}`, config
+          `${BASE_URL}/plantlist/fetch-all-plant-per-group/${user_id}?username=${username}`, config
         );
 
         const plantBulletData = response.data.plantListBullets;
@@ -62,7 +62,7 @@ const MyGardenPicks = ({ isAuthenticated }) => {
     async function fetchPlantGroup() {
       try {
         const response = await axios.get(
-          `${BASE_URL}/get-all-plant-groups/user/${user_id}?username=${username}`, config
+          `${BASE_URL}/plantlist/get-all-plant-groups/user/${user_id}?username=${username}`, config
         );
 
         const plantGroups = response.data.plantGroups;
@@ -90,7 +90,7 @@ const MyGardenPicks = ({ isAuthenticated }) => {
     console.log("Before delete request");
     try {
       const response = await axios.delete(
-        `${BASE_URL}/delete-plant-pick/${my_plant_group_plants_id}?username=${username}`, 
+        `${BASE_URL}/plantlist/delete-plant-pick/${my_plant_group_plants_id}?username=${username}`, 
         config
       );
       console.log("plant deleted!", response); // This line will now be executed after the HTTP request is complete

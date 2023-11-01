@@ -6,8 +6,10 @@ import "./reviewForm.css"
 
 const ReviewForm = () => {
 
-    const PLANTGROUP_URL = "http://localhost:3001/plantlist/get-all-plant-groups";
-    const PLANT_REVIEW_URL = "http://localhost:3001/plantlist/create-review";
+
+    // const PLANTGROUP_URL = "http://localhost:3001/plantlist/get-all-plant-groups";
+    // const PLANT_REVIEW_URL = "http://localhost:3001/plantlist/create-review";
+    const BASE_URL = "http://localhost:3001";
 
     const user_id = parseInt(localStorage.getItem("user_id"), 10);
     const navigate = useNavigate();
@@ -49,7 +51,7 @@ const ReviewForm = () => {
 
         try{    
             e.preventDefault();
-        const response = await axios.post(PLANT_REVIEW_URL, formData, config);
+        const response = await axios.post(`${BASE_URL}/plantlist/create-review`, formData, config);
         console.log("formData in Review Form", formData);
         console.log("response in Review Form", response);
         navigate("/myreviews")
@@ -65,7 +67,7 @@ const ReviewForm = () => {
         
         const fetchPlantGroup = async()=> {
             try{
-                const response = await axios.get(`${PLANTGROUP_URL}/user/${user_id}
+                const response = await axios.get(`${BASE_URL}/plantlist/get-all-plant-groups/user/${user_id}
                 ?username=${username}`,config);
 
                 const plantGroupData = response.data.plantGroups;
