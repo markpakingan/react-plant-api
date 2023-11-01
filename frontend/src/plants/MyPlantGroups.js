@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./myPlantGroup.css";
@@ -16,11 +16,14 @@ const MyPlantGroups = ({ isAuthenticated }) => {
   const user_id = parseInt(localStorage.getItem("user_id"), 10);
   const username = localStorage.getItem("username");
   const token = localStorage.getItem("token");
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  };
+  const config = useMemo(() => {
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    };
+  }, [token]);
+
 
 
   // Checks if token is available, otherwise redirect
