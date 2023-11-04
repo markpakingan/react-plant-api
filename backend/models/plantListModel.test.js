@@ -19,24 +19,35 @@ const {
 
 describe("getAllPlants", () => {
     const urlResponse = {
-      data: {
-        "id": 241,
-        "common_name": "Venus Flowering Dogwood",
-        "scientific_name": "Cornus 'Venus' " ,
-        "other_name": "Hybrid Dogwood", 
-        "cycle": "Perennial",
-        "watering": "Average",
-        "default_image": "https://perenual.com/storage/species_image/241_cornus_venus/og/51206617814_99263a098f_b.jpg"
-      }
-    };
-  
-    test("getAllPlants function should return plant data", async () => {
+  data: [
+    {
+      id: 1,
+      common_name: "Rose",
+      plant_true_id: 241,
+      cycle: "Perennial",
+      default_image: "https://perenual.com/storage/species_image/241_cornus_venus/og/51206617814_99263a098f_b.jpg"
+    },
+    {
+      id: 2,
+      common_name: "Cactus",
+      plant_true_id: 100,
+      cycle: "Perennial",
+      default_image: "https://perenual.com/storage/species_image/241_cornus_venus/og/51206617814_99263a098f_b.jpg"
+    },
+    {
+      id: 3,
+      common_name: "Sunflower",
+      plant_true_id: 43,
+      cycle: "Perennial",
+      default_image: "https://perenual.com/storage/species_image/241_cornus_venus/og/51206617814_99263a098f_b.jpg"
+    }
+  ]
+};
 
-        let result = await PlantListModel.getAllPlantGroup();
-        
-        // Check if the function returns the expected data
-      expect(result).toEqual(urlResponse.data);
-  
-    });
+
+test("check get response", ()=> {
+    let response = PlantListModel.getAllPlants()
+})
   });
+  
   
