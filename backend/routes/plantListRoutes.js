@@ -19,6 +19,8 @@ router.use(cors());
 
 // ********************************************************************
 // FOR PLANTLIST
+
+// gets a random list of all plants
 router.get("/", ensureLoggedIn, async (req, res, next) => {
   try {
     const plants = await PlantListModel.getAllPlants();
@@ -28,7 +30,7 @@ router.get("/", ensureLoggedIn, async (req, res, next) => {
   }
 });
 
-
+// gets the specific details of a plant
 router.get("/:plant_true_id", ensureLoggedIn, async (req, res) => {
   try {
     const {plant_true_id} = req.params;
@@ -76,8 +78,8 @@ router.get("/search", ensureLoggedIn, async (req, res) => {
   }
 });
 
-// deletes a specific plantGroup based on a user
-router.delete("/delete-plant-pick/:my_plant_group_plants_id",ensureCorrectUser, async (req, res) =>{
+// deletes a specific Plant from a PlantGroup based on a user
+router.delete("/delete-plant-pick/:my_plant_group_plants_id", ensureCorrectUser, async (req, res) =>{
   try{
     
     const {username} = req.query.username;
