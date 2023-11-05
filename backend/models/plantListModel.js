@@ -69,6 +69,8 @@ class PlantListModel {
 
       const pickedPlant = result.rows[0];
 
+      console.log("pickedPlant:", pickedPlant);
+
       if (!pickedPlant) throw new NotFoundError(`No Garden Plant Found: ${my_plant_group_plants_id}`);
       
       return pickedPlant;
@@ -81,13 +83,13 @@ class PlantListModel {
   // *****************************************************************************
   // FOR PLANTGROUP
 
-  static async createPlantGroup({ groupName, description, user_id }) {
+  static async createPlantGroup(groupName, description, user_id) {
     try {
       // Insert data into the My_Plant_Group table
       const query =
         "INSERT INTO My_Plant_Group (group_name, description, user_id) VALUES ($1, $2, $3)";
       const result = await db.query(query, [groupName, description, user_id]);
-      
+
       return result;
     } catch (err) {
       console.error("createPlant Error", err);
@@ -146,7 +148,7 @@ class PlantListModel {
   // *****************************************************************************
   // FOR PLANT REVIEW
 
-  static async createPlantReview({my_plant_group_id, user_id, rating, review}){
+  static async createPlantReview(my_plant_group_id, user_id, rating, review){
 
     try {
       // Insert data into the plant_group_plants_review

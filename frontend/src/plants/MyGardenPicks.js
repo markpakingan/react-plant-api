@@ -54,7 +54,7 @@ const MyGardenPicks = ({ isAuthenticated }) => {
       }
     }
     fetchPlantBullets();
-  }, [user_id, refreshData]);
+  }, [user_id, refreshData, config, username]);
 
 
   // Fetch all existing plant groups based on the user_id
@@ -87,19 +87,18 @@ const MyGardenPicks = ({ isAuthenticated }) => {
 
   
   const handleDelete = async (my_plant_group_plants_id) => {
-    console.log("Before delete request");
+    // console.log("Before delete request");
     try {
       const response = await axios.delete(
         `${BASE_URL}/plantlist/delete-plant-pick/${my_plant_group_plants_id}?username=${username}`, 
         config
       );
-      console.log("plant deleted!", response); // This line will now be executed after the HTTP request is complete
+      console.log("plant deleted!", response); 
       setRefreshData(true);
-      console.log("After setting refreshData to true");
     } catch (err) {
       console.error("Failed to delete plant!", err);
     }
-    console.log("After DELETE request");
+    // console.log("After DELETE request");
   };
   
 

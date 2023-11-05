@@ -181,37 +181,6 @@ describe ("CRUD PlantGroup", ()=> {
 
 // ****************************************************************
 describe("CRUD plantreview", ()=> {
-    
-   
-    //  test("/POST - createPlantReview", async () => {
-
-    //     const newReview = {
-    //       my_plant_group_id: 5,
-    //       user_id: 1,
-    //       rating: 5,
-    //       review: "This is the best list of plants I've ever seen!",
-    //     };
-      
-    //     let plantReview = await PlantListModel.createPlantReview(newReview);
-      
-    //     const result = await db.query(
-    //       "SELECT * FROM Plant_Group_Plants_Review WHERE my_plant_group_id = 5"
-    //     );
-      
-    //     // Exclude plant_group_plants_review_id property from newReview
-    //     // const expectedReview = {
-    //     //     plant_group_plants_review_id: 5,
-    //     //     user_id: 1,
-    //     //     rating: 5,
-    //     //     review: "This is the best list of plants I've ever seen!",
-    //     // }
-        
-    //     expect(plantReview).toEqual(newReview);
-
-    //     console.log("result.rows value", result.rows[0]);
-    //   });
-      
-
 
     test("/GET getAllPlantReview", async()=> {
 
@@ -225,6 +194,18 @@ describe("CRUD plantreview", ()=> {
     });
 
 
+    test("/DELETE - deletePlantReview", async()=> {
+
+        const my_plant_group_id = 4;
+
+        await PlantListModel.deletePlantReview(my_plant_group_id);
+
+        const result = await db.query(`SELECT * FROM plant_group_plants_review WHERE my_plant_group_id = ${my_plant_group_id}`);
+
+        expect(result.rows.length).toEqual(0);
+
+        
+    })
 
 })
 

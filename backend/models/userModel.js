@@ -12,6 +12,7 @@ const {
 
 class UserModel {
     static async authenticate(username, password) {
+      
       const result = await db.query(
         `SELECT user_id,
                 username,
@@ -54,15 +55,7 @@ class UserModel {
 
     const hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
 
-        // CREATE TABLE Users (
-        //     user_id
-        //     username 
-        //     "password"
-        //     email
-        //     image_url 
-        //     
-        // );
-
+      
     const result = await db.query(
           `INSERT INTO users
            (username,

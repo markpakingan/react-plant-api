@@ -104,12 +104,12 @@ router.post("/group/create", ensureCorrectUser, async (req, res) => {
 
     
     // Call the createPlantGroup function from your PlantListModel
-    const result = await PlantListModel.createPlantGroup({
+    const result = await PlantListModel.createPlantGroup(
       groupName,
       description,
       user_id, 
       username
-    });
+    );
 
     // Send a success response
     res
@@ -203,12 +203,12 @@ router.post("/create-review", ensureCorrectUser, async (req,res)=> {
   try{
     const {my_plant_group_id, user_id, rating, review, username} = req.body;
     console.log("create review value(my_plant_group_id, user_id, rating, review),[my_plant_group_id, user_id, rating, review]");
-    const result = await PlantListModel.createPlantReview({
+    const result = await PlantListModel.createPlantReview(
       my_plant_group_id, 
       user_id, 
       rating, 
       review
-    });
+    );
 
     res.json({ message: "Plant review created successfully", result });
 
