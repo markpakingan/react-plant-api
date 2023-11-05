@@ -87,6 +87,7 @@ class PlantListModel {
       const query =
         "INSERT INTO My_Plant_Group (group_name, description, user_id) VALUES ($1, $2, $3)";
       const result = await db.query(query, [groupName, description, user_id]);
+      
       return result;
     } catch (err) {
       console.error("createPlant Error", err);
@@ -129,7 +130,6 @@ class PlantListModel {
   }
 
 
-
   static async getPlantGroupDetails(my_plant_group_id) {
     const query = "SELECT * FROM My_Plant_Group WHERE my_plant_group_id = $1";
     const result = await db.query(query, [my_plant_group_id]);
@@ -160,6 +160,7 @@ class PlantListModel {
       const query =
         "INSERT INTO Plant_Group_Plants_Review (my_plant_group_id, user_id, rating, review) VALUES ($1, $2, $3, $4)"
       const result = await db.query(query, [my_plant_group_id, user_id, rating, review]);
+
       return result;
     } catch (err) {
       console.error("createPlant Error", err);

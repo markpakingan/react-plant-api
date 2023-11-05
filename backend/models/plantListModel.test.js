@@ -111,11 +111,12 @@ describe ("CRUD PlantGroup", ()=> {
     test("/POST - createPlantGroup", async()=> {
 
         try{
-        let plantGroup1 = await PlantListModel.createPlantGroup(newPlantGroup);
-        expect(plantGroup1).toEqual(newPlantGroup);
+        await PlantListModel.createPlantGroup(newPlantGroup);
 
         const query =  "SELECT * FROM My_Plant_Group WHERE group_name = $1 ";
         const result = await db.query(query, [newPlantGroup.group_name]);
+
+        expect(newPlantGroup).toEqual(result.rows[0]);
 
         }catch(err){
             console.error(err);
@@ -129,9 +130,9 @@ describe ("CRUD PlantGroup", ()=> {
 
         try{
             let plantList = await PlantListModel.getAllPlantGroup(user_id);
-            expect(plantList).toEqual(existingPlantList);
-
             const existingPlantList =  await db.query("SELECT * FROM My_Plant_Group WHERE user_id = 1");
+
+            expect(plantList).toEqual(existingPlantList);
 
         }catch(err){
             console.error(err)
@@ -142,12 +143,88 @@ describe ("CRUD PlantGroup", ()=> {
         
         try{
             
-            let resp = await PlantListModel.deletePlantGroup(existingPlantGroup.group_name);
+            await PlantListModel.deletePlantGroup(existingPlantGroup.group_name);
 
-            
+            const result = await db.query(`SELECT * FROM My_Plant_Group WHERE group_name = ${existingPlantGroup.group_name}`);
+            const plant = result.rows[0];
+
+            expect(plant).toEqual(0);
 
         }catch(err){
             console.error(err)
         }
+    });
+
+    test("/UPDATE - updatePlantGroupDetails", async()=>{
+        try{
+
+            const updatedPlantGroup = {
+                my_plant_group_id: 1, 
+                group_name: "Dessert Pineapple Plants",
+                description: "list of dessert plants",
+                user_id: 1
+            };
+
+        
+            await PlantListModel.updatedPlantGroup(updatedPlantGroup);
+
+            const result = await db.query("SELECT * FROM My_Plant_Group WHERE group_name = 'Dessert Pineapple Plants'");
+
+            expect(result.rows[0]).toEqual(updatedPlantGroup);
+
+        }catch(err){
+            console.error("test failed:", err)
+        }
     })
 })
+
+
+// ****************************************************************
+describe("CRUD plantreview", ()=> {
+    
+   
+    //  test("/POST - createPlantReview", async () => {
+
+    //     const newReview = {
+    //       my_plant_group_id: 5,
+    //       user_id: 1,
+    //       rating: 5,
+    //       review: "This is the best list of plants I've ever seen!",
+    //     };
+      
+    //     let plantReview = await PlantListModel.createPlantReview(newReview);
+      
+    //     const result = await db.query(
+    //       "SELECT * FROM Plant_Group_Plants_Review WHERE my_plant_group_id = 5"
+    //     );
+      
+    //     // Exclude plant_group_plants_review_id property from newReview
+    //     // const expectedReview = {
+    //     //     plant_group_plants_review_id: 5,
+    //     //     user_id: 1,
+    //     //     rating: 5,
+    //     //     review: "This is the best list of plants I've ever seen!",
+    //     // }
+        
+    //     expect(plantReview).toEqual(newReview);
+
+    //     console.log("result.rows value", result.rows[0]);
+    //   });
+      
+
+
+    test("/GET getAllPlantReview", async()=> {
+
+        const user_id = 1;
+
+        let plantReviews = await PlantListModel.getAllPlantReview(user_id);
+
+        const result = await db.query(`SELECT * FROM plant_group_plants_review WHERE user_id = ${user_id}`);
+
+        expect(result.rows).toEqual(plantReviews);
+    });
+
+
+
+})
+
