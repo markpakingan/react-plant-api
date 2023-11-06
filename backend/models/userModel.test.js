@@ -82,6 +82,39 @@ const {
         expect(expectedUserData).toEqual(result.rows[0]);
     })
 
+    test("/PUT - updateUser", async ()=> {
+
+        const updatedUserData ={
+            username: "1user", 
+            firstname: "changedFirstName", 
+            lastname: "1user", 
+            email: "newEmailAddress@yahoo.com", 
+            imageurl: "https://images.pexels.com/photos/1716861/pexels-photo-1716861.jpeg"
+        }
+
+
+        let updatedUser = await UserModel.updateUser("1user","changedFirstName","1user", "newEmailAddress@yahoo.com", "https://images.pexels.com/photos/1716861/pexels-photo-1716861.jpeg");
+
+        let result = await db.query("SELECT username, first_name AS firstname, last_name AS lastname, email, image_url AS imageurl FROM users WHERE username = '1user'");
+
+        expect(updatedUser).toEqual(result.rows[0]);
+    })
+
 
   });
 
+
+//   static async updateUser(username, firstname, lastname, email, imageurl){
+//     const result = await db.query(
+//       `UPDATE users
+//       SET first_name = $1, last_name = $2, email = $3, image_url = $4
+//       WHERE username = $5
+//       RETURNING username, first_name AS "firstname", 
+//       last_name AS "lastname",email, image_url AS imageurl`,
+//       [firstname, lastname, email, imageurl, username],
+//     );
+
+//     const user = result.rows[0];
+//     if (!user) throw new NotFoundError(`No user: ${username}`);
+//     return user;
+//   }

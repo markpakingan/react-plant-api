@@ -22,6 +22,5 @@ app.use(authenticateJWT);
 app.use("/user", userRoutes)
 app.use("/plantlist", plantListRoutes);
 app.use("/auth", authRoutes)
-app.use("/auth", authRoutes)
 
 module.exports = app
