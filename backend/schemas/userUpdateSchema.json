@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "username": {
+            "type": "string",
+            "minLength": 1
+        },
+        "firstname": {
+            "type": "string",
+            "minLength": 1
+        },
+        "lastname": {
+            "type": "string",
+            "minLength": 1
+        },
+        "email": {
+            "type": "string",
+            "format": "email"
+        },
+        "imageurl": {
+            "type": "string",
+            "format": "uri"
+        }
+    },
+    "required": [ "firstname", "lastname", "email", "imageurl"],
+    "additionalProperties": false
+}

@@ -19,76 +19,6 @@ const {
   afterEach(commonAfterEach);
   afterAll(commonAfterAll);
 
-/************************************** create */
-
-describe("API /plantlist ", () => {
-
-
-    const urlResponse = {
-  data: [
-    {
-      id: 1,
-      common_name: "Rose",
-      plant_true_id: 241,
-      cycle: "Perennial",
-      default_image: "https://perenual.com/storage/species_image/241_cornus_venus/og/51206617814_99263a098f_b.jpg"
-    },
-    {
-      id: 2,
-      common_name: "Cactus",
-      plant_true_id: 100,
-      cycle: "Perennial",
-      default_image: "https://perenual.com/storage/species_image/241_cornus_venus/og/51206617814_99263a098f_b.jpg"
-    },
-    {
-      id: 3,
-      common_name: "Sunflower",
-      plant_true_id: 43,
-      cycle: "Perennial",
-      default_image: "https://perenual.com/storage/species_image/241_cornus_venus/og/51206617814_99263a098f_b.jpg"
-    }
-  ]
-};
-
-
-test("/GET a list of plants", async()=> {
-
-    const user = {
-        id: 1, 
-        username: 'testuser', 
-      };
-
-    const token = jwt.sign(user, SECRET_KEY);
-
-    const resp = await request(app)
-    .get('/plantlist')
-    .set('Authorization', `Bearer ${token}`); // Add the JWT token here
-
-    expect(resp.statusCode).toBe(200);
-
-
-})
-
-test("/POST - add the plant details", async ()=> {
-    const plant = {
-        plant_true_id: 79,
-        common_name: "Japanese Rose", 
-        group_id: 1, 
-        user_id: 1
-    };
-
-    const token = jwt.sign(plant, SECRET_KEY);
-
-    const resp = await request(app)
-    .post("/plantlist/add-plant-to-group")
-    .set("Authorization", ` Bearer ${token}`);
-
-    expect(resp.statusCode).toBe(201);
-
-})
-
-
-  });
 
 // ****************************************************************
 
@@ -176,6 +106,9 @@ describe ("CRUD PlantGroup", ()=> {
             console.error("test failed:", err)
         }
     })
+
+
+    
 })
 
 

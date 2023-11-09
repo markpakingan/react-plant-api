@@ -9,7 +9,7 @@ const { createToken } = require("../helpers/tokens");
 const userModel = require("../models/userModel");
 const UserModel = require("../models/userModel");
 const router = express.Router();
-
+const userUpdateSchema = require("../schemas/userUpdateSchema.json");
 
 router.get("/:username", async (req, res, next) => {
   try{
@@ -27,20 +27,28 @@ router.put("/:username", async(req, res, next) => {
       const { firstname, lastname, email, imageurl } = req.body;
       const {username} = req.params;
       const updatedUser = await UserModel.updateUser(username, firstname, lastname, email,imageurl);
-      return res.json({user:updatedUser})
+
+      const validator = jsonschema.validate(req.body, userUpdateSchema);
+      
+      if (!validator.valid) {
+        const errs = validator.errors.map(e => e.stack);
+        throw new BadRequestError(errs);
+      }
+
+      return res.json({user:updatedUser});
   }catch(err){
     console.log("Failed to updated data (routes)", err)
   }
 })
 
-router.post("/", ensureLoggedIn, async (req, res, next)=> {
-    try{
-      const user = await UserModel.get(req.params.username);
-      return res.json({user});
-    }catch(err){
-        return next(err)
-    }
-});
+// router.post("/", ensureLoggedIn, async (req, res, next)=> {
+//     try{
+//       const user = await UserModel.get(req.params.username);
+//       return res.json({user});
+//     }catch(err){
+//         return next(err)
+//     }
+// });
 
 
 

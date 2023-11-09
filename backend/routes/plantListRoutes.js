@@ -9,6 +9,12 @@ const PlantListModel = require("../models/plantListModel");
 const {ensureLoggedIn, ensureCorrectUser} = require("../middleware/auth")
 
 const planListSchema = require("../schemas/plantListSchema.json");
+const myPlantsGroupPlantsSchema = require("../schemas/myPlantsGroupPlantsSchema.json");
+const plantDetailsSchema = require("../schemas/plantDetailsSchema.json");
+const plantListSchema = require("../schemas/plantListSchema.json");
+const reviewSchema = require("../schemas/reviewSchema.json");
+const plantGroupSchema = require("../schemas/plantGroupSchema.json")
+
 const apiKey = process.env.API_KEY;
 
 const PLANTLIST_URL = "https://perenual.com/api/species-list";
@@ -44,10 +50,18 @@ router.get("/:plant_true_id", ensureLoggedIn, async (req, res) => {
 // adds a specific plant to a Plant Group
 router.post("/add-plant-to-group", ensureCorrectUser, async (req, res)=> {
   try{
+
     // console.log("req.body in add-to-plant-group-routers:", req.body);
     const {plant_true_id, common_name, group_id, user_id, username} = req.body;
 
     const parsedGroupId = parseInt(group_id,10);
+
+    const validator = jsonschema.validate(req.body, myPlantsGroupPlantsSchema);
+
+    if(!validator.valid) {
+        const errs = validator.errors.map(e=> e.stack);
+        throw new BadRequestError(errs);
+    }
 
     const result = await PlantListModel.addPlantDetails(
       plant_true_id, 
@@ -99,8 +113,14 @@ router.delete("/delete-plant-pick/:my_plant_group_plants_id", ensureCorrectUser,
 // creates a new plantgroup
 router.post("/group/create", ensureCorrectUser, async (req, res) => {
   try {
-    console.log("Received Request Body:", req.body); 
+
     const { groupName, description, user_id, username } = req.body;
+
+    const validator = jsonschema.validate(req.body, plantGroupSchema );
+    if (!validator.valid){
+      const errs = validator.errors.map(e=> e.stack);
+      throw new BadRequestError(errs);
+    }
 
     
     // Call the createPlantGroup function from your PlantListModel
@@ -200,6 +220,8 @@ router.put("/group/update/:id", ensureCorrectUser, async (req, res)=> {
 // ********************************************************************
 // FOR REVIEWS
 router.post("/create-review", ensureCorrectUser, async (req,res)=> {
+
+
   try{
     const {my_plant_group_id, user_id, rating, review, username} = req.body;
     console.log("create review value(my_plant_group_id, user_id, rating, review),[my_plant_group_id, user_id, rating, review]");

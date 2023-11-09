@@ -7,8 +7,6 @@ import "./reviewForm.css"
 const ReviewForm = () => {
 
 
-    // const PLANTGROUP_URL = "http://localhost:3001/plantlist/get-all-plant-groups";
-    // const PLANT_REVIEW_URL = "http://localhost:3001/plantlist/create-review";
     const BASE_URL = "http://localhost:3001";
 
     const user_id = parseInt(localStorage.getItem("user_id"), 10);
@@ -56,10 +54,12 @@ const ReviewForm = () => {
         console.log("response in Review Form", response);
         navigate("/myreviews")
         }catch(err){
-            console.error("Failed to submit form in ReviewForm", err)
+            console.error("Failed to submit form in ReviewForm", err);
+            
         }
         
     }
+
 
 
     useEffect (()=> {
@@ -75,7 +75,8 @@ const ReviewForm = () => {
                 setExistingPlantGroup(plantGroupData);
 
             }catch(err){
-                console.error("Failed to fetch plant group in review form", err)
+                console.error("Failed to fetch plant group in review form", err);
+
             }
         }
 

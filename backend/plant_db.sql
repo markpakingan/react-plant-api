@@ -41,7 +41,6 @@ CREATE TABLE My_Plant_Group_Plants (
     common_name TEXT,
     group_id INT,
     user_id INT NOT NULL, 
-    -- FOREIGN KEY (plant_true_id) REFERENCES Plants (plant_true_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES Users (user_id) ON DELETE CASCADE,
     FOREIGN KEY (group_id) REFERENCES My_Plant_Group(my_plant_group_id) ON DELETE CASCADE
 
