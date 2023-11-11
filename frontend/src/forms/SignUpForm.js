@@ -46,7 +46,9 @@ const SignUpForm = () => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
+
+        <div>
+            <form onSubmit={handleSubmit}>
             <label htmlFor="username"></label>
             <input
                 id="username"
@@ -110,6 +112,10 @@ const SignUpForm = () => {
             <button>Submit</button>
 
         </form>
+
+        <a href="/login"><p>Already Have An Account? LOGIN</p></a>
+
+        </div>
     )
 }
 

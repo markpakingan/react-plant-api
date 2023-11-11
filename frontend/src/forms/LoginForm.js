@@ -80,30 +80,36 @@ const LoginForm = ({setIsAuthenticated, setToken, setAvatarImage}) => {
   
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="username"></label>
-            <input
-                id="username"
-                type="text"
-                name="username"
-                placeholder ="username"
-                value={formData.username}
-                onChange={handleChange}
-            />
 
-            <label htmlFor="password"></label>
-            <input
-                id="password"
-                type="password"
-                name="password"
-                placeholder ="password"
-                value={formData.password}
-                onChange={handleChange}
-            />
+        <div>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="username"></label>
+                <input
+                    id="username"
+                    type="text"
+                    name="username"
+                    placeholder ="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                />
 
-            <button>Submit</button>
+                <label htmlFor="password"></label>
+                <input
+                    id="password"
+                    type="password"
+                    name="password"
+                    placeholder ="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                />
 
-        </form>
+                <button>Submit</button>
+                
+            </form>
+
+            <a href="/signup"><p>Or Sign-Up to Create an Account</p></a>
+        </div>
+        
     )
 }
 
