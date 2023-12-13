@@ -13,14 +13,6 @@ const commonBeforeAll = async () => {
   await db.query("DELETE FROM users");
 
 
-//   await db.query(`
-//   INSERT INTO plants (plant_true_id, common_name, cycle, default_image)
-//   VALUES 
-//   (1, 'Rose', 241, 'Perennial', 'https://perenual.com/storage/species_image/241_cornus_venus/og/51206617814_99263a098f_b.jpg'),
-//   (2, 'Cactus', 100, 'Perennial', 'https://perenual.com/storage/species_image/241_cornus_venus/og/51206617814_99263a098f_b.jpg'),
-//   (3, 'Sunflower', 43, 'Perennial', 'https://perenual.com/storage/species_image/241_cornus_venus/og/51206617814_99263a098f_b.jpg')
-// `);
-
 
   await db.query(`
   INSERT INTO users (user_id, username, password, first_name, last_name, email, image_url)

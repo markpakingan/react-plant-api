@@ -13,7 +13,6 @@ const LoginForm = ({setIsAuthenticated, setToken, setAvatarImage}) => {
 
     const navigate = useNavigate();
 
-    // const USER_BASE_URL = "http://localhost:3001/user";
     const BASE_URL = "http://localhost:3001"
     const API_AUTH_URL =("http://localhost:3001/auth/token");
     const [formData, setFormData] = useState(initialState);

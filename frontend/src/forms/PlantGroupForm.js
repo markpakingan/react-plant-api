@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "./plantGroupForm.css"
 
-// const API_URL = "http://localhost:3001";
 
 
 const PlantGroupForm = () => {
@@ -32,7 +31,6 @@ const PlantGroupForm = () => {
 
 
     useEffect(() => {
-        // const user_id = parseInt(localStorage.getItem("user_id"), 10);
         if (user_id) {
             setFormData(prevState => ({
                 ...prevState,

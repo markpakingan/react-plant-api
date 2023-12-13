@@ -148,32 +148,6 @@ class PlantListModel {
   // *****************************************************************************
   // FOR PLANT REVIEW
 
-  // static async createPlantReview(my_plant_group_id, user_id, rating, review){
-
-  //   try {
-  //     // Insert data into the plant_group_plants_review
-
-  //     // Parse values to integers
-  //     my_plant_group_id = parseInt(my_plant_group_id, 10);
-  //     user_id = parseInt(user_id, 10);
-  //     rating = parseInt(rating, 10);
-
-
-  //     // checks if my_plant_group_id has been reviewed
-  //     const selectedGroupId = await db.query(`SELECT * FROM plant_group_plants_review WHERE my_plant_group_id = $1`,[my_plant_group_id]);
-      
-  //     !selectedGroupId ? (
-  //     const result = await db.query(query, [my_plant_group_id, user_id, rating, review]);
-
-  //     return result;
-  //     ) : alert("Plant Group was already reviewed. Try Another One!")
-     
-  //   } catch (err) {
-  //     console.error("createPlant Error", err);
-  //     throw err;
-  //   }
-
-  // }
 
   static async createPlantReview(my_plant_group_id, user_id, rating, review) {
     try {

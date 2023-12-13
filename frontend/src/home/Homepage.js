@@ -13,10 +13,6 @@ const Home = ({ isAuthenticated, avatarImage }) => {
   };
 
 
-  // console.log("userName in home page is", userName);
-  // console.log("avatarImage in home:", avatarImage);
-
-
   return (
     <div 
     >
