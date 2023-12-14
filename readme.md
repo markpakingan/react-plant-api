@@ -1,20 +1,20 @@
-#Title: 
+# Title: 
 Bloom Buddy
 
-Link: 
+## Link: 
 https://github.com/markpakingan/react-plant-api
 
 Description of the project:
 - This website will help customers get information about plants. It allows a user to search for a specific plants, get basic information (e.g. handling care, water frequency, ideal temperature) and create collections. 
 
-Wireframes:
+## Wireframes:
 [Click Here](https://docs.google.com/presentation/d/1aeGcRjUjD15oZlgTLrgL3erVi9AuVragYLRPH0ZhsoY/edit?usp=sharing)
 
-**User Stories**
+## **User Stories**
 * "My dad loves to grow different type of plants. He would sometimes ask his friends on how to raise a speicific type of plant. It would be nice to create an application that will help any 'plant-lovers' (like my dad) to get some helpful information on how to grow a plant. In addition, he can create his own collection of selected plants to raise in the future"
 
 
-**Setup**
+## **Setup**
 In order to run on the server, please follow these steps:
 
 - Step 1: Download the code and run the terminal
