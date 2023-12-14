@@ -25,7 +25,7 @@ In order to run on the server, please follow these steps:
 - Step 4: Start the front end
   Use the command npm start to run the application
 
-**Technologies Used:**
+## **Technologies Used:**
 - Node 
 - Express
 - React
@@ -38,8 +38,8 @@ This project uses mainly Javascript as the main programming language and the Exp
 
 React & CSS are used for the front-end UI, with some bootstrap styling. Git is used for version control.
 
-**Models:**
-* UserModel
+## **Models:**
+### * UserModel
     The user model represents a registered user of the system
 
     - user_id: the unique identifier for the product (integer)
@@ -48,7 +48,7 @@ React & CSS are used for the front-end UI, with some bootstrap styling. Git is u
     - image_url: the chosen image of the user (charfield)
     - email: the chosen image of the user (charfield)
 
-* My_Plant_Group
+### * My_Plant_Group
     The My_Plant_Group model represents the general information about a plant
 
     - user_id: the unique identified for the product
@@ -57,20 +57,20 @@ React & CSS are used for the front-end UI, with some bootstrap styling. Git is u
     - user_id: the unique identifier for the product derived from the USER table (integer)
   
 
-* My_Plant_Group_Plants
+### * My_Plant_Group_Plants
     The my_plant_group_plants model represents a collection of plants based on a user's personal criteria
 
     - my_plant_group_plants_id: the unique identifier for the product (integer)
     - plant_true_id: the actual id of the plant derived from the API (Charfield)
     	
-- common_name: the name of the plant (Charfield)
+    - common_name: the name of the plant (Charfield)
     	- user_id: the unique identifier for the product derived from the USER table (integer).
-- group_id: the unique identifier for the group derived from the My_Plant_Group table (integer).
+    - group_id: the unique identifier for the group derived from the My_Plant_Group table (integer).
 
 	
   
 
-* My_Plant_Group_Review
+### * My_Plant_Group_Review
     This model represents the connection between the users table & the my_plant_group.
 
     - plant_group_review_id: the unique identifier for the product (integer)
@@ -79,16 +79,16 @@ React & CSS are used for the front-end UI, with some bootstrap styling. Git is u
 
   
 
-Demo (Screenshots or GIFs of the application)
+## Demo (Screenshots or GIFs of the application)
 ![Alt text](/frontend/src/images/homepage.png)
 ![Alt text](/frontend/src/images/signup.png)
 ![Alt text](/frontend/src/images/login.png)
 ![Alt text](/frontend/src/images/plantdetails.png)
 
-Project Link:
+## Project Link:
 https://github.com/markpakingan/react-plant-api	
 
-**Future Work:**
+## **Future Work:**
 
 There are several improvements for future work in this project: 
 
@@ -96,7 +96,7 @@ There are several improvements for future work in this project:
 * Allow search terms to be filtered based on categories.
 * Additional testing and more smoother UI
 
-Resources:
+## Resources:
  [API Documentation](https://perenual.com/docs/api)
 
 Team members:
