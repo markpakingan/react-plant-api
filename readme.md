@@ -1,4 +1,4 @@
-Title: 
+#Title: 
 Bloom Buddy
 
 Link: 
@@ -8,13 +8,13 @@ Description of the project:
 - This website will help customers get information about plants. It allows a user to search for a specific plants, get basic information (e.g. handling care, water frequency, ideal temperature) and create collections. 
 
 Wireframes:
-[Wireframe Idea](https://docs.google.com/presentation/d/1aeGcRjUjD15oZlgTLrgL3erVi9AuVragYLRPH0ZhsoY/edit?usp=sharing)
+[Click Here](https://docs.google.com/presentation/d/1aeGcRjUjD15oZlgTLrgL3erVi9AuVragYLRPH0ZhsoY/edit?usp=sharing)
 
-User Stories
+**User Stories**
 * "My dad loves to grow different type of plants. He would sometimes ask his friends on how to raise a speicific type of plant. It would be nice to create an application that will help any 'plant-lovers' (like my dad) to get some helpful information on how to grow a plant. In addition, he can create his own collection of selected plants to raise in the future"
 
 
-Setup
+**Setup**
 In order to run on the server, please follow these steps:
 
 - Step 1: Download the code and run the terminal
@@ -25,7 +25,7 @@ In order to run on the server, please follow these steps:
 - Step 4: Start the front end
   Use the command npm start to run the application
 
-Technologies Used:
+**Technologies Used:**
 - Node 
 - Express
 - React
@@ -38,7 +38,7 @@ This project uses mainly Javascript as the main programming language and the Exp
 
 React & CSS are used for the front-end UI, with some bootstrap styling. Git is used for version control.
 
-Models:
+**Models:**
 * UserModel
     The user model represents a registered user of the system
 
@@ -78,19 +78,17 @@ Models:
     - user_id: the unique identifier for the product derived from the table user (integer)
 
   
-Server routes table(Method, Route or URL, Description as columns):
-![Alt text](/images/Boardgame%20table%20route.png)
 
 Demo (Screenshots or GIFs of the application)
-![Alt text](/images/dashboard.png)
-![Alt text](/images/signup.png)
-![Alt text](/images/plantdetails.png)
-![Alt text](/images/myreviews.png)
+![Alt text](/frontend/src/images/homepage.png)
+![Alt text](/frontend/src/images/signup.png)
+![Alt text](/frontend/src/images/login.png)
+![Alt text](/frontend/src/images/plantdetails.png)
 
 Project Link:
 https://github.com/markpakingan/react-plant-api	
 
-Future Work:
+**Future Work:**
 
 There are several improvements for future work in this project: 
 
