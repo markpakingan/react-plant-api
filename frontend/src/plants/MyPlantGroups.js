@@ -4,7 +4,6 @@ import axios from "axios";
 import "./myPlantGroup.css";
 
 const BASE_URL = "http://localhost:3001";
-// const PLANT_GROUP_API = "http://localhost:3001/plantlist/get-all-plant-groups";
 
 const MyPlantGroups = ({ isAuthenticated }) => {
   const [plantData, setPlantData] = useState([]);

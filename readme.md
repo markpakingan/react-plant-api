@@ -68,7 +68,7 @@ React & CSS are used for the front-end UI. Git is used for version control.
   
 
 ### * My_Plant_Group_Review
-    _This model represents the connection between the users table & the my_plant_group._
+    This model represents the connection between the users table & the my_plant_group.
 
     - plant_group_review_id: the unique identifier for the product (integer)
     - my_plant_group_id: the unique identifier for the plant group derived from the table my_plant_group (integer)
